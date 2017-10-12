@@ -1,0 +1,29 @@
+{
+  "name": "newnews",
+  "version": "1.0.0",
+  "description": "A better way to get world news.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -d --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/somenamewedontknow/newnews.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/somenamewedontknow/newnews/issues"
+  },
+  "homepage": "https://github.com/somenamewedontknow/newnews#readme",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
+

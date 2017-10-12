@@ -3,12 +3,12 @@
 ## General Workflow
 
   To start...
-    1. Fork this repo, then clone your fork. 
-    2. Add a remote upstream to the original repo (not your forked repo). 
-    3. Run "npm install" from the CLI. 
+    1. Fork this repo, then clone your fork. `git clone https://github.com/{your_github_handle}/newnews.git`
+    2. Add a remote upstream to the original repo (not your forked repo). `git remote add upstream https://github.com/dotConnection/newnews.git`
+    3. Install dependencies. `npm install` 
 
   Ongoing...
-    1. When you start working, or after receiving a notice of recently merged code, run "git pull --rebase upstream master" to get the latest code.
+    1. When you start working, or after receiving a notice of recently merged code, run `git pull --rebase upstream master` to get the latest code.
     2. Commit changes regularly with clear commit messages...(added 'feature', fixed 'issue' refactored 'file', etc.).
     3. To add your code to the main repo, first push up your code to your forked master. 
     4. Make a pull request to the main repo and notify.

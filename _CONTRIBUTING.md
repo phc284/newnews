@@ -5,6 +5,7 @@
   To start...
     1. Fork this repo, then clone your fork. 
     2. Add a remote upstream to the original repo (not your forked repo). 
+    3. Run "npm install" from the CLI. 
 
   Ongoing...
     1. When you start working, or after receiving a notice of recently merged code, run "git pull --rebase upstream master" to get the latest code.

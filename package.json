@@ -5,18 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack -d --watch"
+    "start": "webpack -d --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/somenamewedontknow/newnews.git"
+    "url": "git+https://github.com/dotConnection/newnews.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/somenamewedontknow/newnews/issues"
+    "url": "https://github.com/dotConnection/newnews/issues"
   },
-  "homepage": "https://github.com/somenamewedontknow/newnews#readme",
+  "homepage": "https://github.com/dotConnection/newnews#readme",
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

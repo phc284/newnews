@@ -23,7 +23,8 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "@amcharts/amcharts3-react": "^3.0.0"
   },
   "devDependencies": {
     "webpack": "^3.7.1"

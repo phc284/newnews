@@ -1,6 +1,6 @@
 var login = require('../config/config.js');
-var DiscoveryV1 = require('watson-developer-cloud/discovery/v1');
-var promisify = require('bluebird').promisify;
+// var DiscoveryV1 = require('watson-developer-cloud/discovery/v1');
+// var promisify = require('bluebird').promisify;
 var Axios = require('axios');
 // const promiseDiscovery = promisify(DiscoveryV1);
 // var discovery = new promiseDiscovery(login);

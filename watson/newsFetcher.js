@@ -1,27 +1,33 @@
 var login = require('../config/config.js');
-var DiscoveryV1 = require('watson-developer-cloud/discovery/v1');
-var promisify = require('bluebird').promisify;
+// var DiscoveryV1 = require('watson-developer-cloud/discovery/v1');
+// var promisify = require('bluebird').promisify;
 var Axios = require('axios');
 // const promiseDiscovery = promisify(DiscoveryV1);
 // var discovery = new promiseDiscovery(login);
 
-var id_envir = 'system';
-var id_collect = 'news';
-var version = '2017-09-01';
-var count = 50;
-const url = `https://watson-api-explorer.mybluemix.net/discovery/api/v1/
-            environments/${id_envir}/collections/${id_collect}/query?
-            count=${count}
-            &version=${version}`;
+const Schedule = require('node-schedule');
 
-console.log(url);
-// const discovery = new DiscoveryV1(login);
+// time format = 'second [0,59], minute [0,59], hour[0,23], day of month[1,31], month[1,12], day of week[0,7]'
+const midnight = '0 0 5 * * *';
+const everyTwoSec = '*/2 * * * * *'
+const id_envir = 'system';
+const id_collect = 'news';
+const version = '2017-09-01';
+const count = 50;
+const url = `https://watson-api-explorer.mybluemix.net/discovery/api/v1/` +
+            `environments/${id_envir}/collections/${id_collect}/query?` +
+            `count=${count}` +
+            `&version=${version}`;
 
-// discovery.getCollection((id_envir, id_collect), (err, result) => {
-  // console.log(JSON.stringify(result));
-// })
-//   .then( (resolve) => {
-//     console.log(JSON.stringify(resolve));
-//   })
+const cronRule = new Schedule.RecurrenceRule();
+cronRule.hour = 5;
 
-// Axios.get(url)
+const job = Schedule.scheduleJob(everyTwoSec, ()=>{
+  console.log('two seconds have passed!')
+  console.log(url);
+  // Axios.get(url).then( (resolve) => {
+  //
+  // }).catch( (err) => {
+  //
+  // })
+})

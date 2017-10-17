@@ -13,3 +13,4 @@ config/
 
 package-lock.json
 watson/caotest.js
+client/app/box2d2.js

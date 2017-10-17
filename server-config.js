@@ -12,7 +12,6 @@ const bubbleHandler = require('./requestHandlers/bubbleHandler.js');
 
 const app = new Koa();
 const router = new Router();
-const port = 3000;
 
 // Sessions
 app.keys = ['connecting the dots'];

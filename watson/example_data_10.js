@@ -1,3 +1,19 @@
+/*
+  return = ['id',
+  'score',
+  'author',
+  'url',
+  'text',
+  'country',
+  'publication_date',
+    'enriched_text.entities',
+    'enriched_text.sentiment',
+    'enriched_text.concepts',
+    'enriched_text.entities',
+    'enriched_text.categories',
+    'enriched_text.keywords',
+  'title']
+*/
 {
     "matching_results": 17793555,
     "results": [

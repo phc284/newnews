@@ -4,6 +4,8 @@ import {Card, CardHeader, CardText} from 'material-ui/Card';
 const styles = {//remove this style object after creating article list component, add margin to top of that component instead
   card: {
     marginTop: '15px',
+    width: '90%',
+    margin: 'auto',
     icon: {
       float: 'left',
       marginRight: '5px',
@@ -11,11 +13,22 @@ const styles = {//remove this style object after creating article list component
     },
     country: {
       fontWeight: 'bold',
+      // display: 'inline'
     },
     thumbnail: {
+      width: '50%',
       maxWidth: '40px',
       border: '1px solid',
-      borderColor: 'cadetblue'
+      borderColor: 'cadetblue',
+      display: 'inline-block'
+    },
+    titleStyle: {
+      fontWeight: 'bold',
+      fontSize: '18px'
+    },
+    text: {
+      marginLeft: '20px',
+      marginRight: '20px'
     }
   }
 };
@@ -32,23 +45,26 @@ const articleObj = {
 const Article = () => (
   <Card style={styles.card}>
     <CardHeader
-      children={
-        articleObj.imgUrl !== null ? 
-          <div>
-            <img src={articleObj.imgUrl} style={styles.card.thumbnail}/>
-            <p style={styles.card.country}>{articleObj.country}</p>
-          </div> :
-          <div>
-            <p style={styles.card.country}>{articleObj.country}</p>
-            <i className="material-icons" style={styles.card.icon}>bubble_chart</i>
-          </div>
-      }
+      avatar={articleObj.imgUrl ? articleObj.imgUrl : <i className="material-icons" style={styles.card.icon}>bubble_chart</i>}
+      // children={
+      //   articleObj.imgUrl !== null ?
+      //     <div>
+      //       <img src={articleObj.imgUrl} style={styles.card.thumbnail}/>
+      //       <div style={styles.card.title}>{articleObj.title}</div>
+      //       <p style={styles.card.country}>{articleObj.country}</p>
+      //     </div> :
+      //     <div>
+      //       <p style={styles.card.country}>{articleObj.country}</p>
+      //       <i className="material-icons" style={styles.card.icon}>bubble_chart</i>
+      //     </div>
+      // }
       title={articleObj.title}
       subtitle={articleObj.source}
       actAsExpander={true}
       showExpandableButton={true}
+      titleStyle={styles.card.titleStyle}
     />
-    <CardText expandable={true}>
+    <CardText expandable={true} style={styles.card.text}>
       {articleObj.text}...<a href={articleObj.articleUrl}>{articleObj.articleUrl}</a>
     </CardText>
   </Card>

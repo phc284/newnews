@@ -11,7 +11,9 @@ import Articles from './containers/ArticlesList.jsx';
 const App = () => (
   <MuiThemeProvider>
     <AppBar />
-    <Map />
+    <div style={{marginBottom: '15px'}}>
+      <Map />
+    </div>
     <Articles />
   </MuiThemeProvider>
 );

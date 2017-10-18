@@ -15,6 +15,6 @@ const TitleBar = () => (
     showMenuIconButton={false}
     title={<span >New News</span>}
   />
-);
+); 
 
 export default TitleBar;

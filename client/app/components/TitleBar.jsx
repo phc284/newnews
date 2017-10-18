@@ -11,7 +11,8 @@ const styles = {
 
 const TitleBar = () => (
   <AppBar
-    style={styles.title}
+    style={styles.title} 
+    showMenuIconButton={false}
     title={<span >New News</span>}
   />
 );

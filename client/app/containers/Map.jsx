@@ -68,21 +68,16 @@ class Map extends React.Component {
     return (
       <AmCharts.React
         style={{
-          'width': '90%',
+          'width': '1000px',
           'height': '500px',
           'backgroundAlpha' : 1,
-          'backgroundColor' : '#eeeeee',
-          'margin': 'auto',
-
+          'backgroundColor' : '#eeeeee'
         }}
         options ={{
           'type': 'map',
           'theme' : 'chalk',
           'dataProvider' : {
-            'zoomLevel': 1.4,
-            'map': 'continentsLow',
-            'zoomLongitude': 25,
-            'zoomLatitude': 25,
+            'map' : 'continentsLow',
             'getAreasFromMap' : true,
             'images' : [
               {
@@ -362,7 +357,7 @@ class Map extends React.Component {
             'autoZoom' : true,
             'selectedColor' : '#CC0000'
           }
-        }}
+        }} 
       />
     );
   }

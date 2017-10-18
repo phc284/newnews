@@ -14,6 +14,6 @@ const TitleBar = () => (
     style={styles.title}
     title={<span >New News</span>}
   />
-);
+); 
 
 export default TitleBar;

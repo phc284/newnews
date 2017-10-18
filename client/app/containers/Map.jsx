@@ -68,10 +68,11 @@ class Map extends React.Component {
     return (
       <AmCharts.React
         style={{
-          'width': '1000px',
+          'width': '90%',
           'height': '500px',
           'backgroundAlpha' : 1,
-          'backgroundColor' : '#eeeeee'
+          'backgroundColor' : '#eeeeee',
+          'margin': 'auto'
         }}
         options ={{
           'type': 'map',
@@ -79,6 +80,9 @@ class Map extends React.Component {
           'dataProvider' : {
             'map' : 'continentsLow',
             'getAreasFromMap' : true,
+            'zoomLevel': 1.2,
+            'zoomLatitude': 25,
+            'zoomLongitude': 10,
             'images' : [
               {
                 'latitude' : geoCenters.NA.latitude,
@@ -357,7 +361,7 @@ class Map extends React.Component {
             'autoZoom' : true,
             'selectedColor' : '#CC0000'
           }
-        }} 
+        }}
       />
     );
   }

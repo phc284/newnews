@@ -3,7 +3,8 @@ import {Card, CardHeader, CardText} from 'material-ui/Card';
 
 const styles = {//remove this style object after creating article list component, add margin to top of that component instead
   card: {
-    marginTop: '15px',
+    margin: 'auto',
+    width: '90%',
     icon: {
       float: 'left',
       marginRight: '5px',
@@ -16,6 +17,14 @@ const styles = {//remove this style object after creating article list component
       maxWidth: '40px',
       border: '1px solid',
       borderColor: 'cadetblue'
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: '18px'
+    },
+    avatar: {
+      width: '52px',
+      height: '52px'
     }
   }
 };
@@ -32,24 +41,15 @@ const articleObj = {
 const Article = () => (
   <Card style={styles.card}>
     <CardHeader
-      children={
-        articleObj.imgUrl !== null ? 
-          <div>
-            <img src={articleObj.imgUrl} style={styles.card.thumbnail}/>
-            <p style={styles.card.country}>{articleObj.country}</p>
-          </div> :
-          <div>
-            <p style={styles.card.country}>{articleObj.country}</p>
-            <i className="material-icons" style={styles.card.icon}>bubble_chart</i>
-          </div>
-      }
+      avatar={articleObj.imgUrl ? <img src={articleObj.imgUrl} style={styles.card.avatar}></img> : <i className="material-icons" style={styles.card.icon}>bubble_chart</i>}
       title={articleObj.title}
+      titleStyle={styles.card.title}
       subtitle={articleObj.source}
       actAsExpander={true}
       showExpandableButton={true}
     />
     <CardText expandable={true}>
-      {articleObj.text}...<a href={articleObj.articleUrl}>{articleObj.articleUrl}</a>
+      {articleObj.text}...<a target="_blank" href={articleObj.articleUrl}>See More</a>
     </CardText>
   </Card>
 );

@@ -12,7 +12,13 @@
 // enriched_text.entities
 // enriched_text.concepts
 // enriched_text.categories
-{
+            // "relevance": 0.13074,
+            // "type": "Location",
+            // "disambiguation": {
+            //   "subtype": [
+            //     "City"
+
+module.exports = {
   "matching_results": 18206695,
   "results": [
     {
@@ -2196,13 +2202,6 @@
               "score": 0
             },
             "text": "Montreal",
-            "relevance": 0.13074,
-            "type": "Location",
-            "disambiguation": {
-              "subtype": [
-                "City"
-              ]
-            }
           },
           {
             "count": 1,

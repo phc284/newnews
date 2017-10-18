@@ -1,78 +1,128 @@
 import React from 'react';
 import AmCharts from '@amcharts/amcharts3-react';
-
-const geoCenters = {
-  'NA' : {
-    'latitude' : 48.3548,
-    'longitude' : -99.9989,
-  },
-  'SA' : {
-    'latitude' : -15.6006,
-    'longitude' : -56.1004
-  },
-  'EU' : {
-    'latitude' : 54.5423,
-    'longitude' : 25.198
-  },
-  'AF' : {
-    'latitude' : 1.261,
-    'longitude' : 25
-  },
-  'APAC' : {
-    'latitude' : 50,
-    'longitude' : 100
-  },
-  'AU' : {
-    'latitude' : -23.02,
-    'longitude' : 140.10
-  }
-}
-
-const coordOffsets = {
-  'north' : {
-    'latitude' : 11.5,
-    'longitude' : 0
-  },
-  'south' : {
-    'latitude' : -15,
-    'longitude' : 0
-  },
-  'east' : {
-    'latitude' : 0,
-    'longitude' : 20
-  },
-  'west' : {
-    'latitude' : 0,
-    'longitude' : -20
-  }
-}
-
-const scale = {
-  'major' : 5,
-  'minor' : 2.5
-}
-
-const bubbleColor = {
-  'major' : {
-    'bubble' : '#00cc62',
-    'label' : '#000000'
-  },
-  'minor' : {
-    'bubble' : 'green',
-    'label' : 'blue'
-  }
-}
+import * as mapConfig from '../lib/mapConfig';
 
 class Map extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      images: [],
+    }
+  }
+  componentWillMount() {
+    this.generateImages();
+  }
+
+  generateImages() {
+    let images = [];
+
+    // generate NA
+    let conceptsNA = mapConfig.dummyData['NA'];
+    for(let i = 0; i < conceptsNA.length; i++) {
+      images.push({
+        'latitude' : mapConfig.geoCenters.NA.latitude + mapConfig.coordOffsets[i].latitude,
+        'longitude' : mapConfig.geoCenters.NA.longitude + mapConfig.coordOffsets[i].longitude,
+        'type' : 'circle',
+        'color' : mapConfig.bubbleColor.major.bubble,
+        // 'scale' : mapConfig.scale.major,
+        'scale' : conceptsNA[i][1],
+        'label' : conceptsNA[i][0],
+        'labelPosition' : 'middle',
+        'labelColor' : mapConfig.bubbleColor.major.label,
+      })
+    }
+
+    // generate SA
+    let conceptsSA = mapConfig.dummyData['SA'];
+    for(let i = 0; i < conceptsSA.length; i++) {
+      images.push({
+        'latitude' : mapConfig.geoCenters.SA.latitude + mapConfig.coordOffsets[i].latitude,
+        'longitude' : mapConfig.geoCenters.SA.longitude + mapConfig.coordOffsets[i].longitude,
+        'type' : 'circle',
+        'color' : mapConfig.bubbleColor.major.bubble,
+        // 'scale' : mapConfig.scale.major,
+        'scale' : conceptsSA[i][1],
+        'label' : conceptsSA[i][0],
+        'labelPosition' : 'middle',
+        'labelColor' : mapConfig.bubbleColor.major.label,
+      })
+    }
+
+    // generate EU
+    let conceptsEU = mapConfig.dummyData['EU'];
+    for(let i = 0; i < conceptsEU.length; i++) {
+      images.push({
+        'latitude' : mapConfig.geoCenters.EU.latitude + mapConfig.coordOffsets[i].latitude,
+        'longitude' : mapConfig.geoCenters.EU.longitude + mapConfig.coordOffsets[i].longitude,
+        'type' : 'circle',
+        'color' : mapConfig.bubbleColor.major.bubble,
+        // 'scale' : mapConfig.scale.major,
+        'scale' : conceptsEU[i][1],
+        'label' : conceptsEU[i][0],
+        'labelPosition' : 'middle',
+        'labelColor' : mapConfig.bubbleColor.major.label,
+      })
+    }
+
+    // generate AF
+    let conceptsAF = mapConfig.dummyData['AF'];
+    for(let i = 0; i < conceptsAF.length; i++) {
+      images.push({
+        'latitude' : mapConfig.geoCenters.AF.latitude + mapConfig.coordOffsets[i].latitude,
+        'longitude' : mapConfig.geoCenters.AF.longitude + mapConfig.coordOffsets[i].longitude,
+        'type' : 'circle',
+        'color' : mapConfig.bubbleColor.major.bubble,
+        // 'scale' : mapConfig.scale.major,
+        'scale' : conceptsAF[i][1],
+        'label' : conceptsAF[i][0],
+        'labelPosition' : 'middle',
+        'labelColor' : mapConfig.bubbleColor.major.label,
+      })
+    }
+
+    // generate APAC
+    let conceptsAPAC = mapConfig.dummyData['APAC'];
+    for(let i = 0; i < conceptsAPAC.length; i++) {
+      images.push({
+        'latitude' : mapConfig.geoCenters.APAC.latitude + mapConfig.coordOffsets[i].latitude,
+        'longitude' : mapConfig.geoCenters.APAC.longitude + mapConfig.coordOffsets[i].longitude,
+        'type' : 'circle',
+        'color' : mapConfig.bubbleColor.major.bubble,
+        // 'scale' : mapConfig.scale.major,
+        'scale' : conceptsAPAC[i][1],
+        'label' : conceptsAPAC[i][0],
+        'labelPosition' : 'middle',
+        'labelColor' : mapConfig.bubbleColor.major.label,
+      })
+    }
+
+    // generate AU
+    let conceptsAU = mapConfig.dummyData['AU'];
+    for(let i = 0; i < conceptsAU.length; i++) {
+      images.push({
+        'latitude' : mapConfig.geoCenters.AU.latitude + mapConfig.coordOffsets[i].latitude,
+        'longitude' : mapConfig.geoCenters.AU.longitude + mapConfig.coordOffsets[i].longitude,
+        'type' : 'circle',
+        'color' : mapConfig.bubbleColor.major.bubble,
+        // 'scale' : mapConfig.scale.major,
+        'scale' : conceptsAU[i][1],
+        'label' : conceptsAU[i][0],
+        'labelPosition' : 'middle',
+        'labelColor' : mapConfig.bubbleColor.major.label,
+      })
+    }
+
+    this.setState({images: images});
+  }
+
   render () {
     return (
       <AmCharts.React
         style={{
-          'width': '90%',
+          'width': '100%',
           'height': '500px',
           'backgroundAlpha' : 1,
-          'backgroundColor' : '#eeeeee',
-          'margin': 'auto'
+          'backgroundColor' : '#eeeeee'
         }}
         options ={{
           'type': 'map',
@@ -80,291 +130,293 @@ class Map extends React.Component {
           'dataProvider' : {
             'map' : 'continentsLow',
             'getAreasFromMap' : true,
-            'zoomLevel': 1.2,
-            'zoomLatitude': 25,
-            'zoomLongitude': 10,
-            'images' : [
-              {
-                'latitude' : geoCenters.NA.latitude,
-                'longitude' : geoCenters.NA.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.major.bubble,
-                'scale' : scale.major,
-                'label' : '#TRUMP',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.major.label,
-              }, {
-                'latitude' : geoCenters.NA.latitude + coordOffsets.north.latitude,
-                'longitude' : geoCenters.NA.longitude + coordOffsets.north.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.NA.latitude + coordOffsets.south.latitude,
-                'longitude' : geoCenters.NA.longitude + coordOffsets.south.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.NA.latitude + coordOffsets.east.latitude,
-                'longitude' : geoCenters.NA.longitude + coordOffsets.east.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.NA.latitude + coordOffsets.west.latitude,
-                'longitude' : geoCenters.NA.longitude + coordOffsets.west.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.SA.latitude,
-                'longitude' : geoCenters.SA.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.major.bubble,
-                'scale' : scale.major,
-                'label' : '#TEMER',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.major.label,
-              }, {
-                'latitude' : geoCenters.SA.latitude + coordOffsets.north.latitude,
-                'longitude' : geoCenters.SA.longitude + coordOffsets.north.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.SA.latitude + coordOffsets.south.latitude,
-                'longitude' : geoCenters.SA.longitude + coordOffsets.south.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.SA.latitude + coordOffsets.east.latitude,
-                'longitude' : geoCenters.SA.longitude + coordOffsets.east.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.SA.latitude + coordOffsets.west.latitude,
-                'longitude' : geoCenters.SA.longitude + coordOffsets.west.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.EU.latitude,
-                'longitude' : geoCenters.EU.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.major.bubble,
-                'scale' : scale.major,
-                'label' : '#DRAGHI',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.major.label,
-              }, {
-                'latitude' : geoCenters.EU.latitude + coordOffsets.north.latitude,
-                'longitude' : geoCenters.EU.longitude + coordOffsets.north.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.EU.latitude + coordOffsets.south.latitude,
-                'longitude' : geoCenters.EU.longitude + coordOffsets.south.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.EU.latitude + coordOffsets.east.latitude,
-                'longitude' : geoCenters.EU.longitude + coordOffsets.east.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.EU.latitude + coordOffsets.west.latitude,
-                'longitude' : geoCenters.EU.longitude + coordOffsets.west.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.AF.latitude,
-                'longitude' : geoCenters.AF.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.major.bubble,
-                'scale' : scale.major,
-                'label' : '#OshiAgabi',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.major.label,
-              }, {
-                'latitude' : geoCenters.AF.latitude + coordOffsets.north.latitude,
-                'longitude' : geoCenters.AF.longitude + coordOffsets.north.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.AF.latitude + coordOffsets.south.latitude,
-                'longitude' : geoCenters.AF.longitude + coordOffsets.south.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.AF.latitude + coordOffsets.east.latitude,
-                'longitude' : geoCenters.AF.longitude + coordOffsets.east.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.AF.latitude + coordOffsets.west.latitude,
-                'longitude' : geoCenters.AF.longitude + coordOffsets.west.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.APAC.latitude,
-                'longitude' : geoCenters.APAC.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.major.bubble,
-                'scale' : scale.major,
-                'label' : '#PUTIN',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.major.label,
-              }, {
-                'latitude' : geoCenters.APAC.latitude + coordOffsets.north.latitude,
-                'longitude' : geoCenters.APAC.longitude + coordOffsets.north.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.APAC.latitude + coordOffsets.south.latitude,
-                'longitude' : geoCenters.APAC.longitude + coordOffsets.south.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.APAC.latitude + coordOffsets.east.latitude,
-                'longitude' : geoCenters.APAC.longitude + coordOffsets.east.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.APAC.latitude + coordOffsets.west.latitude,
-                'longitude' : geoCenters.APAC.longitude + coordOffsets.west.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.AU.latitude,
-                'longitude' : geoCenters.AU.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.major.bubble,
-                'scale' : scale.major,
-                'label' : '#OZ',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.major.label,
-              }, {
-                'latitude' : geoCenters.AU.latitude + coordOffsets.north.latitude,
-                'longitude' : geoCenters.AU.longitude + coordOffsets.north.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.AU.latitude + coordOffsets.south.latitude,
-                'longitude' : geoCenters.AU.longitude + coordOffsets.south.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.AU.latitude + coordOffsets.east.latitude,
-                'longitude' : geoCenters.AU.longitude + coordOffsets.east.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              }, {
-                'latitude' : geoCenters.AU.latitude + coordOffsets.west.latitude,
-                'longitude' : geoCenters.AU.longitude + coordOffsets.west.longitude,
-                'type' : 'circle',
-                'color' : bubbleColor.minor.bubble,
-                'scale' : scale.minor,
-                'label' : 'label',
-                'labelPosition' : 'middle',
-                'labelColor' : bubbleColor.minor.label,
-              },
-            ],
+            'zoomLevel' : mapConfig.zoomSettings.zoomLevel,
+            'zoomLatitude' : mapConfig.zoomSettings.zoomLatitude,
+            'zoomLongitude' : mapConfig.zoomSettings.zoomLongitude,
+            'images' : this.state.images,
           },
           'areasSettings': {
             'autoZoom' : true,
             'selectedColor' : '#CC0000'
           }
-        }}
+        }} 
       />
     );
   }
 }
 
 export default Map;
+
+/*'images' : [
+              {
+                'latitude' : mapConfig.geoCenters.NA.latitude,
+                'longitude' : mapConfig.geoCenters.NA.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.major.bubble,
+                'scale' : mapConfig.scale.major,
+                'label' : '#TRUMP',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.major.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.NA.latitude + mapConfig.coordOffsets.north.latitude,
+                'longitude' : mapConfig.geoCenters.NA.longitude + mapConfig.coordOffsets.north.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.NA.latitude + mapConfig.coordOffsets.south.latitude,
+                'longitude' : mapConfig.geoCenters.NA.longitude + mapConfig.coordOffsets.south.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.NA.latitude + mapConfig.coordOffsets.east.latitude,
+                'longitude' : mapConfig.geoCenters.NA.longitude + mapConfig.coordOffsets.east.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.NA.latitude + mapConfig.coordOffsets.west.latitude,
+                'longitude' : mapConfig.geoCenters.NA.longitude + mapConfig.coordOffsets.west.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.SA.latitude,
+                'longitude' : mapConfig.geoCenters.SA.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.major.bubble,
+                'scale' : mapConfig.scale.major,
+                'label' : '#TEMER',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.major.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.SA.latitude + mapConfig.coordOffsets.north.latitude * 1.4,
+                'longitude' : mapConfig.geoCenters.SA.longitude + mapConfig.coordOffsets.north.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.SA.latitude + mapConfig.coordOffsets.south.latitude,
+                'longitude' : mapConfig.geoCenters.SA.longitude + mapConfig.coordOffsets.south.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.SA.latitude + mapConfig.coordOffsets.east.latitude,
+                'longitude' : mapConfig.geoCenters.SA.longitude + mapConfig.coordOffsets.east.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.SA.latitude + mapConfig.coordOffsets.west.latitude,
+                'longitude' : mapConfig.geoCenters.SA.longitude + mapConfig.coordOffsets.west.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.EU.latitude,
+                'longitude' : mapConfig.geoCenters.EU.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.major.bubble,
+                'scale' : mapConfig.scale.major,
+                'label' : '#DRAGHI',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.major.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.EU.latitude + mapConfig.coordOffsets.north.latitude,
+                'longitude' : mapConfig.geoCenters.EU.longitude + mapConfig.coordOffsets.north.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.EU.latitude + mapConfig.coordOffsets.south.latitude,
+                'longitude' : mapConfig.geoCenters.EU.longitude + mapConfig.coordOffsets.south.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.EU.latitude + mapConfig.coordOffsets.east.latitude,
+                'longitude' : mapConfig.geoCenters.EU.longitude + mapConfig.coordOffsets.east.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.EU.latitude + mapConfig.coordOffsets.west.latitude,
+                'longitude' : mapConfig.geoCenters.EU.longitude + mapConfig.coordOffsets.west.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.AF.latitude,
+                'longitude' : mapConfig.geoCenters.AF.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.major.bubble,
+                'scale' : mapConfig.scale.major,
+                'label' : '#OshiAgabi',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.major.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.AF.latitude + mapConfig.coordOffsets.north.latitude * 1.25,
+                'longitude' : mapConfig.geoCenters.AF.longitude + mapConfig.coordOffsets.north.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.AF.latitude + mapConfig.coordOffsets.south.latitude,
+                'longitude' : mapConfig.geoCenters.AF.longitude + mapConfig.coordOffsets.south.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.AF.latitude + mapConfig.coordOffsets.east.latitude,
+                'longitude' : mapConfig.geoCenters.AF.longitude + mapConfig.coordOffsets.east.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.AF.latitude + mapConfig.coordOffsets.west.latitude,
+                'longitude' : mapConfig.geoCenters.AF.longitude + mapConfig.coordOffsets.west.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.APAC.latitude,
+                'longitude' : mapConfig.geoCenters.APAC.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.major.bubble,
+                'scale' : mapConfig.scale.major,
+                'label' : '#PUTIN',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.major.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.APAC.latitude + mapConfig.coordOffsets.north.latitude,
+                'longitude' : mapConfig.geoCenters.APAC.longitude + mapConfig.coordOffsets.north.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.APAC.latitude + mapConfig.coordOffsets.south.latitude,
+                'longitude' : mapConfig.geoCenters.APAC.longitude + mapConfig.coordOffsets.south.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.APAC.latitude + mapConfig.coordOffsets.east.latitude,
+                'longitude' : mapConfig.geoCenters.APAC.longitude + mapConfig.coordOffsets.east.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.APAC.latitude + mapConfig.coordOffsets.west.latitude,
+                'longitude' : mapConfig.geoCenters.APAC.longitude + mapConfig.coordOffsets.west.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.AU.latitude,
+                'longitude' : mapConfig.geoCenters.AU.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.major.bubble,
+                'scale' : mapConfig.scale.major,
+                'label' : '#OZ',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.major.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.AU.latitude + mapConfig.coordOffsets.north.latitude * 1.25,
+                'longitude' : mapConfig.geoCenters.AU.longitude + mapConfig.coordOffsets.north.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.AU.latitude + mapConfig.coordOffsets.south.latitude,
+                'longitude' : mapConfig.geoCenters.AU.longitude + mapConfig.coordOffsets.south.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.AU.latitude + mapConfig.coordOffsets.east.latitude,
+                'longitude' : mapConfig.geoCenters.AU.longitude + mapConfig.coordOffsets.east.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              }, {
+                'latitude' : mapConfig.geoCenters.AU.latitude + mapConfig.coordOffsets.west.latitude,
+                'longitude' : mapConfig.geoCenters.AU.longitude + mapConfig.coordOffsets.west.longitude,
+                'type' : 'circle',
+                'color' : mapConfig.bubbleColor.minor.bubble,
+                'scale' : mapConfig.scale.minor,
+                'label' : 'label',
+                'labelPosition' : 'middle',
+                'labelColor' : mapConfig.bubbleColor.minor.label,
+              },
+            ],*/

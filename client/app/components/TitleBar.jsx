@@ -5,8 +5,10 @@ const styles = {
   title: {
     background: '#3F51B5',
     height: 60,
-    marginBottom: '15px'
-  },
+    margin: 'auto',
+    marginBottom: '15px',
+    width: '90%'
+  }
 };
 
 const TitleBar = () => (

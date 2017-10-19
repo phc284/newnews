@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 
-const styles = {//remove this style object after creating article list component, add margin to top of that component instead
+const styles = {
   card: {
     margin: 'auto',
     width: '90%',
@@ -20,7 +20,7 @@ const styles = {//remove this style object after creating article list component
     },
     title: {
       fontWeight: 'bold',
-      fontSize: '18px'
+      fontSize: '14px'
     },
     avatar: {
       width: '52px',

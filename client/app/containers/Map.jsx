@@ -119,10 +119,11 @@ class Map extends React.Component {
     return (
       <AmCharts.React
         style={{
-          'width': '100%',
+          'width': '90%',
           'height': '500px',
           'backgroundAlpha' : 1,
-          'backgroundColor' : '#eeeeee'
+          'backgroundColor' : '#eeeeee',
+          'margin': 'auto'
         }}
         options ={{
           'type': 'map',
@@ -139,7 +140,7 @@ class Map extends React.Component {
             'autoZoom' : true,
             'selectedColor' : '#CC0000'
           }
-        }} 
+        }}
       />
     );
   }

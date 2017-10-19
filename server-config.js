@@ -13,21 +13,20 @@ const bubbleHandler = require('./requestHandlers/bubbleHandler.js');
 const app = new Koa();
 const router = new Router();
 
-// Sessions
-app.keys = ['connecting the dots'];
-/*
-const CONFIG = {
-  key: 'koa:sess',
-  maxAge: 86400000,
-  overwrite: true,
-  httpOnly: true,
-  signed: true,
-  rolling: false
-};
+// //Sessions
+// app.keys = ['connecting the dots'];
+// /*
+// const CONFIG = {
+//   key: 'koa:sess',
+//   maxAge: 86400000,
+//   overwrite: true,
+//   httpOnly: true,
+//   signed: true,
+//   rolling: false
+// };
 // app.use(session(CONFIG, app));
-*/
+// */
 // app.use( session(app) ); //using default CONFIG above
-
 
 app.use( bodyParser() );
 app.use( serve(__dirname + '/client') );

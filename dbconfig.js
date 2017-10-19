@@ -45,8 +45,8 @@ query = query.slice(0,-1) + '}' // `{ 'United States' : 0.983999, 'Puerto Rico' 
 
 // INSERT INTO people.subscribers
 
-client.execute(query).then( () => {
-
-}).catch( () => {
-
-})
+// client.execute(query).then( () => {
+//
+// }).catch( () => {
+//
+// })

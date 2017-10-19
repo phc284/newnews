@@ -26,20 +26,24 @@ const geoCenters = {
 }
 
 const coordOffsets = {
-  'north' : {
+  '0' : {
+    'latitude' : 0,
+    'longitude' : 0
+  },
+  '1' : {
     'latitude' : 11.5,
     'longitude' : 0
   },
-  'south' : {
+  '2' : {
     'latitude' : -15,
     'longitude' : 0
   },
-  'east' : {
-    'latitude' : 0,
+  '3' : {
+    'latitude' : -5,
     'longitude' : 20
   },
-  'west' : {
-    'latitude' : 0,
+  '4' : {
+    'latitude' : 5,
     'longitude' : -20
   }
 }
@@ -61,7 +65,7 @@ const bubbleColor = {
 }
 
 const zoomSettings = {
-  'zoomLevel' : 1.5,
+  'zoomLevel' : 1.4,
   'zoomLatitude' : 25,
   'zoomLongitude' : 40,
 }
@@ -75,23 +79,23 @@ const dummyData = {
     ['Financial services', 3]
   ],
   'SA' : [
-    ['NCR Corporation', 1],
-    ['Microsoft', 1],
-    ['Retailing', 1],
+    ['NCR Corporation', 4],
+    ['Microsoft', 3],
+    ['Retailing', 2],
     ['Hairstyle', 1],
     ['Graphic Design', 1],
   ],
   'EU' : [
-    ['Earthquake', 1],
-    ['Kathmandu District', 1],
+    ['Earthquake', 5],
+    ['Kathmandu District', 3],
     ['Bubonic plague', 1],
-    ['Nepal', 1],
+    ['Nepali Language', 1],
     ['Jennifer Lopez', 1],
   ],
   'AF' : [
-    ['2010 FIFA World Cup', 1],
-    ['Durban', 1],
-    ['Moses Mabhida Stadium', 1],
+    ['2010 FIFA World Cup', 3],
+    ['Durban', 3],
+    ['Moses Mabhida Stadium', 2],
     ['Soweto', 1],
     ['Robert Mugabe', 1],
   ],
@@ -103,10 +107,10 @@ const dummyData = {
     ['APAC5', 1],
   ],
   'AU' : [
-    ['New Zealand Wine', 1],
-    ['Chardonnay', 1],
-    ['Australian and New Zealand Wine Industry Journal', 1],
-    ['Wairau River', 1],
+    ['New Zealand Wine', 3],
+    ['Chardonnay', 3],
+    ['Australian and New Zealand Wine Industry Journal', 2],
+    ['Wairau River', 2],
     ['South Island', 1],
   ],
 }

@@ -138,15 +138,16 @@ class Map extends React.Component {
     return (
       <AmCharts.React
         style={{
-          'width': '90%',
-          'height': '500px',
+          'width' : '90%',
+          'height' : '500px',
           'backgroundAlpha' : 1,
           'backgroundColor' : '#eeeeee',
-          'margin': 'auto'
+          'margin' : 'auto'
         }}
         options ={{
           'type': 'map',
           'theme' : 'chalk',
+          // 'showBalloonOnSelectedObject' : false,
           'dataProvider' : {
             'map' : 'continentsLow',
             'getAreasFromMap' : true,
@@ -158,6 +159,10 @@ class Map extends React.Component {
           'areasSettings': {
             'autoZoom' : true,
             'selectedColor' : '#CC0000'
+          },
+          'balloonText' : '',
+          'zoomControl' : {
+            'zoomControlEnabled' : false,
           },
           'listeners': [
             {

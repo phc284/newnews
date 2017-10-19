@@ -18,6 +18,7 @@
             //   "subtype": [
             //     "City"
 
+            // "label": "positive"
 module.exports = {
   "matching_results": 18206695,
   "results": [
@@ -4939,7 +4940,6 @@ module.exports = {
         "sentiment": {
           "document": {
             "score": 0.584004,
-            "label": "positive"
           }
         },
         "concepts": [

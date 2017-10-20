@@ -1,24 +1,36 @@
 import { combineReducers } from "redux";
 
-//change when response structure is set
-function articleReducer(state = [], action) {
-  switch (action.type) {
-    case "GET_ARTICLES": {
-      return action.payload;
-    }
-  }
-}
 
-//change when response structure is set
-function keywordReducer(state=[], action) {
-  switch (action.type) {
-    case "GET_KEYWORDS": {
+function activeWordReducer (state=null, action) {
+  switch(action.type) {
+    case 'SELECT_WORD':
+      console.log('payload in reducer', action.payload)
       return action.payload
-    }
+      break;
   }
+  return state
 }
 
-export default combineReducers({
-  articleReducer,
-  keywordReducer
+//change when response structure is set
+function ArticleReducer(state=null, action) {
+  switch(action.type) {
+    case 'GET_ARTICLES':
+     return action.payload
+     break;
+  }
+  return state
+}
+//
+// //change when response structure is set
+// function keywordReducer(state=[], action) {
+//   switch (action.type) {
+//     case "GET_KEYWORDS": {
+//       return action.payload
+//     }
+//   }
+// }
+
+export var allReducers = combineReducers({
+  articles: ArticleReducer,
+  activeWord: activeWordReducer
 });

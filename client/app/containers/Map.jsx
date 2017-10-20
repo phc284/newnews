@@ -1,6 +1,10 @@
 import React from 'react';
 import AmCharts from '@amcharts/amcharts3-react';
 import * as mapConfig from '../lib/mapConfig';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { selectWord, getArticles } from '../actions/mapActions.js'
+
 
 class Map extends React.Component {
   constructor() {
@@ -11,6 +15,7 @@ class Map extends React.Component {
   }
   componentWillMount() {
     this.generateImages();
+
   }
 
   generateImages() {
@@ -25,10 +30,11 @@ class Map extends React.Component {
         'type' : 'circle',
         'color' : mapConfig.bubbleColor.major.bubble,
         // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsNA[i][1],
+        'scale' : conceptsNA[i][1] <= 5 ? conceptsNA[i][1] : 5,
         'label' : conceptsNA[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
       })
     }
 
@@ -41,10 +47,12 @@ class Map extends React.Component {
         'type' : 'circle',
         'color' : mapConfig.bubbleColor.major.bubble,
         // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsSA[i][1],
+        'scale' : conceptsSA[i][1] <= 5 ? conceptsSA[i][1] : 5,
         'label' : conceptsSA[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
+
       })
     }
 
@@ -57,10 +65,12 @@ class Map extends React.Component {
         'type' : 'circle',
         'color' : mapConfig.bubbleColor.major.bubble,
         // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsEU[i][1],
+        'scale' : conceptsEU[i][1] <= 5 ? conceptsEU[i][1] : 5,
         'label' : conceptsEU[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
+
       })
     }
 
@@ -73,10 +83,12 @@ class Map extends React.Component {
         'type' : 'circle',
         'color' : mapConfig.bubbleColor.major.bubble,
         // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsAF[i][1],
+        'scale' : conceptsAF[i][1] <= 5 ? conceptsAF[i][1] : 5,
         'label' : conceptsAF[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
+
       })
     }
 
@@ -89,10 +101,12 @@ class Map extends React.Component {
         'type' : 'circle',
         'color' : mapConfig.bubbleColor.major.bubble,
         // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsAPAC[i][1],
+        'scale' : conceptsAPAC[i][1] <= 5 ? conceptsAPAC[i][1] : 5,
         'label' : conceptsAPAC[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
+
       })
     }
 
@@ -105,10 +119,12 @@ class Map extends React.Component {
         'type' : 'circle',
         'color' : mapConfig.bubbleColor.major.bubble,
         // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsAU[i][1],
+        'scale' : conceptsAU[i][1] <= 5 ? conceptsAU[i][1] : 5,
         'label' : conceptsAU[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
+
       })
     }
 
@@ -116,18 +132,22 @@ class Map extends React.Component {
   }
 
   render () {
+
+    //so listeners can see scope
+    var scope = this;
     return (
       <AmCharts.React
         style={{
-          'width': '90%',
-          'height': '500px',
+          'width' : '90%',
+          'height' : '500px',
           'backgroundAlpha' : 1,
           'backgroundColor' : '#eeeeee',
-          'margin': 'auto'
+          'margin' : 'auto'
         }}
         options ={{
           'type': 'map',
           'theme' : 'chalk',
+          // 'showBalloonOnSelectedObject' : false,
           'dataProvider' : {
             'map' : 'continentsLow',
             'getAreasFromMap' : true,
@@ -139,14 +159,44 @@ class Map extends React.Component {
           'areasSettings': {
             'autoZoom' : true,
             'selectedColor' : '#CC0000'
-          }
+          },
+          'balloonText' : '',
+          'zoomControl' : {
+            'zoomControlEnabled' : false,
+          },
+          'listeners': [
+            {
+              'event': 'clickMapObject',
+              'method': function(event) {
+                console.log('label', event.mapObject.label);
+                scope.props.selectWord(event.mapObject.label)
+              }
+            }
+          ]
         }}
       />
     );
   }
 }
 
-export default Map;
+
+function mapStatesToProps (state) {
+  return {
+    articles: state.articles,
+    activeWord: state.activeWord
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({selectWord: selectWord, getArticles: getArticles}, dispatch)
+}
+
+export default connect(mapStatesToProps, mapDispatchToProps)(Map);
+
+
+
+
+
 
 /*'images' : [
               {

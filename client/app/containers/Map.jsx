@@ -27,16 +27,15 @@ class Map extends React.Component {
       images.push({
         'latitude' : mapConfig.geoCenters.NA.latitude + mapConfig.coordOffsets[i].latitude,
         'longitude' : mapConfig.geoCenters.NA.longitude + mapConfig.coordOffsets[i].longitude,
-        'type' : 'circle',
-        'color' : mapConfig.bubbleColor.major.bubble,
-        // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsNA[i][1] <= 5 ? conceptsNA[i][1] : 5,
+        // 'type' : 'circle',
+        // 'color' : mapConfig.bubbleColor.major.bubble,
+        'scale' : mapConfig.scale.major,
+        'labelFontSize' : conceptsNA[i][1] <= 5 ? conceptsNA[i][1]*8 : 17.5,
         'label' : conceptsNA[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
         'selectable': true,
-        'selectedColor': '#ed1515'
-
+        'selectedLabelColor': '#ed1515'
       })
     }
 
@@ -46,17 +45,15 @@ class Map extends React.Component {
       images.push({
         'latitude' : mapConfig.geoCenters.SA.latitude + mapConfig.coordOffsets[i].latitude,
         'longitude' : mapConfig.geoCenters.SA.longitude + mapConfig.coordOffsets[i].longitude,
-        'type' : 'circle',
-        'color' : mapConfig.bubbleColor.major.bubble,
-        // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsSA[i][1] <= 5 ? conceptsSA[i][1] : 5,
+        // 'type' : 'circle',
+        // 'color' : mapConfig.bubbleColor.major.bubble,
+        'scale' : mapConfig.scale.major,
+        'labelFontSize' : conceptsSA[i][1] <= 5 ? conceptsSA[i][1]*8 : 17.5,
         'label' : conceptsSA[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
         'selectable': true,
-        'selectedColor': '#ed1515'
-
-
+        'selectedLabelColor': '#ed1515'
       })
     }
 
@@ -66,17 +63,15 @@ class Map extends React.Component {
       images.push({
         'latitude' : mapConfig.geoCenters.EU.latitude + mapConfig.coordOffsets[i].latitude,
         'longitude' : mapConfig.geoCenters.EU.longitude + mapConfig.coordOffsets[i].longitude,
-        'type' : 'circle',
-        'color' : mapConfig.bubbleColor.major.bubble,
-        // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsEU[i][1] <= 5 ? conceptsEU[i][1] : 5,
+        // 'type' : 'circle',
+        // 'color' : mapConfig.bubbleColor.major.bubble,
+        'scale' : mapConfig.scale.major,
+        'labelFontSize' : conceptsEU[i][1] <= 5 ? conceptsEU[i][1]*8 : 17.5,
         'label' : conceptsEU[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
         'selectable': true,
-        'selectedColor': '#ed1515'
-
-
+        'selectedLabelColor': '#ed1515'
       })
     }
 
@@ -86,17 +81,15 @@ class Map extends React.Component {
       images.push({
         'latitude' : mapConfig.geoCenters.AF.latitude + mapConfig.coordOffsets[i].latitude,
         'longitude' : mapConfig.geoCenters.AF.longitude + mapConfig.coordOffsets[i].longitude,
-        'type' : 'circle',
-        'color' : mapConfig.bubbleColor.major.bubble,
-        // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsAF[i][1] <= 5 ? conceptsAF[i][1] : 5,
+        // 'type' : 'circle',
+        // 'color' : mapConfig.bubbleColor.major.bubble,
+        'scale' : mapConfig.scale.major,
+        'labelFontSize' : conceptsAF[i][1] <= 5 ? conceptsAF[i][1]*8 : 17.5,
         'label' : conceptsAF[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
         'selectable': true,
-        'selectedColor': '#ed1515'
-
-
+        'selectedLabelColor': '#ed1515'
       })
     }
 
@@ -106,17 +99,15 @@ class Map extends React.Component {
       images.push({
         'latitude' : mapConfig.geoCenters.APAC.latitude + mapConfig.coordOffsets[i].latitude,
         'longitude' : mapConfig.geoCenters.APAC.longitude + mapConfig.coordOffsets[i].longitude,
-        'type' : 'circle',
-        'color' : mapConfig.bubbleColor.major.bubble,
-        // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsAPAC[i][1] <= 5 ? conceptsAPAC[i][1] : 5,
+        // 'type' : 'circle',
+        // 'color' : mapConfig.bubbleColor.major.bubble,
+        'scale' : mapConfig.scale.major,
+        'labelFontSize' : conceptsAPAC[i][1] <= 5 ? conceptsAPAC[i][1]*8 : 17.5,
         'label' : conceptsAPAC[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
         'selectable': true,
-        'selectedColor': '#ed1515'
-
-
+        'selectedLabelColor': '#ed1515'
       })
     }
 
@@ -126,10 +117,10 @@ class Map extends React.Component {
       images.push({
         'latitude' : mapConfig.geoCenters.AU.latitude + mapConfig.coordOffsets[i].latitude,
         'longitude' : mapConfig.geoCenters.AU.longitude + mapConfig.coordOffsets[i].longitude,
-        'type' : 'circle',
-        'color' : mapConfig.bubbleColor.major.bubble,
-        // 'scale' : mapConfig.scale.major,
-        'scale' : conceptsAU[i][1] <= 5 ? conceptsAU[i][1] : 5,
+        // 'type' : 'circle',
+        // 'color' : mapConfig.bubbleColor.major.bubble,
+        'scale' : mapConfig.scale.major,
+        'labelFontSize' : conceptsAU[i][1] <= 5 ? conceptsAU[i][1]*8 : 17.5,
         'label' : conceptsAU[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
@@ -159,20 +150,21 @@ class Map extends React.Component {
         options ={{
           'type': 'map',
           'theme' : 'chalk',
-          'fontFamily': 'Arial',
+          'addClassNames': true,
+          'centerMap': false,
           'dataProvider' : {
             'map' : 'continentsLow',
-            'getAreasFromMap' : true,
+            // 'getAreasFromMap' : true,
             'zoomLevel' : mapConfig.zoomSettings.zoomLevel,
             'zoomLatitude' : mapConfig.zoomSettings.zoomLatitude,
             'zoomLongitude' : mapConfig.zoomSettings.zoomLongitude,
             'images' : this.state.images,
           },
           'areasSettings': {
-            'autoZoom' : true,
-            'selectedColor' : '#CC0000'
+            'balloonText' : '',
+            'autoZoom' : false,
+            // 'selectedColor' : '#CC0000',
           },
-          'balloonText' : '',
           'zoomControl' : {
             'zoomControlEnabled' : false,
           },

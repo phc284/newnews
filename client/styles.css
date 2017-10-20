@@ -1,0 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+.amcharts-map-image-label tspan {
+  font-family: Montserrat;
+  font-weight: 700;
+}

@@ -79,8 +79,9 @@ WatsonTop10.forEach( ({key, aggregations}) => {
 	// article_aggregate = article_aggregate.concat(articles);
 });
 
-Promise.all(staged_execution).then(
+Promise.all(staged_execution).then( () => {
 	console.log(`STAGED EXECUTION COMPLETE: ${staged_execution.length} articles successfully inserted into articles table`);
-).catch(
+
+}).catch( () => {
 	console.log(`STAGED EXECUTION FAIL TO RESOLVE`);
-)
+})

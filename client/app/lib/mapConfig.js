@@ -75,7 +75,7 @@ const dummyData = {
     [ 'United States', 34 ],
     [ 'President of the United States', 24 ],
     [ 'Democratic Party', 20 ],
-    [ 'English-language films', 17 ],
+    [ 'English language films', 17 ],
     [ 'Donald Trump', 15 ],
   ],
   'SA' : [

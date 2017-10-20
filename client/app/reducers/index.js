@@ -1,12 +1,24 @@
 import { combineReducers } from "redux";
 
+
+function activeWordReducer (state=null, action) {
+  switch(action.type) {
+    case 'SELECT_WORD':
+      console.log('payload in reducer', action.payload)
+      return action.payload
+      break;
+  }
+  return state
+}
+
 //change when response structure is set
-function ArticleReducer() {
-  return [{
-    id: 1,
-    title: 'hello',
-    text: 'world'
-  }]
+function ArticleReducer(state=null, action) {
+  switch(action.type) {
+    case 'GET_ARTICLES':
+     return action.payload
+     break;
+  }
+  return state
 }
 //
 // //change when response structure is set
@@ -18,7 +30,7 @@ function ArticleReducer() {
 //   }
 // }
 
-export default combineReducers({
+export var allReducers = combineReducers({
   articles: ArticleReducer,
-  // keywords: keywordReducer
+  activeWord: activeWordReducer
 });

@@ -1,11 +1,18 @@
 import axios from 'axios';
+import { UnitedStates } from '../../../watson/restructured_data.js'
 
 //import this into the map
-export default selectWord = (word) => {
-  console.log('clicked')
+export const selectWord = (word) => {
   return {
-    type: 'WORD_SELECTED',
+    type: 'SELECT_WORD',
     payload: word
+  }
+}
+
+export const getArticles = () => {
+  return {
+    type: 'GET_ARTICLES',
+    payload: UnitedStates
   }
 }
 

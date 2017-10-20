@@ -6,9 +6,8 @@ const styles = {
     margin: 'auto',
     width: '90%',
     icon: {
-      float: 'left',
-      marginRight: '5px',
-      marginBottom: '3px'
+      margin: '10px',
+      width: '52px'
     },
     country: {
       fontWeight: 'bold',
@@ -38,18 +37,18 @@ const articleObj = {
   text: "Ideas have no such empathetic traction. Unlike people they cannot suffer, they do not know joy, and they do not contribute by themselves to the happiness of others. That is not to say there are no really good or really bad ideas."
 };
 
-const Article = () => (
+const Article = ({ article }) => (
   <Card style={styles.card}>
     <CardHeader
-      avatar={articleObj.imgUrl ? <img src={articleObj.imgUrl} style={styles.card.avatar}></img> : <i className="material-icons" style={styles.card.icon}>bubble_chart</i>}
-      title={articleObj.title}
+      avatar={article.main_image_url ? <img src={article.main_image_url} style={styles.card.avatar}></img> : <i className="material-icons md-48" style={styles.card.icon}>bubble_chart</i>}
+      title={article.title}
       titleStyle={styles.card.title}
-      subtitle={articleObj.source}
+      subtitle={article.host}
       actAsExpander={true}
       showExpandableButton={true}
     />
     <CardText expandable={true}>
-      {articleObj.text}...<a target="_blank" href={articleObj.articleUrl}>See More</a>
+      {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>
     </CardText>
   </Card>
 );

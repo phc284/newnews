@@ -45,7 +45,7 @@ WatsonTop10.forEach( ({key, aggregations}) => {
 	var articles = aggregations[0].hits.hits.map( ({id, score, title, country,
 		crawl_date, url, host, text,	main_image_url, enriched_text}) => {
 
-		let concept_query = concepts.reduce((string, {text, relevance})=>{
+		let concept_query = enriched_text.concepts.reduce((string, {text, relevance})=>{
 		  return string + ` '${text}' : ${relevance},`;
 		}, '{');
 		concept_query = query.slice(0,-1) + '}'

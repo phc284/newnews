@@ -34,7 +34,9 @@ class Map extends React.Component {
         'label' : conceptsNA[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true
+        'selectable': true,
+        'selectedColor': '#ed1515'
+
       })
     }
 
@@ -51,7 +53,9 @@ class Map extends React.Component {
         'label' : conceptsSA[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true
+        'selectable': true,
+        'selectedColor': '#ed1515'
+
 
       })
     }
@@ -69,7 +73,9 @@ class Map extends React.Component {
         'label' : conceptsEU[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true
+        'selectable': true,
+        'selectedColor': '#ed1515'
+
 
       })
     }
@@ -87,7 +93,9 @@ class Map extends React.Component {
         'label' : conceptsAF[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true
+        'selectable': true,
+        'selectedColor': '#ed1515'
+
 
       })
     }
@@ -105,7 +113,9 @@ class Map extends React.Component {
         'label' : conceptsAPAC[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true
+        'selectable': true,
+        'selectedColor': '#ed1515'
+
 
       })
     }
@@ -123,7 +133,9 @@ class Map extends React.Component {
         'label' : conceptsAU[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true
+        'selectable': true,
+        'selectedColor': '#ed1515'
+
 
       })
     }
@@ -147,7 +159,7 @@ class Map extends React.Component {
         options ={{
           'type': 'map',
           'theme' : 'chalk',
-          // 'showBalloonOnSelectedObject' : false,
+          'fontFamily': 'Arial',
           'dataProvider' : {
             'map' : 'continentsLow',
             'getAreasFromMap' : true,
@@ -168,7 +180,7 @@ class Map extends React.Component {
             {
               'event': 'clickMapObject',
               'method': function(event) {
-                console.log('label', event.mapObject.label);
+                console.log('label', event.mapObject);
                 scope.props.selectWord(event.mapObject.label)
               }
             }

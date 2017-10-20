@@ -67,7 +67,7 @@ const bubbleColor = {
 const zoomSettings = {
   'zoomLevel' : 1.2,
   'zoomLatitude' : 25,
-  'zoomLongitude' : 40,
+  'zoomLongitude' : 25,
 }
 
 const dummyData = {

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { UnitedStates } from '../../../watson/restructured_data.js'
+//import { UnitedStates } from '../../../watson/restructured_data.js'
+import * as sampleData from '../../../watson/restructured_data.js';
 
 //import this into the map
 export const selectWord = (word) => {
@@ -9,10 +10,19 @@ export const selectWord = (word) => {
   }
 }
 
-export const getArticles = () => {
+// export const getArticles = () => {
+//   return {
+//     type: 'GET_ARTICLES',
+//     payload: UnitedStates
+//   }
+// }
+
+export const getArticles = (word) => {
+  let keyword = word.split(' ').join('').toLowerCase();
+  console.log('keyword in actions: ', keyword);
   return {
     type: 'GET_ARTICLES',
-    payload: UnitedStates
+    payload: sampleData[keyword]
   }
 }
 

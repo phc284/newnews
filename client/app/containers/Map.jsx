@@ -3,7 +3,7 @@ import AmCharts from '@amcharts/amcharts3-react';
 import * as mapConfig from '../lib/mapConfig';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { selectWord, getArticles } from '../actions/mapActions.js'
+import { selectWord } from '../actions'
 
 
 class Map extends React.Component {
@@ -184,18 +184,17 @@ class Map extends React.Component {
 }
 
 
-function mapStatesToProps (state) {
+function mapStateToProps (state) {
   return {
-    articles: state.articles,
     activeWord: state.activeWord
   }
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({selectWord: selectWord, getArticles: getArticles}, dispatch)
+  return bindActionCreators({selectWord: selectWord}, dispatch)
 }
 
-export default connect(mapStatesToProps, mapDispatchToProps)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(Map);
 
 
 

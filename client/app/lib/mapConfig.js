@@ -72,11 +72,11 @@ const zoomSettings = {
 
 const dummyData = {
   'NA' : [
-    ['United States', 5],
-    ['National Football League', 3],
-    ['San Francisco 49ers', 3],
-    ['Stock market', 3],
-    ['Financial services', 3]
+    [ 'United States', 34 ],
+    [ 'President of the United States', 24 ],
+    [ 'Democratic Party', 20 ],
+    [ 'English-language films', 17 ],
+    [ 'Donald Trump', 15 ],
   ],
   'SA' : [
     ['NCR Corporation', 4],
@@ -85,26 +85,26 @@ const dummyData = {
     ['Hairstyle', 1],
     ['Graphic Design', 1],
   ],
-  'EU' : [
-    ['Earthquake', 5],
-    ['Kathmandu District', 3],
-    ['Bubonic plague', 1],
-    ['Nepali Language', 1],
-    ['Jennifer Lopez', 1],
+  'EU' : [ 
+    [ 'United Kingdom', 7 ],
+    [ 'Stock', 7 ],
+    [ 'Stock market', 7 ],
+    [ 'Stock exchange', 5 ],
+    [ 'Switzerland', 3 ] 
   ],
   'AF' : [
-    ['2010 FIFA World Cup', 3],
-    ['Durban', 3],
-    ['Moses Mabhida Stadium', 2],
-    ['Soweto', 1],
-    ['Robert Mugabe', 1],
+    [ 'Iraq War', 1 ],
+    [ 'Enriched uranium', 1 ],
+    [ 'War', 1 ],
+    [ 'President of the United States', 1 ],
+    [ 'Nuclear program of Iran', 1 ],
   ],
   'APAC' : [
-    ['APAC1', 5],
-    ['APAC2', 4],
-    ['APAC3', 3],
-    ['APAC4', 2],
-    ['APAC5', 1],
+    [ 'United States', 4 ],
+    [ 'George W. Bush', 4 ],
+    [ 'Barack Obama', 3 ],
+    [ 'Democratic Party', 3 ],
+    [ 'President of the United States', 3 ],
   ],
   'AU' : [
     ['New Zealand Wine', 3],
@@ -112,6 +112,51 @@ const dummyData = {
     ['Australian and New Zealand Wine Industry Journal', 2],
     ['Wairau River', 2],
     ['South Island', 1],
+  ],
+}
+
+const defaultData = {
+  'NA' : [
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+  ],
+  'SA' : [
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+  ],
+  'EU' : [ 
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+  ],
+  'AF' : [
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+  ],
+  'APAC' : [
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+  ],
+  'AU' : [
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
+    [ 'Default', 1 ],
   ],
 }
 

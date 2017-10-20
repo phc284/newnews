@@ -125,7 +125,7 @@ class Map extends React.Component {
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
         'selectable': true,
-        'selectedColor': '#ed1515'
+        'selectedLabelColor': '#ed1515'
 
 
       })

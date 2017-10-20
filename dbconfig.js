@@ -11,26 +11,27 @@ client.connect(function(err, result) {
 /*
 	cqlsh
 
-	CREATE_KEYSPACE new_news WITH replication =
+	CREATE KEYSPACE new_news WITH replication =
 	{'class': 'SimpleStrategy', 'replication_factor': 1};
 
 	USE new_news;
 
-	CREATE TABLE [ IF NOT EXISTS ] articles (
-	  id text,
+
+	CREATE TABLE articles (
+		id text,
 		main_concept text,
-	  score int,
-	  title text,
-	  country text,
-	  crawl_date text,
-	  url text,
-	  host text,
-	  text text,
-	  main_image_url text,
-	  sentiment float,
-	  concepts map<text, float>,
-		PRIMARY KEY (id, main_concept, crawl_date, country)
-	) WITH CLUSTERING ORDER BY (crawl_date DESC);
+		score int,
+		title text,
+		country text,
+		crawl_date text,
+		url text,
+		host text,
+		text text,
+		main_image_url text,
+		sentiment float,
+		concepts map<text, float>,
+		PRIMARY KEY (id, crawl_date, main_concept, country)
+	) WITH CLUSTERING ORDER BY (crawl_date DESC, main_concept ASC, country ASC);
 
 	exit
 */
@@ -57,6 +58,7 @@ WatsonTop10.forEach( ({key, aggregations}) => {
 			${url}, ${host}, ${text}, ${main_image_url},
 			${enriched_text.sentiment.document.score}, ${concept_query});`
 
+		console.log(query)
 		staged_execution.push(client.execute(query));
 
 		// return  {

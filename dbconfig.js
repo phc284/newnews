@@ -42,7 +42,7 @@ var WatsonTop10 = require('./watson/top_10_filtered.js'); //STATIC TEST DATA
 WatsonTop10 = WatsonTop10.aggregations[0].aggregations[0].results
 
 WatsonTop10.forEach( ({key, aggregations}) => {
-	var articles = aggregations.hits.hits.map( ({id, score, title, country,
+	var articles = aggregations[0].hits.hits.map( ({id, score, title, country,
 		crawl_date, url, host, text,	main_image_url, enriched_text}) => {
 
 		let concept_query = concepts.reduce((string, {text, relevance})=>{

@@ -1,11 +1,56 @@
-import data from '../watson/top_10_filtered';
+const data = require('../watson/top_10_filtered');
 
-var dummyData = function() {
-  
+var getUnitedStates = function() {
+  let aggregatedResults = data.aggregations[0].aggregations[0].results[0]; // aggregatedResults.key = 'United States'
+  let articles = aggregatedResults.aggregations[0].hits.hits;
+  let parsedResults = [];
+
+  articles.forEach(function(rawArticle) {
+    parsedResults.push({
+      'id' : rawArticle.id,
+      'score' : rawArticle.score,
+      'crawl_date' : rawArticle.crawl_date,
+      'url' : rawArticle.url,
+      'host' : rawArticle.host,
+      'text' : rawArticle.text,
+      'main_image_url' : rawArticle.main_image_url,
+      'country' : rawArticle.country,
+      'sentiment_score' : rawArticle.enriched_text.sentiment.document.score,
+      'concepts' : rawArticle.enriched_text.concepts,
+      'title' : rawArticle.title,
+    });
+  });
+
+  return parsedResults;
 }
 
+console.log(getUnitedStates());
+// console.log(data.aggregations[0].aggregations[0].results);
+
+/*var articleData = function() {
+  let aggregatedResults = data.aggregations[0].results;
+
+  let parsedDataByKeyword = {
+    'UnitedStates' : [],
+    'englishLanguageFilms' : [],
+    'presidentOfTheUnitedStates' : [],
+    'stockMarket' : [],
+    'stock' : [],
+    'unitedKingdom' : [],
+    'donaldTrump' : [],
+    'democraticParty' : [],
+    'associatedPress' : [],
+    'police' : [],
+  };
+
+  aggregatedResults.forEach(function(result) {
+    let key = result.key; // United States
+
+  });
+}*/
 
 
+/*
 { 
   id: 'lIKiLB2A9W3ur3UMOLum61QalvHXgTtPMtKN5y0nbDVNTMnKjD3pWIx1oA6lQt_X',
   score: 1,
@@ -19,3 +64,19 @@ var dummyData = function() {
   concepts: [ ],
   title: 'Drews Finishes First Season with USA' 
 }
+*/
+
+
+/*
+00. United States
+01. English-language films
+02. President of the United States
+03. Stock market
+04. Stock
+05. United Kingdom
+06. Donald Trump
+07. Democratic Party
+08. Associated Press
+09. Police
+
+*/

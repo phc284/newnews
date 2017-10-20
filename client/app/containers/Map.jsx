@@ -1,6 +1,10 @@
 import React from 'react';
 import AmCharts from '@amcharts/amcharts3-react';
 import * as mapConfig from '../lib/mapConfig';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { selectWord, getArticles } from '../actions/mapActions.js'
+
 
 class Map extends React.Component {
   constructor() {
@@ -11,6 +15,7 @@ class Map extends React.Component {
   }
   componentWillMount() {
     this.generateImages();
+
   }
 
   generateImages() {
@@ -29,6 +34,7 @@ class Map extends React.Component {
         'label' : conceptsNA[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
       })
     }
 
@@ -45,6 +51,8 @@ class Map extends React.Component {
         'label' : conceptsSA[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
+
       })
     }
 
@@ -61,6 +69,8 @@ class Map extends React.Component {
         'label' : conceptsEU[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
+
       })
     }
 
@@ -77,6 +87,8 @@ class Map extends React.Component {
         'label' : conceptsAF[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
+
       })
     }
 
@@ -93,6 +105,8 @@ class Map extends React.Component {
         'label' : conceptsAPAC[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
+
       })
     }
 
@@ -109,6 +123,8 @@ class Map extends React.Component {
         'label' : conceptsAU[i][0],
         'labelPosition' : 'middle',
         'labelColor' : mapConfig.bubbleColor.major.label,
+        'selectable': true
+
       })
     }
 
@@ -116,6 +132,9 @@ class Map extends React.Component {
   }
 
   render () {
+
+    //so listeners can see scope
+    var scope = this;
     return (
       <AmCharts.React
         style={{
@@ -139,14 +158,40 @@ class Map extends React.Component {
           'areasSettings': {
             'autoZoom' : true,
             'selectedColor' : '#CC0000'
-          }
+          },
+          'listeners': [
+            {
+              'event': 'clickMapObject',
+              'method': function(event) {
+                console.log('label', event.mapObject.label);
+                scope.props.selectWord(event.mapObject.label)
+              }
+            }
+          ]
         }}
       />
     );
   }
 }
 
-export default Map;
+
+function mapStatesToProps (state) {
+  return {
+    articles: state.articles,
+    activeWord: state.activeWord
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({selectWord: selectWord, getArticles: getArticles}, dispatch)
+}
+
+export default connect(mapStatesToProps, mapDispatchToProps)(Map);
+
+
+
+
+
 
 /*'images' : [
               {

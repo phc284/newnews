@@ -48,7 +48,7 @@ WatsonTop10.forEach( ({key, aggregations}) => {
 		let concept_query = enriched_text.concepts.reduce((string, {text, relevance})=>{
 		  return string + ` '${text}' : ${relevance},`;
 		}, '{');
-		concept_query = query.slice(0,-1) + '}'
+		concept_query = concept_query.slice(0,-1) + '}'
 		// concept_query example: `{ 'United States' : 0.983999, 'Puerto Rico' : 0.848328, ...}`;
 
 		let query = `INSERT INTO articles(id, main_concept, score, title, country,

@@ -39,7 +39,7 @@ client.connect(function(err, result) {
 var staged_execution = [];
 
 const WatsonTop10 = require('./watson/top_10_filtered.js'); //STATIC TEST DATA
-WatsonTop10 = WatsonTop10.aggregations.aggregations.results
+WatsonTop10 = WatsonTop10.aggregations[0].aggregations[0].results
 
 WatsonTop10.forEach( ({key, aggregations}) => {
 	var articles = aggregations.hits.hits.map( ({id, score, title, country,

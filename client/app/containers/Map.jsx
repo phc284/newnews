@@ -48,26 +48,26 @@ class Map extends React.Component {
 
     this.setState({images: images});
 
-    // { NA: 
+    // { NA:
     //  [ [ 'United States', 21 ],
     //    [ 'English-language films', 14 ],
     //    [ 'President of the United States', 12 ],
     //    [ 'Democratic Party', 10 ],
     //    [ 'Donald Trump', 10 ] ],
     // SA: [],
-    // EU: 
+    // EU:
     //  [ [ 'United Kingdom', 5 ],
     //    [ 'Stock', 3 ],
     //    [ 'Race', 3 ],
     //    [ 'United States', 3 ],
     //    [ 'Stock market', 3 ] ],
-    // AF: 
+    // AF:
     //  [ [ 'Iraq War', 1 ],
     //    [ 'Enriched uranium', 1 ],
     //    [ 'War', 1 ],
     //    [ 'President of the United States', 1 ],
     //    [ 'Nuclear program of Iran', 1 ] ],
-    // APAC: 
+    // APAC:
     //  [ [ 'United States', 3 ],
     //    [ 'George W. Bush', 3 ],
     //    [ 'United States Department of Defense', 2 ],

@@ -9,7 +9,7 @@ const geoCenters = {
   },
   'EU' : {
     'latitude' : 54.5423,
-    'longitude' : 25.198
+    'longitude' : 15.198
   },
   'AF' : {
     'latitude' : 1.261,
@@ -67,7 +67,7 @@ const bubbleColor = {
 const zoomSettings = {
   'zoomLevel' : 1.2,
   'zoomLatitude' : 25,
-  'zoomLongitude' : 40,
+  'zoomLongitude' : 25,
 }
 
 const dummyData = {
@@ -85,12 +85,12 @@ const dummyData = {
     ['Hairstyle', 1],
     ['Graphic Design', 1],
   ],
-  'EU' : [ 
+  'EU' : [
     [ 'United Kingdom', 7 ],
     [ 'Stock', 7 ],
     [ 'Stock market', 7 ],
     [ 'Stock exchange', 5 ],
-    [ 'Switzerland', 3 ] 
+    [ 'Switzerland', 3 ]
   ],
   'AF' : [
     [ 'Iraq War', 1 ],
@@ -130,7 +130,7 @@ const defaultData = {
     [ 'Default', 1 ],
     [ 'Default', 1 ],
   ],
-  'EU' : [ 
+  'EU' : [
     [ 'Default', 1 ],
     [ 'Default', 1 ],
     [ 'Default', 1 ],

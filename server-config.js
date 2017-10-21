@@ -3,15 +3,42 @@ const bodyParser = require('koa-bodyparser');
 const Router = require('koa-router');
 const serve = require('koa-static');
 
+const dbFetch = require('./requestHandlers/dbFetch');
+const app = new Koa();
+const router = new Router();
+
+app.use( bodyParser() );
+app.use( serve(__dirname + '/client') );
+
+router
+  .get('/articles/:conceptId', async (ctx, next) => {
+    let conceptId = ctx.params.conceptId;
+    
+    await dbFetch.getArticlesForRequestedConcept(conceptId)
+      .then(function(response) {
+        ctx.body = {
+          'articles' : response,
+        };
+      });
+  })
+  .get('/concepts', async (ctx, next) => {
+    await dbFetch.getConceptsByContinent()
+      .then(function(response) {
+        ctx.body = {
+          'concepts' : response,
+        }
+      })
+  })
+
+app.use( router.routes() );
+
+module.exports = app;
+
+
 // const session = require('koa-session');
 // const dbconfig = require('./dbconfig.js'); //uncomment when ready to connect to db
 // const User = require('./models/user.js');
 // const userHandler = require('./user-handler.js');
-const bubbleHandler = require('./requestHandlers/bubbleHandler.js');
-const dataParser = require('./requestHandlers/dataParser');
-
-const app = new Koa();
-const router = new Router();
 
 // //Sessions
 // app.keys = ['connecting the dots'];
@@ -28,25 +55,8 @@ const router = new Router();
 // */
 // app.use( session(app) ); //using default CONFIG above
 
-app.use( bodyParser() );
-app.use( serve(__dirname + '/client') );
 
-router
-  .get('/articles/:conceptId', (ctx, next) => {
-    let conceptId = ctx.params.conceptId;
-    ctx.body = {
-      'articles' : dataParser.getArticlesForRequestedConcept(conceptId),
-    };
-  })
-  .get('/concepts', (ctx, next) => {
-    ctx.body = {
-      'concepts' : dataParser.getConceptsByContinent(),
-    }
-  })
-  .get('/get-bubbles', bubbleHandler.retrieveBubbles);
-
-
-  // .post('/login', userHandler.checkSession, userHandler.checkUsername, userHandler.login)
+// .post('/login', userHandler.checkSession, userHandler.checkUsername, userHandler.login)
   //   // check session
   //   // check username in database
   //   // match password, assign session id
@@ -60,7 +70,5 @@ router
   //   // check session
   //   // create pin
 
-app.use( router.routes() );
-// app.use( router.allowedMethods());
 
-module.exports = app;
+// app.use( router.allowedMethods());

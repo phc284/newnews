@@ -28,6 +28,8 @@ class Map extends React.Component {
   generateImages(conceptData) {
     let images = [];
 
+    console.log('Map.jsx, conceptData: ', conceptData);
+
     for(let continent in conceptData) {
       conceptData[continent].forEach(function(concept, index) {
         images.push({
@@ -36,7 +38,7 @@ class Map extends React.Component {
           // 'type' : 'circle',
           // 'color' : mapConfig.bubbleColor.major.bubble,
           // 'scale' : mapConfig.scale.major,
-          'labelFontSize' : concept[1] <= 5 ? concept[1]*9 : 17.5,
+          'labelFontSize' : concept[1] > 5 ? 22 : 11 + concept[1] * 1.5,
           'label' : concept[0],
           'labelPosition' : 'middle',
           'labelColor' : mapConfig.bubbleColor.major.label,

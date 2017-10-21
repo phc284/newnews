@@ -47,26 +47,30 @@ var staged_execution = [];
 var WatsonTop10 = require("./watson/top_10_filter_19.js"); //STATIC TEST DATA
 WatsonTop10 = WatsonTop10.aggregations[0].results;
 
-// var key = WatsonTop10.key;
-// var articles = WatsonTop10.aggregations[0].hits.hits[0];
+// var key = WatsonTop10[0].key;
+// var articles = WatsonTop10[0].aggregations[0].hits.hits[0];
 // var {id, score, crawl_date, url, host, text, main_image_url, country, enriched_text, title} = articles;
 WatsonTop10.forEach( ({key, aggregations}) => {
 	var articles = aggregations[0].hits.hits.map( ({id, score, title, country,
 		crawl_date, url, host, text,	main_image_url, enriched_text}) => {
 
-		let concept_query = enriched_text.concepts.reduce((string, {text, relevance})=>{
-		  return string + ` '${text}' : ${relevance},`;
+		var concept_query = enriched_text.concepts.reduce((string, {text, relevance})=>{
+		   return string + ` '${text.split("'").join('')}' : ${relevance},`;
 		}, '{');
 		concept_query = concept_query.slice(0,-1) + '}'
 		// concept_query example: `{ 'United States' : 0.983999, 'Puerto Rico' : 0.848328, ...}`;
 
-		let query = `INSERT INTO articles (id, main_concept, score, title, country, `
-			+`crawl_date, url, host, text, main_image_url, sentiment, concepts) `
-			+`VALUES (${id}, ${key}, ${score}, '${title}', '${country}', ${crawl_date}, `
-			+`${url}, ${host}, '${text}', ${main_image_url}, `
-			+`${enriched_text.sentiment.document.score}, ${concept_query});`;
+    let query = `INSERT INTO articles(id, main_concept, score, title, country, ` +
+    			`crawl_date, url, host, text, main_image_url, sentiment, concepts) ` +
+    			`VALUES ('${id}', '${key}', ${score}, $$${title}$$, '${country}', '${crawl_date}', '${url}', '${host}', $$${text}$$, $$${main_image_url}$$, ${enriched_text.sentiment.document.score}, ${concept_query})`
+
+    // console.log('conceptquery***', query)
+    // var params = ['id', 'key', 1, 'title', 'country', 'crawl_date', 'url', 'host', 'text',
+    //       'main_image_url', 0.5, `{'title': 1}`];
+
 
     staged_execution.push(client.execute(query));
+    // console.log('******************************',query)
 
 //
 // 		// return  {
@@ -86,12 +90,12 @@ WatsonTop10.forEach( ({key, aggregations}) => {
 // 		// 	})
 // 		// };
 	});
-  console.log(key)
-	// article_aggregate = article_aggregate.concat(articles);
+//   console.log(key)
+// 	// article_aggregate = article_aggregate.concat(articles);
 });
 
 
-Promise.all(staged_execution).then( () => {
+Promise.all(staged_execution).then( (resolve) => {
 	console.log(`STAGED EXECUTION COMPLETE: ${staged_execution.length} articles successfully inserted into articles table`);
 
 }).catch( (error) => {

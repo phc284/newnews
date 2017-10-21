@@ -9,11 +9,11 @@ import Articles from "./ArticlesList.jsx";
 
 const App = () => (
   <MuiThemeProvider>
-      <AppBar />
-      <div style={{ marginBottom: "15px" }}>
-        <Map />
-      </div>
-      <Articles />
+    <AppBar />
+    <div style={{ marginBottom: "15px", display: 'flex', justifyContent: 'center'}}>
+      <Map />
+    </div>
+    <Articles />
   </MuiThemeProvider>
 );
 

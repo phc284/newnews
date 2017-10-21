@@ -16,11 +16,10 @@ const styles = {
 class Articles extends React.Component {
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.activeWord) {
+    if (nextProps.activeWord !== this.props.activeWord) {
+      console.log(this.props.activeWord, nextProps.activeWord);
       nextProps.getArticles(nextProps.activeWord);
-    } else {
-      nextProps.getArticles(topTen)
-    }
+    } 
   }
 
   render () {

@@ -76,7 +76,7 @@ class Map extends React.Component {
             'zoomLatitude' : mapConfig.zoomSettings.zoomLatitude,
             'zoomLongitude' : mapConfig.zoomSettings.zoomLongitude,
             'images' : this.state.images,
-            "areas": [ 
+            "areas": [
               {
                 "id": "africa",
                 "color": "#72b572",
@@ -95,7 +95,7 @@ class Map extends React.Component {
               }, {
                 "id": "south_america",
                 "color": "#e0a257"
-              } 
+              }
             ]
           },
           'areasSettings': {

@@ -24,6 +24,9 @@ const styles = {
     avatar: {
       width: '52px',
       height: '52px'
+    },
+    text: {
+      paddingTop: '0px'
     }
   }
 };
@@ -38,7 +41,7 @@ const Article = ({ article }) => (
       actAsExpander={true}
       showExpandableButton={true}
     />
-    <CardText expandable={true}>
+    <CardText expandable={true} style={styles.card.text}>
       {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>
     </CardText>
   </Card>

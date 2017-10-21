@@ -15,26 +15,33 @@
 */
 
 
-/*
-00. United States
-01. English-language films
-02. President of the United States
-03. Stock market
-04. Stock
-05. United Kingdom
-06. Donald Trump
-07. Democratic Party
-08. Associated Press
-09. Police
-
-*/
-
-
 const data = require('../watson/top_10_filtered');
 
-let dummyArticles = [];
+const MAX_CONCEPTS_PER_CONTINENT = 5;
 
-var generateDummies = function(){
+const mapCountryToContinent = {
+  'AR' : 'SA',
+  'BG' : 'EU',
+  'CA' : 'NA',
+  'CH' : 'EU',
+  'DE' : 'EU',
+  'FR' : 'EU',
+  'GB' : 'EU',
+  'HK' : 'APAC',
+  'IN' : 'APAC',
+  'KS' : 'APAC',
+  'NG' : 'AF',
+  'NL' : 'EU',
+  'NZ' : 'AU',
+  'PE' : 'SA',
+  'PK' : 'APAC',
+  'US' : 'NA',
+  'ZW' : 'AF',
+  }
+
+var parseArticles = function(){
+  let parsedArticles = [];
+
   let top10ConceptsResults = data.aggregations[0].aggregations[0].results;
 
   top10ConceptsResults.forEach(function(conceptResult) {
@@ -42,14 +49,14 @@ var generateDummies = function(){
       articles.forEach(function(article) {
         let hasArticle = false;
 
-        for(let i = 0; i < dummyArticles.length; i++) {
-          if(article.title === dummyArticles[i].title) {
+        for(let i = 0; i < parsedArticles.length; i++) {
+          if(article.title === parsedArticles[i].title) {
             hasArticle = true;
           }
         }
 
         if(!hasArticle) {
-          dummyArticles.push({
+          parsedArticles.push({
             'id' : article.id,
             'score' : article.score,
             'crawl_date' : article.crawl_date,
@@ -65,21 +72,23 @@ var generateDummies = function(){
         }
       })
   });
-}
+
+  return parsedArticles;
+  }
 
 
-var getArticles = function(requestedConcept) {
-  generateDummies();
+var getArticlesForRequestedConcept = function(requestedConcept) {
+  let parsedArticles = parseArticles();
   let relatedArticles = [];
 
-  dummyArticles.forEach(function(dummyArticle) {
+  parsedArticles.forEach(function(parsedArticle) {
 
-    let articleConcepts = dummyArticle.concepts;
+    let articleConcepts = parsedArticle.concepts;
 
     articleConcepts.forEach(function(articleConcept) {
 
       if(articleConcept.text === requestedConcept) {
-        relatedArticles.push(dummyArticle);
+        relatedArticles.push(parsedArticle);
       }
 
     })
@@ -108,38 +117,48 @@ var getArticles = function(requestedConcept) {
   });
 }
 
-// **************
-// TEST FUNCTIONS
-// **************
+var getConceptsByContinent = function () {
+  let mapConcepts = {
+    'NA' : {},
+    'SA' : {},
+    'EU' : {},
+    'AF' : {},
+    'APAC' : {},
+    'AU' : {},
+  };
 
-// var listSpecificRelevance = function(searchConcept) {
-//   let articles = getArticles(searchConcept);
-//   for(let i = 0; i < articles.length; i++) {
-//     console.log('+++++ +++++ +++++ +++++ +++++ +++++')
-//     console.log('Title: ', articles[i].title);
+  let parsedArticles = parseArticles();
 
-//     let currentRelevancy;
-    
-//     for(let j = 0; j < articles[i].concepts.length; j++) {
-//       if(articles[i].concepts[j].text === searchConcept) {
-//         currentRelevancy = articles[i].concepts[j].relevance;
-//       }
-//     }
+  parsedArticles.forEach(function(article) {
+    let currentContinent = mapCountryToContinent[article.country];
 
-//     console.log(searchConcept + ': ' + currentRelevancy);
-//   }
-// }
+    article.concepts.forEach(function(articleConcept) {
+      if(mapConcepts[currentContinent].hasOwnProperty(articleConcept.text)) {
+        mapConcepts[currentContinent][articleConcept.text]++;
+      } else {
+        mapConcepts[currentContinent][articleConcept.text] = 1;
+      }
+    });
 
+  });
 
-// var checkDupes = function() {
-//   generateDummies();
-//   for(let i = 0; i < dummyArticles.length; i++) {
-//     console.log(dummyArticles[i].title);
-//   }
-// }
+  for(let continent in mapConcepts) {
+    let unsorted = [];
 
-// listSpecificRelevance('United States')
+    for(concept in mapConcepts[continent]) {
+      unsorted.push([concept, mapConcepts[continent][concept]]);
+    }
+
+    mapConcepts[continent] = unsorted.sort((a, b) => b[1] - a[1])
+                                     .slice(0, MAX_CONCEPTS_PER_CONTINENT);
+  }
+
+  return mapConcepts;
+}
+
+// console.log(getConceptsByContinent());
 
 module.exports = {
-  getArticles: getArticles,
+  getArticlesForRequestedConcept: getArticlesForRequestedConcept,
+  getConceptsByContinent: getConceptsByContinent,
 }

@@ -37,10 +37,9 @@ function mapDispatchToProps (dispatch) {
 export const getArticles = (query) => {
   return (dispatch) => {
     //change when route is set
-    axios.get('/concepts/' + query, {params: {query: query}})
+    axios.get('/articles/' + query, {params: {query: query}})
     .then( response => {
-      console.log(response);
-      dispatch({type: 'GET_ARTICLES', payload: response.data.concept})
+      dispatch({type: 'GET_ARTICLES', payload: response.data.articles})
     })
     .catch( error => {
       console.log(error)

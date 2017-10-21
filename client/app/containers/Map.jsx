@@ -36,12 +36,12 @@ class Map extends React.Component {
           // 'type' : 'circle',
           // 'color' : mapConfig.bubbleColor.major.bubble,
           // 'scale' : mapConfig.scale.major,
-          'labelFontSize' : concept[1] <= 5 ? concept[1]*8 : 17.5,
+          'labelFontSize' : concept[1] <= 5 ? concept[1]*9 : 17.5,
           'label' : concept[0],
           'labelPosition' : 'middle',
           'labelColor' : mapConfig.bubbleColor.major.label,
           'selectable' : true,
-          'selectedLabelColor' : '#ed1515',
+          'selectedLabelColor' : '#db2e2e'
         })
       })
     }
@@ -86,7 +86,10 @@ class Map extends React.Component {
           'width' : '100%',
           'height' : '90%',
           'backgroundAlpha' : 1,
-          'backgroundColor' : '#eeeeee'
+          'backgroundColor' : '#c6c6c6',
+          'margin' : 'auto',
+          'borderAlpha': 1,
+          'borderColor': '#000000'
         }}
         options ={{
           'type': 'map',
@@ -100,14 +103,40 @@ class Map extends React.Component {
             'zoomLatitude' : mapConfig.zoomSettings.zoomLatitude,
             'zoomLongitude' : mapConfig.zoomSettings.zoomLongitude,
             'images' : this.state.images,
+            "areas": [ 
+              {
+                "id": "africa",
+                "color": "#72b572",
+              }, {
+                "id": "asia",
+                "color": "#dbc54a",
+              }, {
+                "id": "australia",
+                "color": "#978bb5",
+              }, {
+                "id": "europe",
+                "color": "#557daa",
+              }, {
+                "id": "north_america",
+                "color": "#71bcaa",
+              }, {
+                "id": "south_america",
+                "color": "#e0a257"
+              } 
+            ]
           },
           'areasSettings': {
             'balloonText' : '',
             'autoZoom' : false,
             // 'selectedColor' : '#CC0000',
+            'rollOverColor': undefined,
+            'rollOverOutlineColor': undefined,
+            'outlineThickness': 1,
+            'outlineColor': '#ffffff'
           },
           'zoomControl' : {
             'zoomControlEnabled' : false,
+            'buttonFillColor': '#ffffff'
           },
           'listeners': [
             {

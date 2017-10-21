@@ -5,7 +5,6 @@ const styles = {
   card: {
     margin: 'auto',
     width: '100%',
-    height: '110px',
     icon: {
       margin: '10px',
       width: '52px'
@@ -33,7 +32,7 @@ const Article = ({ article }) => (
   <Card style={styles.card}>
     <CardHeader
       avatar={article.main_image_url ? <img src={article.main_image_url} style={styles.card.avatar}></img> : <i className="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>}
-      title={article.title}
+      title={article.title.length > 60 ? article.title.slice(0, 60).concat('...') : article.title}
       titleStyle={styles.card.title}
       subtitle={article.host}
       actAsExpander={true}

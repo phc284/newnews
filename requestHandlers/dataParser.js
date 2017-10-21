@@ -139,7 +139,8 @@ var getConceptsByContinent = function () {
   return mapConcepts;
 }
 
-console.log(getArticlesForRequestedConcept('English-language films'));
+// console.log(getArticlesForRequestedConcept('English-language films'));
+console.log(getConceptsByContinent());
 
 module.exports = {
   getArticlesForRequestedConcept: getArticlesForRequestedConcept,

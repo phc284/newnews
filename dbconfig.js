@@ -39,17 +39,19 @@ PRIMARY KEY (id, crawl_date, main_concept, country)
 	exit
 */
 
-//https://watson-api-explorer.mybluemix.net/discovery/api/v1/environments/system/collections/news/
-//query?filter=crawl_date%3C2017-10-16&aggregation=term(enriched_text.concepts.text).top_hits(10)&count=50&return=id%2Ctitle%2Cauthor%2Ctext%2Curl%2Ccrawl_date%2Cpublication_date%2Cscore%2Ccountry%2Cenriched_text.keywords%2Cenriched_text.sentiment%2Cenriched_text.concepts%2Cenriched_text.categories&version=2017-09-01
+/*
+https://watson-api-explorer.mybluemix.net/discovery/api/v1/environments/system/collections/news/
+query?filter=crawl_date%3C2017-10-16&aggregation=term(enriched_text.concepts.text).top_hits(10)&count=50&
+return=id%2Ctitle%2Cauthor%2Ctext%2Curl%2Ccrawl_date%2Cpublication_date%2Cscore%2Ccountry%2Cenriched_text.keywords
+%2Cenriched_text.sentiment%2Cenriched_text.concepts%2Cenriched_text.categories&version=2017-09-01
+*/
+
 // var article_aggregate = [];
 var staged_execution = [];
 
 var WatsonTop10 = require("./watson/top_10_filter_19.js"); //STATIC TEST DATA
 WatsonTop10 = WatsonTop10.aggregations[0].results;
 
-// var key = WatsonTop10[0].key;
-// var articles = WatsonTop10[0].aggregations[0].hits.hits[0];
-// var {id, score, crawl_date, url, host, text, main_image_url, country, enriched_text, title} = articles;
 WatsonTop10.forEach( ({key, aggregations}) => {
 	var articles = aggregations[0].hits.hits.map( ({id, score, title, country,
 		crawl_date, url, host, text,	main_image_url, enriched_text}) => {
@@ -64,34 +66,28 @@ WatsonTop10.forEach( ({key, aggregations}) => {
     			`crawl_date, url, host, text, main_image_url, sentiment, concepts) ` +
     			`VALUES ('${id}', '${key}', ${score}, $$${title}$$, '${country}', '${crawl_date}', '${url}', '${host}', $$${text}$$, $$${main_image_url}$$, ${enriched_text.sentiment.document.score}, ${concept_query})`
 
-    // console.log('conceptquery***', query)
-    // var params = ['id', 'key', 1, 'title', 'country', 'crawl_date', 'url', 'host', 'text',
-    //       'main_image_url', 0.5, `{'title': 1}`];
-
 
     staged_execution.push(client.execute(query));
-    // console.log('******************************',query)
 
-//
-// 		// return  {
-// 		// 	id: id,
-// 		// 	main_concept: key,
-// 		// 	score: score,
-// 		// 	title: title,
-// 		// 	country: country,
-// 		// 	crawl_date: crawl_date,
-// 		// 	url: url,
-// 		// 	host: host,
-// 		// 	text: text,
-// 		// 	main_image_url: main_image_url,
-// 		// 	sentiment: enriched_text.sentiment.document.score,
-// 		// 	concepts: enriched_text.concepts.map(({text, relevance})=>{
-// 		// 		return {text: text, relevance: relevance};
-// 		// 	})
-// 		// };
+
+		// return  {
+		// 	id: id,
+		// 	main_concept: key,
+		// 	score: score,
+		// 	title: title,
+		// 	country: country,
+		// 	crawl_date: crawl_date,
+		// 	url: url,
+		// 	host: host,
+		// 	text: text,
+		// 	main_image_url: main_image_url,
+		// 	sentiment: enriched_text.sentiment.document.score,
+		// 	concepts: enriched_text.concepts.map(({text, relevance})=>{
+		// 		return {text: text, relevance: relevance};
+		// 	})
+		// };
 	});
-//   console.log(key)
-// 	// article_aggregate = article_aggregate.concat(articles);
+	// article_aggregate = article_aggregate.concat(articles);
 });
 
 

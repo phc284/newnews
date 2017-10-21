@@ -32,20 +32,20 @@ app.use( bodyParser() );
 app.use( serve(__dirname + '/client') );
 
 router
-  .get('/concepts/:conceptId', (ctx, next) => {
+  .get('/articles/:conceptId', (ctx, next) => {
     let conceptId = ctx.params.conceptId;
-    let data = dataParser.getArticles(conceptId);
-    console.log(data);
     ctx.body = {
-      'concept': dataParser.getArticles(conceptId),
+      'articles' : dataParser.getArticlesForRequestedConcept(conceptId),
     };
   })
-  // .get('/concepts/:conceptId', function *(next) {
-  //   console.log('/endpoint:id');
-  //   console.log(this.params);
-  //   this.body = 'Endpoint return';
-  // })
+  .get('/concepts', (ctx, next) => {
+    ctx.body = {
+      'concepts' : dataParser.getConceptsByContinent(),
+    }
+  })
   .get('/get-bubbles', bubbleHandler.retrieveBubbles);
+
+
   // .post('/login', userHandler.checkSession, userHandler.checkUsername, userHandler.login)
   //   // check session
   //   // check username in database

@@ -7,11 +7,11 @@ const styles = {
     height: 60,
     margin: 'auto',
     marginBottom: '15px',
-    width: '90%'
+    width: '100%'
   }
 };
 
-const marquee = 'New News                         Breaking the Bubble                         Connecting the Dots                         New News                         Solving the Puzzle                         Bridging the Gap                         New News'
+const marquee = 'NewNews                         Breaking the Bubble                         Connecting the Dots                         NewNews                         Solving the Puzzle                         Bridging the Gap                         NewNews'
 
 const TitleBar = () => (
   <AppBar

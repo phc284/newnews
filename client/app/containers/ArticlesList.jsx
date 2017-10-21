@@ -16,12 +16,12 @@ const styles = {
   list: {
     display: 'flex',
     justifyContent: 'center',
-    width: '100%'
+    width: '44%'
   },
   paper: {
     overflow: 'auto',
-    maxHeight: '400px',
-    width: '75%',
+    maxHeight: '90%',
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: '#373737'

@@ -23,9 +23,6 @@ body {
     white-space:pre;
 }
 
-.marquee span:hover {
-    animation-play-state: paused
-}
 
 /* Make it move */
 @keyframes marquee {

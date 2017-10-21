@@ -10,10 +10,10 @@ import Articles from "./ArticlesList.jsx";
 const App = () => (
   <MuiThemeProvider>
     <AppBar />
-    <div style={{ marginBottom: "15px", display: 'flex', justifyContent: 'center'}}>
+    <div style={{ marginBottom: "15px", display: 'flex', flexDirection: 'row', width: '100%'}}>
       <Map />
+      <Articles />
     </div>
-    <Articles />
   </MuiThemeProvider>
 );
 

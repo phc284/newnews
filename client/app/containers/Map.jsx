@@ -47,33 +47,6 @@ class Map extends React.Component {
     }
 
     this.setState({images: images});
-
-    // { NA:
-    //  [ [ 'United States', 21 ],
-    //    [ 'English-language films', 14 ],
-    //    [ 'President of the United States', 12 ],
-    //    [ 'Democratic Party', 10 ],
-    //    [ 'Donald Trump', 10 ] ],
-    // SA: [],
-    // EU:
-    //  [ [ 'United Kingdom', 5 ],
-    //    [ 'Stock', 3 ],
-    //    [ 'Race', 3 ],
-    //    [ 'United States', 3 ],
-    //    [ 'Stock market', 3 ] ],
-    // AF:
-    //  [ [ 'Iraq War', 1 ],
-    //    [ 'Enriched uranium', 1 ],
-    //    [ 'War', 1 ],
-    //    [ 'President of the United States', 1 ],
-    //    [ 'Nuclear program of Iran', 1 ] ],
-    // APAC:
-    //  [ [ 'United States', 3 ],
-    //    [ 'George W. Bush', 3 ],
-    //    [ 'United States Department of Defense', 2 ],
-    //    [ 'Joint Chiefs of Staff', 2 ],
-    //    [ 'Barack Obama', 2 ] ],
-    // AU: [] }
   }
 
   render () {

@@ -67,9 +67,9 @@ const bubbleColor = {
 }
 
 const zoomSettings = {
-  'zoomLevel' : 1.2,
+  'zoomLevel' : 1,
   'zoomLatitude' : 25,
-  'zoomLongitude' : 25,
+  'zoomLongitude' : 15,
 }
 
 module.exports = {

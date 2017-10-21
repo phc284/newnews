@@ -3,19 +3,21 @@ import AppBar from 'material-ui/AppBar';
 
 const styles = {
   title: {
-    background: '#3F51B5',
+    background: '#546e7a',
     height: 60,
     margin: 'auto',
     marginBottom: '15px',
-    width: '90%'
+    width: '100%'
   }
 };
+
+const marquee = 'NewNews                         Breaking the Bubble                         Connecting the Dots                         NewNews                         Solving the Puzzle                         Bridging the Gap                         NewNews'
 
 const TitleBar = () => (
   <AppBar
     style={styles.title}
     showMenuIconButton={false}
-    title={<span >New News</span>}
+    title={<p className="microsoft marquee"><span>{marquee}</span></p>}
   />
 );
 

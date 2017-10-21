@@ -1,7 +1,31 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 
+body {
+  background-color: #373737
+}
 
 .amcharts-map-image-label tspan {
   font-family: Montserrat;
   font-weight: 900;
+}
+.marquee {
+    width: "100%";
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.marquee span {
+    display: inline-block;
+    padding-left: 100%;  /* show the marquee just outside the paragraph */
+    animation: marquee 14s linear infinite;
+    white-space:pre;
+}
+
+
+/* Make it move */
+@keyframes marquee {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
 }

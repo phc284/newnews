@@ -135,7 +135,8 @@ class Map extends React.Component {
           },
           'zoomControl' : {
             'zoomControlEnabled' : false,
-            'buttonFillColor': '#ffffff'
+            'buttonFillColor': '#ffffff',
+            'buttonRollOverColor': '#626262'
           },
           'listeners': [
             {

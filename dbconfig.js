@@ -52,11 +52,11 @@ WatsonTop10.forEach( ({key, aggregations}) => {
 		concept_query = concept_query.slice(0,-1) + '}'
 		// concept_query example: `{ 'United States' : 0.983999, 'Puerto Rico' : 0.848328, ...}`;
 
-		let query = `INSERT INTO articles(id, main_concept, score, title, country,
-			crawl_date, url, host, text, main_image_url, sentiment, concepts)
-			VALUES ( ${id}, ${key}, ${score}, ${title}, ${country}, ${crawl_date},
-			${url}, ${host}, ${text}, ${main_image_url},
-			${enriched_text.sentiment.document.score}, ${concept_query});`
+		let query = `INSERT INTO articles(id, main_concept, score, title, country,` + 
+			`crawl_date, url, host, text, main_image_url, sentiment, concepts) ` +
+			`VALUES ( \'${id}\', \'${key}\', ${score}, \'${title}\', \'${country}\', \'${crawl_date}\',` +
+			`\'${url}\', \'${host}\', \'${text}\', \'${main_image_url}\',` +
+			`${enriched_text.sentiment.document.score}, \'${concept_query}\')`
 
 		console.log(query)
 		staged_execution.push(client.execute(query));
@@ -84,6 +84,6 @@ WatsonTop10.forEach( ({key, aggregations}) => {
 Promise.all(staged_execution).then( () => {
 	console.log(`STAGED EXECUTION COMPLETE: ${staged_execution.length} articles successfully inserted into articles table`);
 
-}).catch( () => {
-	console.log(`STAGED EXECUTION FAIL TO RESOLVE`);
+}).catch( (error) => {
+	console.log(`STAGED EXECUTION FAIL TO RESOLVE`, error);
 })

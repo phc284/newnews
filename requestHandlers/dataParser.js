@@ -1,55 +1,3 @@
-const data = require('../watson/top_10_filtered');
-
-var getUnitedStates = function() {
-  let aggregatedResults = data.aggregations[0].aggregations[0].results[0]; // aggregatedResults.key = 'United States'
-  let articles = aggregatedResults.aggregations[0].hits.hits;
-  let parsedResults = [];
-
-  articles.forEach(function(rawArticle) {
-    parsedResults.push({
-      'id' : rawArticle.id,
-      'score' : rawArticle.score,
-      'crawl_date' : rawArticle.crawl_date,
-      'url' : rawArticle.url,
-      'host' : rawArticle.host,
-      'text' : rawArticle.text,
-      'main_image_url' : rawArticle.main_image_url,
-      'country' : rawArticle.country,
-      'sentiment_score' : rawArticle.enriched_text.sentiment.document.score,
-      'concepts' : rawArticle.enriched_text.concepts,
-      'title' : rawArticle.title,
-    });
-  });
-
-  return parsedResults;
-}
-
-console.log(getUnitedStates());
-// console.log(data.aggregations[0].aggregations[0].results);
-
-/*var articleData = function() {
-  let aggregatedResults = data.aggregations[0].results;
-
-  let parsedDataByKeyword = {
-    'UnitedStates' : [],
-    'englishLanguageFilms' : [],
-    'presidentOfTheUnitedStates' : [],
-    'stockMarket' : [],
-    'stock' : [],
-    'unitedKingdom' : [],
-    'donaldTrump' : [],
-    'democraticParty' : [],
-    'associatedPress' : [],
-    'police' : [],
-  };
-
-  aggregatedResults.forEach(function(result) {
-    let key = result.key; // United States
-
-  });
-}*/
-
-
 /*
 { 
   id: 'lIKiLB2A9W3ur3UMOLum61QalvHXgTtPMtKN5y0nbDVNTMnKjD3pWIx1oA6lQt_X',
@@ -80,3 +28,118 @@ console.log(getUnitedStates());
 09. Police
 
 */
+
+
+const data = require('../watson/top_10_filtered');
+
+let dummyArticles = [];
+
+var generateDummies = function(){
+  let top10ConceptsResults = data.aggregations[0].aggregations[0].results;
+
+  top10ConceptsResults.forEach(function(conceptResult) {
+    let articles = conceptResult.aggregations[0].hits.hits;   
+      articles.forEach(function(article) {
+        let hasArticle = false;
+
+        for(let i = 0; i < dummyArticles.length; i++) {
+          if(article.title === dummyArticles[i].title) {
+            hasArticle = true;
+          }
+        }
+
+        if(!hasArticle) {
+          dummyArticles.push({
+            'id' : article.id,
+            'score' : article.score,
+            'crawl_date' : article.crawl_date,
+            'url' : article.url,
+            'host' : article.host,
+            'text' : article.text,
+            'main_image_url' : article.main_image_url,
+            'country' : article.country,
+            'sentiment_score' : article.enriched_text.sentiment.document.score,
+            'concepts' : article.enriched_text.concepts,
+            'title' : article.title,
+          });
+        }
+      })
+  });
+}
+
+
+var getArticles = function(requestedConcept) {
+  generateDummies();
+  let relatedArticles = [];
+
+  dummyArticles.forEach(function(dummyArticle) {
+
+    let articleConcepts = dummyArticle.concepts;
+
+    articleConcepts.forEach(function(articleConcept) {
+
+      if(articleConcept.text === requestedConcept) {
+        relatedArticles.push(dummyArticle);
+      }
+
+    })
+  });
+
+  return relatedArticles.sort(function(firstArticle, secondArticle) {
+    let firstArticleConcepts = firstArticle.concepts;
+    let secondArticleConcepts = secondArticle.concepts;
+
+    let firstArticleRelevancy;
+    let secondArticleRelevancy;
+
+    for(let i = 0; i < firstArticleConcepts.length; i++) {
+      if(firstArticleConcepts[i].text === requestedConcept) {
+        firstArticleRelevancy = firstArticleConcepts[i].relevance;
+      }
+    }
+
+    for(let i = 0; i < secondArticleConcepts.length; i++) {
+      if(secondArticleConcepts[i].text === requestedConcept) {
+        secondArticleRelevancy = secondArticleConcepts[i].relevance;
+      }
+    }
+
+    return secondArticleRelevancy - firstArticleRelevancy;
+  });
+}
+
+// **************
+// TEST FUNCTIONS
+// **************
+
+// var listSpecificRelevance = function(searchConcept) {
+//   let articles = getArticles(searchConcept);
+//   for(let i = 0; i < articles.length; i++) {
+//     console.log('+++++ +++++ +++++ +++++ +++++ +++++')
+//     console.log('Title: ', articles[i].title);
+
+//     let currentRelevancy;
+    
+//     for(let j = 0; j < articles[i].concepts.length; j++) {
+//       if(articles[i].concepts[j].text === searchConcept) {
+//         currentRelevancy = articles[i].concepts[j].relevance;
+//       }
+//     }
+
+//     console.log(searchConcept + ': ' + currentRelevancy);
+//   }
+// }
+
+
+// var checkDupes = function() {
+//   generateDummies();
+//   for(let i = 0; i < dummyArticles.length; i++) {
+//     console.log(dummyArticles[i].title);
+//   }
+// }
+
+// listSpecificRelevance('United States')
+
+module.exports = {
+  getArticles: getArticles,
+}

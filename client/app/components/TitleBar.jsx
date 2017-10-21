@@ -3,7 +3,7 @@ import AppBar from 'material-ui/AppBar';
 
 const styles = {
   title: {
-    background: '#546e7a',
+    background: '#8493a8',
     height: 60,
     margin: 'auto',
     marginBottom: '15px',

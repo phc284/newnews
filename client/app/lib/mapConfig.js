@@ -62,7 +62,7 @@ const bubbleColor = {
   },
   'minor' : {
     'bubble' : 'yellow',
-    'label' : 'blue'
+    'label' : '#db2e2e'
   }
 }
 

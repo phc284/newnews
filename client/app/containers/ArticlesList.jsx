@@ -13,7 +13,7 @@ const styles = {
   article: {
     marginBottom: '5px',
   },
-  list: {
+  container: {
     display: 'flex',
     justifyContent: 'center',
     width: '44%'
@@ -25,6 +25,10 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: '#373737'
+  },
+  list: {
+    width: '95%',
+    padding: '0px'
   }
 }
 
@@ -41,9 +45,9 @@ class Articles extends React.Component {
     console.log('inside render: ', this.props)
     var articles = this.props.articles || topten;
     return (
-      <div style={styles.list}>
+      <div style={styles.container}>
         <Paper zDepth={0} style={styles.paper}>
-          <List style={{width: '75%'}}>
+          <List style={styles.list}>
             {articles.map((article, index) => {
               return <div
                 key={index}

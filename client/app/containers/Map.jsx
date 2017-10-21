@@ -17,7 +17,6 @@ class Map extends React.Component {
   componentWillMount() {
     axios.get('/concepts')
       .then((response) => {
-        console.log('Map.jsx (componentWillMount) response:', response.data.concepts);
         let conceptData = response.data.concepts;
         this.generateImages(conceptData);
       })
@@ -27,113 +26,21 @@ class Map extends React.Component {
   generateImages(conceptData) {
     let images = [];
 
-    // generate NA
-    let conceptsNA = conceptData['NA'];
-    for(let i = 0; i < conceptsNA.length; i++) {
-      images.push({
-        'latitude' : mapConfig.geoCenters.NA.latitude + mapConfig.coordOffsets[i].latitude,
-        'longitude' : mapConfig.geoCenters.NA.longitude + mapConfig.coordOffsets[i].longitude,
-        // 'type' : 'circle',
-        // 'color' : mapConfig.bubbleColor.major.bubble,
-        'scale' : mapConfig.scale.major,
-        'labelFontSize' : conceptsNA[i][1] <= 5 ? conceptsNA[i][1]*8 : 17.5,
-        'label' : conceptsNA[i][0],
-        'labelPosition' : 'middle',
-        'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true,
-        'selectedLabelColor': '#ed1515'
-      })
-    }
-
-    // generate SA
-    let conceptsSA = conceptData['SA'];
-    for(let i = 0; i < conceptsSA.length; i++) {
-      images.push({
-        'latitude' : mapConfig.geoCenters.SA.latitude + mapConfig.coordOffsets[i].latitude,
-        'longitude' : mapConfig.geoCenters.SA.longitude + mapConfig.coordOffsets[i].longitude,
-        // 'type' : 'circle',
-        // 'color' : mapConfig.bubbleColor.major.bubble,
-        'scale' : mapConfig.scale.major,
-        'labelFontSize' : conceptsSA[i][1] <= 5 ? conceptsSA[i][1]*8 : 17.5,
-        'label' : conceptsSA[i][0],
-        'labelPosition' : 'middle',
-        'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true,
-        'selectedLabelColor': '#ed1515'
-      })
-    }
-
-    // generate EU
-    let conceptsEU = conceptData['EU'];
-    for(let i = 0; i < conceptsEU.length; i++) {
-      images.push({
-        'latitude' : mapConfig.geoCenters.EU.latitude + mapConfig.coordOffsets[i].latitude,
-        'longitude' : mapConfig.geoCenters.EU.longitude + mapConfig.coordOffsets[i].longitude,
-        // 'type' : 'circle',
-        // 'color' : mapConfig.bubbleColor.major.bubble,
-        'scale' : mapConfig.scale.major,
-        'labelFontSize' : conceptsEU[i][1] <= 5 ? conceptsEU[i][1]*8 : 17.5,
-        'label' : conceptsEU[i][0],
-        'labelPosition' : 'middle',
-        'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true,
-        'selectedLabelColor': '#ed1515'
-      })
-    }
-
-    // generate AF
-    let conceptsAF = conceptData['AF'];
-    for(let i = 0; i < conceptsAF.length; i++) {
-      images.push({
-        'latitude' : mapConfig.geoCenters.AF.latitude + mapConfig.coordOffsets[i].latitude,
-        'longitude' : mapConfig.geoCenters.AF.longitude + mapConfig.coordOffsets[i].longitude,
-        // 'type' : 'circle',
-        // 'color' : mapConfig.bubbleColor.major.bubble,
-        'scale' : mapConfig.scale.major,
-        'labelFontSize' : conceptsAF[i][1] <= 5 ? conceptsAF[i][1]*8 : 17.5,
-        'label' : conceptsAF[i][0],
-        'labelPosition' : 'middle',
-        'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true,
-        'selectedLabelColor': '#ed1515'
-      })
-    }
-
-    // generate APAC
-    let conceptsAPAC = conceptData['APAC'];
-    for(let i = 0; i < conceptsAPAC.length; i++) {
-      images.push({
-        'latitude' : mapConfig.geoCenters.APAC.latitude + mapConfig.coordOffsets[i].latitude,
-        'longitude' : mapConfig.geoCenters.APAC.longitude + mapConfig.coordOffsets[i].longitude,
-        // 'type' : 'circle',
-        // 'color' : mapConfig.bubbleColor.major.bubble,
-        'scale' : mapConfig.scale.major,
-        'labelFontSize' : conceptsAPAC[i][1] <= 5 ? conceptsAPAC[i][1]*8 : 17.5,
-        'label' : conceptsAPAC[i][0],
-        'labelPosition' : 'middle',
-        'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true,
-        'selectedLabelColor': '#ed1515'
-      })
-    }
-
-    // generate AU
-    let conceptsAU = conceptData['AU'];
-    for(let i = 0; i < conceptsAU.length; i++) {
-      images.push({
-        'latitude' : mapConfig.geoCenters.AU.latitude + mapConfig.coordOffsets[i].latitude,
-        'longitude' : mapConfig.geoCenters.AU.longitude + mapConfig.coordOffsets[i].longitude,
-        // 'type' : 'circle',
-        // 'color' : mapConfig.bubbleColor.major.bubble,
-        'scale' : mapConfig.scale.major,
-        'labelFontSize' : conceptsAU[i][1] <= 5 ? conceptsAU[i][1]*8 : 17.5,
-        'label' : conceptsAU[i][0],
-        'labelPosition' : 'middle',
-        'labelColor' : mapConfig.bubbleColor.major.label,
-        'selectable': true,
-        'selectedColor': '#ed1515'
-
-
+    for(let continent in conceptData) {
+      conceptData[continent].forEach(function(concept, index) {
+        images.push({
+          'latitude' : mapConfig.geoCenters[continent].latitude + mapConfig.coordOffsets[index].latitude,
+          'longitude' : mapConfig.geoCenters[continent].longitude + mapConfig.coordOffsets[index].longitude,
+          // 'type' : 'circle',
+          // 'color' : mapConfig.bubbleColor.major.bubble,
+          // 'scale' : mapConfig.scale.major,
+          'labelFontSize' : concept[1] <= 5 ? concept[1]*8 : 17.5,
+          'label' : concept[0],
+          'labelPosition' : 'middle',
+          'labelColor' : mapConfig.bubbleColor.major.label,
+          'selectable' : true,
+          'selectedLabelColor' : '#ed1515',
+        })
       })
     }
 

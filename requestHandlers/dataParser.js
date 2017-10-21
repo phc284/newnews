@@ -37,7 +37,7 @@ const mapCountryToContinent = {
   'PK' : 'APAC',
   'US' : 'NA',
   'ZW' : 'AF',
-}
+  }
 
 var parseArticles = function(){
   let parsedArticles = [];
@@ -74,7 +74,7 @@ var parseArticles = function(){
   });
 
   return parsedArticles;
-}
+  }
 
 
 var getArticlesForRequestedConcept = function(requestedConcept) {
@@ -142,7 +142,7 @@ var getConceptsByContinent = function () {
 
   });
 
-  for(continent in mapConcepts) {
+  for(let continent in mapConcepts) {
     let unsorted = [];
 
     for(concept in mapConcepts[continent]) {
@@ -156,7 +156,7 @@ var getConceptsByContinent = function () {
   return mapConcepts;
 }
 
-console.log(getConceptsByContinent());
+// console.log(getConceptsByContinent());
 
 module.exports = {
   getArticlesForRequestedConcept: getArticlesForRequestedConcept,

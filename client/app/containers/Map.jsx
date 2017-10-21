@@ -7,6 +7,8 @@ import { selectWord } from '../actions'
 
 const axios = require('axios');
 
+// TODO: Render scale seems to be off between North America and Europe
+
 class Map extends React.Component {
   constructor() {
     super();

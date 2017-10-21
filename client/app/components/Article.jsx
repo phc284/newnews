@@ -4,6 +4,8 @@ import {Card, CardHeader, CardText} from 'material-ui/Card';
 const styles = {
   card: {
     margin: 'auto',
+    width: '100%',
+    height: '110px',
     icon: {
       margin: '10px',
       width: '52px'
@@ -18,7 +20,7 @@ const styles = {
     },
     title: {
       fontWeight: 'bold',
-      fontSize: '18px'
+      fontSize: '14px'
     },
     avatar: {
       width: '52px',

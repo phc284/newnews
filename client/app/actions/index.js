@@ -17,14 +17,14 @@ export const selectWord = (word) => {
 //   }
 // }
 
-export const getArticles = (word) => {
-  let keyword = word.split(' ').join('').toLowerCase();
-  console.log('keyword in actions: ', keyword);
-  return {
-    type: 'GET_ARTICLES',
-    payload: sampleData[keyword]
-  }
-}
+// export const getArticles = (word) => {
+//   let keyword = word.split(' ').join('').toLowerCase();
+//   console.log('keyword in actions: ', keyword);
+//   return {
+//     type: 'GET_ARTICLES',
+//     payload: sampleData[keyword]
+//   }
+// }
 
 /* PUT IN MAP component
 function mapDispatchToProps (dispatch) {
@@ -34,18 +34,19 @@ function mapDispatchToProps (dispatch) {
 }
 */
 
-// export default getArticles = (query) => {
-//   return (dispatch) => {
-//     //change when route is set
-//     axios.get('article route', {params: {query: query}})
-//     .then( response => {
-//       dispatch({type: 'GET_ARTICLES', payload: response.data})
-//     })
-//     .catch( error => {
-//       console.log(error)
-//     })
-//   }
-// }
+export const getArticles = (query) => {
+  return (dispatch) => {
+    //change when route is set
+    axios.get('/concepts/' + query, {params: {query: query}})
+    .then( response => {
+      console.log(response);
+      dispatch({type: 'GET_ARTICLES', payload: response.data.concept})
+    })
+    .catch( error => {
+      console.log(error)
+    })
+  }
+}
 //
 // export default getKeywords = () => {
 //   return (dispatch) => {

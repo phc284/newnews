@@ -16,7 +16,7 @@
 
 ## Development
 
-> Some usage instructions
+> requires node v7
 
 
 ### Installing Dependencies

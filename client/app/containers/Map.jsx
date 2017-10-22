@@ -28,8 +28,6 @@ class Map extends React.Component {
   generateImages(conceptData) {
     let images = [];
 
-    console.log('Map.jsx, conceptData: ', conceptData);
-
     for(let continent in conceptData) {
       conceptData[continent].forEach(function(concept, index) {
         images.push({

@@ -54,20 +54,42 @@ var flattenConcepts = function(conceptsRay) {
     'AU' : {},
   };
 
+  console.log('dataParser.js, conceptsRay: ', conceptsRay);
+
   conceptsRay.forEach(function(conceptItem) {
     let continent = mapCountryToContinent[conceptItem.country];
     let conceptList = conceptItem.concepts;
 
-    for(let conceptKey in conceptList) {
-      if(flattenedObj[continent][conceptKey]) {
-        flattenedObj[continent][conceptKey]++;
-      } else {
-        flattenedObj[continent][conceptKey] = 1;
+    // console.log('dataParser.js, continent: ', continent);
+    if(continent) {
+      for(let conceptKey in conceptList) {
+        if(flattenedObj[continent][conceptKey]) {
+          flattenedObj[continent][conceptKey]++;
+        } else {
+          flattenedObj[continent][conceptKey] = 1;
+        }
       }
     }
   });
 
+  for(let continent in flattenedObj) {
+    flattenedObj[continent] = convertObjToArray(flattenedObj[continent]);
+  }
+
   return flattenedObj;
+}
+
+var convertObjToArray = function(conceptsObj) {
+  let unsortedRay = [];
+
+  for(let concept in conceptsObj) {
+    unsortedRay.push([concept, conceptsObj[concept]]);
+  }
+
+  return unsortedRay.sort(function(firstConcept, secondConcept) {
+    return secondConcept[1] - firstConcept[1];
+  })
+    .slice(0, MAX_CONCEPTS_PER_CONTINENT);
 }
 
 module.exports = {

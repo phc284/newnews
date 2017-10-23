@@ -36,7 +36,7 @@ class Map extends React.Component {
           // 'type' : 'circle',
           // 'color' : mapConfig.bubbleColor.major.bubble,
           // 'scale' : mapConfig.scale.major,
-          'labelFontSize' : concept[1] <= 5 ? concept[1]*9 : 17.5,
+          'labelFontSize' : concept[1] > 5 ? 22 : 11 + concept[1] * 1.5,
           'label' : concept[0],
           'labelPosition' : 'middle',
           'labelColor' : mapConfig.bubbleColor.major.label,
@@ -47,33 +47,6 @@ class Map extends React.Component {
     }
 
     this.setState({images: images});
-
-    // { NA:
-    //  [ [ 'United States', 21 ],
-    //    [ 'English-language films', 14 ],
-    //    [ 'President of the United States', 12 ],
-    //    [ 'Democratic Party', 10 ],
-    //    [ 'Donald Trump', 10 ] ],
-    // SA: [],
-    // EU:
-    //  [ [ 'United Kingdom', 5 ],
-    //    [ 'Stock', 3 ],
-    //    [ 'Race', 3 ],
-    //    [ 'United States', 3 ],
-    //    [ 'Stock market', 3 ] ],
-    // AF:
-    //  [ [ 'Iraq War', 1 ],
-    //    [ 'Enriched uranium', 1 ],
-    //    [ 'War', 1 ],
-    //    [ 'President of the United States', 1 ],
-    //    [ 'Nuclear program of Iran', 1 ] ],
-    // APAC:
-    //  [ [ 'United States', 3 ],
-    //    [ 'George W. Bush', 3 ],
-    //    [ 'United States Department of Defense', 2 ],
-    //    [ 'Joint Chiefs of Staff', 2 ],
-    //    [ 'Barack Obama', 2 ] ],
-    // AU: [] }
   }
 
   render () {

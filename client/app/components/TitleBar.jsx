@@ -11,13 +11,15 @@ const styles = {
   }
 };
 
+const array = ['United States', 'Donald Trump', 'Stock', 'George W. Bush', 'Joint C'
+]
 const marquee = 'NewNews                         Breaking the Bubble                         Connecting the Dots                         NewNews                         Solving the Puzzle                         Bridging the Gap                         NewNews'
 
 const TitleBar = () => (
   <AppBar
     style={styles.title}
     showMenuIconButton={false}
-    title={<p className="microsoft marquee"><span>{marquee}</span></p>}
+    title={<p className="microsoft marquee"><span><a target='_blank' href='http://www.yahoo.com'>iPhone explodes when put in microwave</a><a target='_blank' href='http://www.yahoo.com'>     World Piece Achieved through the power of Potatoes</a><a target='_blank' href='http://www.yahoo.com'>     Genius Squirrel Invents Cure For Cancer</a></span></p>}
   />
 );
 

@@ -42,7 +42,7 @@ const Article = ({ article }) => (
       showExpandableButton={true}
     />
     <CardText expandable={true} style={styles.card.text}>
-      {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>
+      {article.text.slice(0,200)}... <div target="_blank" href={article.url}>See More</div>
     </CardText>
   </Card>
 );

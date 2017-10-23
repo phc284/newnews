@@ -54,7 +54,7 @@ var flattenConcepts = function(conceptsRay) {
     'AU' : {},
   };
 
-  console.log('dataParser.js, conceptsRay: ', conceptsRay);
+  // console.log('dataParser.js, conceptsRay: ', conceptsRay);
 
   conceptsRay.forEach(function(conceptItem) {
     let continent = mapCountryToContinent[conceptItem.country];

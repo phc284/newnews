@@ -31,6 +31,7 @@ class Map extends React.Component {
     for(let continent in conceptData) {
       conceptData[continent].forEach(function(concept, index) {
         images.push({
+          'groupID': 'hello',
           'latitude' : mapConfig.geoCenters[continent].latitude + mapConfig.coordOffsets[index].latitude,
           'longitude' : mapConfig.geoCenters[continent].longitude + mapConfig.coordOffsets[index].longitude,
           // 'type' : 'circle',

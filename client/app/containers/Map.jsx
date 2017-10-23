@@ -46,6 +46,21 @@ class Map extends React.Component {
       })
     }
 
+    images.push({
+      'groupId': 'hello',
+      'latitude' : 25,
+      'longitude' : 25,
+      // 'type' : 'circle',
+      // 'color' : mapConfig.bubbleColor.major.bubble,
+      // 'scale' : mapConfig.scale.major,
+      'labelFontSize' : 28,
+      'label' : "HELLO",
+      'labelPosition' : 'middle',
+      'labelColor' : '#238796',
+      'selectable' : true,
+      'selectedLabelColor' : '#db2e2e'
+    })
+
     this.setState({images: images});
   }
 
@@ -115,10 +130,16 @@ class Map extends React.Component {
             {
               'event': 'clickMapObject',
               'method': function(event) {
-                console.log('label', event.mapObject);
                 scope.props.selectWord(event.mapObject.label)
               }
+            },
+            {
+              'event': 'zoomCompleted',
+              'method': function(event) {
+                console.log('zoom', event);
+                event.chart.hideGroup('hello')
             }
+          }
           ]
         }}
       />

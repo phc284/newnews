@@ -1,5 +1,24 @@
 import React from 'react';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
+import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
+
+const {
+  FacebookShareButton,
+  GooglePlusShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  PinterestShareButton,
+  RedditShareButton,
+  EmailShareButton,
+} = ShareButtons;
+
+const FacebookIcon = generateShareIcon('facebook');
+const TwitterIcon = generateShareIcon('twitter');
+const GooglePlusIcon = generateShareIcon('google');
+const LinkedinIcon = generateShareIcon('linkedin');
+const PinterestIcon = generateShareIcon('pinterest');
+const RedditIcon = generateShareIcon('reddit');
+const EmailIcon = generateShareIcon('email');
 
 const styles = {
   card: {
@@ -42,7 +61,44 @@ const Article = ({ article }) => (
       showExpandableButton={true}
     />
     <CardText expandable={true} style={styles.card.text}>
-      {article.text.slice(0,200)}... <div target="_blank" href={article.url}>See More</div>
+      {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>
+      <div>
+        <div className="sharebutton">
+          <FacebookShareButton url={article.url}>
+            <FacebookIcon size={18} square />
+          </FacebookShareButton>
+        </div>
+        <div className="sharebutton">
+          <TwitterShareButton url={article.url}>
+            <TwitterIcon size={18} square />
+          </TwitterShareButton>
+        </div>
+        <div className="sharebutton">
+          <GooglePlusShareButton url={article.url}>
+            <GooglePlusIcon size={18} square />
+          </GooglePlusShareButton>
+        </div>
+        <div className="sharebutton">
+          <LinkedinShareButton url={article.url}>
+            <LinkedinIcon size={18} square />
+          </LinkedinShareButton>
+        </div>
+        <div className="sharebutton">
+          <PinterestShareButton url={article.url}>
+            <PinterestIcon size={18} square />
+          </PinterestShareButton>
+        </div>
+        <div className="sharebutton">
+          <RedditShareButton url={article.url}>
+            <RedditIcon size={18} square />
+          </RedditShareButton>
+        </div>
+        <div className="sharebutton">
+          <EmailShareButton url={article.url}>
+            <EmailIcon size={18} square />
+          </EmailShareButton>
+        </div>
+      </div>
     </CardText>
   </Card>
 );

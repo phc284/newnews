@@ -31,6 +31,7 @@ class Map extends React.Component {
     for(let continent in conceptData) {
       conceptData[continent].forEach(function(concept, index) {
         images.push({
+          'groupID': 'hello',
           'latitude' : mapConfig.geoCenters[continent].latitude + mapConfig.coordOffsets[index].latitude,
           'longitude' : mapConfig.geoCenters[continent].longitude + mapConfig.coordOffsets[index].longitude,
           // 'type' : 'circle',
@@ -46,6 +47,22 @@ class Map extends React.Component {
       })
     }
 
+    //dummy data to test hide/show image group
+    images.push({
+      'groupId': 'hello',
+      'latitude' : 0,
+      'longitude' : 25,
+      // 'type' : 'circle',
+      // 'color' : mapConfig.bubbleColor.major.bubble,
+      // 'scale' : mapConfig.scale.major,
+      'labelFontSize' : 28,
+      'label' : "HELLO",
+      'labelPosition' : 'middle',
+      'labelColor' : '#238796',
+      'selectable' : true,
+      'selectedLabelColor' : '#db2e2e'
+    })
+
     this.setState({images: images});
   }
 
@@ -57,7 +74,7 @@ class Map extends React.Component {
       <AmCharts.React
         style={{
           'width' : '100%',
-          'height' : '90%',
+          'height' : '85%',
           'backgroundAlpha' : 1,
           'backgroundColor' : '#c6c6c6',
           'margin' : 'auto',
@@ -76,7 +93,7 @@ class Map extends React.Component {
             'zoomLatitude' : mapConfig.zoomSettings.zoomLatitude,
             'zoomLongitude' : mapConfig.zoomSettings.zoomLongitude,
             'images' : this.state.images,
-            "areas": [ 
+            "areas": [
               {
                 "id": "africa",
                 "color": "#72b572",
@@ -95,7 +112,7 @@ class Map extends React.Component {
               }, {
                 "id": "south_america",
                 "color": "#e0a257"
-              } 
+              }
             ]
           },
           'areasSettings': {
@@ -115,8 +132,40 @@ class Map extends React.Component {
             {
               'event': 'clickMapObject',
               'method': function(event) {
-                console.log('label', event.mapObject);
+                //add selected object label into store to grab articles
                 scope.props.selectWord(event.mapObject.label)
+              }
+            },
+            {
+              'event': 'zoomCompleted',
+              'method': function(event) {
+                //if zoom level is over 3, show this group of images on map
+                if(event.chart.zLevelTemp >= 1.7) {
+                  event.chart.showGroup('hello')
+                }
+              }
+            },
+            {
+              'event': 'zoomCompleted',
+              'method': function(event) {
+                //hide group of images if zoom level is less than 3
+                if(event.chart.zLevelTemp <= 1.7) {
+                  event.chart.hideGroup('hello')
+                }
+              }
+            },
+            {
+              'event': 'rendered',
+              'method': function(event) {
+                //when map is rendered, hide this group of images
+                event.chart.hideGroup('hello')
+              }
+            },
+            {
+              'event': 'homeButtonClicked',
+              'method': function(event) {
+                //when home button is clicked (zoomed back out), hide this group of images
+                event.chart.hideGroup('hello')
               }
             }
           ]

@@ -21,7 +21,15 @@ var getConceptsByContinent = function() {
     .then((response) => { return dataParser.flattenConcepts(response) });
 }
 
+var getHeadlines = function () {
+  let query = 'SELECT title, url FROM articles;';
+  return client.execute(query)
+    .then((response) => { return response.rows})
+    .then((response) => { return dataParser.filterArticlesHeadline(response)})
+}
+
 module.exports = {
   getArticlesForRequestedConcept: getArticlesForRequestedConcept,
   getConceptsByContinent: getConceptsByContinent,
+  getHeadlines: getHeadlines
 }

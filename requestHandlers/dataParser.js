@@ -54,7 +54,7 @@ var flattenConcepts = function(conceptsRay) {
     'AU' : {},
   };
 
-  console.log('dataParser.js, conceptsRay: ', conceptsRay);
+  // console.log('dataParser.js, conceptsRay: ', conceptsRay);
 
   conceptsRay.forEach(function(conceptItem) {
     let continent = mapCountryToContinent[conceptItem.country];
@@ -92,7 +92,30 @@ var convertObjToArray = function(conceptsObj) {
     .slice(0, MAX_CONCEPTS_PER_CONTINENT);
 }
 
+var filterArticlesHeadline = function(articles) {
+  let filteredArticles = [];
+
+  articles.forEach(function(article) {
+    let alreadyPushed = false;
+    let url = article.url;
+
+    for(let i = 0; i < filteredArticles.length; i++) {
+      if(article.title === filteredArticles[i].title) {
+        alreadyPushed = true;
+      }
+    }
+
+    if(!alreadyPushed) {
+      filteredArticles.push(article);
+    }
+
+  });
+
+  return filteredArticles;
+}
+
 module.exports = {
   filterArticlesByKeyword: filterArticlesByKeyword,
   flattenConcepts: flattenConcepts,
+  filterArticlesHeadline:filterArticlesHeadline
 }

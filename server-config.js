@@ -13,7 +13,7 @@ app.use( serve(__dirname + '/client') );
 router
   .get('/articles/:conceptId', async (ctx, next) => {
     let conceptId = ctx.params.conceptId;
-    
+
     await dbFetch.getArticlesForRequestedConcept(conceptId)
       .then(function(response) {
         ctx.body = {
@@ -28,6 +28,15 @@ router
           'concepts' : response,
         }
       })
+  })
+
+ .get('/headlines', async (ctx, next) => {
+   await dbFetch.getHeadlines()
+    .then(function(response) {
+      ctx.body = {
+        'headlines': response
+      }
+    })
   })
 
 app.use( router.routes() );

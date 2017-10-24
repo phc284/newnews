@@ -20,7 +20,7 @@ const styles = {
   },
   paper: {
     overflow: 'auto',
-    maxHeight: '90%',
+    maxHeight: '85%',
     width: '100%',
     display: 'flex',
     justifyContent: 'center',

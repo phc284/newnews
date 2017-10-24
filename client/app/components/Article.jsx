@@ -65,37 +65,37 @@ const Article = ({ article }) => (
       <div>
         <div className="sharebutton">
           <FacebookShareButton url={article.url}>
-            <FacebookIcon size={24} square />
+            <FacebookIcon size={18} square />
           </FacebookShareButton>
         </div>
         <div className="sharebutton">
           <TwitterShareButton url={article.url}>
-            <TwitterIcon size={24} square />
+            <TwitterIcon size={18} square />
           </TwitterShareButton>
         </div>
         <div className="sharebutton">
           <GooglePlusShareButton url={article.url}>
-            <GooglePlusIcon size={24} square />
+            <GooglePlusIcon size={18} square />
           </GooglePlusShareButton>
         </div>
         <div className="sharebutton">
           <LinkedinShareButton url={article.url}>
-            <LinkedinIcon size={24} square />
+            <LinkedinIcon size={18} square />
           </LinkedinShareButton>
         </div>
         <div className="sharebutton">
           <PinterestShareButton url={article.url}>
-            <PinterestIcon size={24} square />
+            <PinterestIcon size={18} square />
           </PinterestShareButton>
         </div>
         <div className="sharebutton">
           <RedditShareButton url={article.url}>
-            <RedditIcon size={24} square />
+            <RedditIcon size={18} square />
           </RedditShareButton>
         </div>
         <div className="sharebutton">
           <EmailShareButton url={article.url}>
-            <EmailIcon size={24} square />
+            <EmailIcon size={18} square />
           </EmailShareButton>
         </div>
       </div>

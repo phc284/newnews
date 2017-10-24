@@ -26,6 +26,7 @@ class Marquee extends React.Component {
   }
 
   componentWillMount () {
+    //get headlines from the DB
     axios.get('/headlines')
       .then((response) => {
         this.generateHeadlines(response.data.headlines)
@@ -39,6 +40,7 @@ class Marquee extends React.Component {
       var tag = headline.title + '     |     '
       result.push(tag)
     })
+    //randomize the headlines order
     result.sort(() => Math.random() - 0.5)
     this.setState({
       headlines: result
@@ -48,12 +50,12 @@ class Marquee extends React.Component {
 
 
   render() {
-    console.log(this.state.headlines)
+    var headlines = this.state.headlines.join('')
     return (
       <AppBar
       style={styles.title}
       showMenuIconButton={false}
-      title={<p className="microsoft marquee"><span>{this.state.headlines.map((ele) => { return ele})}</span></p>}
+      title={<p className="microsoft marquee"><span>{headlines}</span></p>}
       />
     )
   }

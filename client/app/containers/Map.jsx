@@ -46,9 +46,10 @@ class Map extends React.Component {
       })
     }
 
+    //dummy data to test hide/show image group
     images.push({
       'groupId': 'hello',
-      'latitude' : 25,
+      'latitude' : 0,
       'longitude' : 25,
       // 'type' : 'circle',
       // 'color' : mapConfig.bubbleColor.major.bubble,
@@ -130,16 +131,42 @@ class Map extends React.Component {
             {
               'event': 'clickMapObject',
               'method': function(event) {
+                //add selected object label into store to grab articles
                 scope.props.selectWord(event.mapObject.label)
               }
             },
             {
               'event': 'zoomCompleted',
               'method': function(event) {
-                console.log('zoom', event);
+                //if zoom level is over 3, show this group of images on map
+                if(event.chart.zLevelTemp >= 1.7) {
+                  event.chart.showGroup('hello')
+                }
+              }
+            },
+            {
+              'event': 'zoomCompleted',
+              'method': function(event) {
+                //hide group of images if zoom level is less than 3
+                if(event.chart.zLevelTemp <= 1.7) {
+                  event.chart.hideGroup('hello')
+                }
+              }
+            },
+            {
+              'event': 'rendered',
+              'method': function(event) {
+                //when map is rendered, hide this group of images
                 event.chart.hideGroup('hello')
+              }
+            },
+            {
+              'event': 'homeButtonClicked',
+              'method': function(event) {
+                //when home button is clicked (zoomed back out), hide this group of images
+                event.chart.hideGroup('hello')
+              }
             }
-          }
           ]
         }}
       />

@@ -74,7 +74,7 @@ class Map extends React.Component {
       <AmCharts.React
         style={{
           'width' : '100%',
-          'height' : '90%',
+          'height' : '85%',
           'backgroundAlpha' : 1,
           'backgroundColor' : '#c6c6c6',
           'margin' : 'auto',

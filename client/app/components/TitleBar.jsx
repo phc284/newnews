@@ -6,7 +6,7 @@ const styles = {
     background: '#8493a8',
     height: 60,
     margin: 'auto',
-    marginBottom: '3px',
+    marginBottom: '2px',
     width: '100%',
   }
 };

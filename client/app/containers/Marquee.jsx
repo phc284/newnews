@@ -40,7 +40,7 @@ class Marquee extends React.Component {
       var tag = headline.title + '     |     '
       result.push(tag)
     })
-    //randomize the headlines order
+    //randomize the headlines
     result.sort(() => Math.random() - 0.5)
     this.setState({
       headlines: result

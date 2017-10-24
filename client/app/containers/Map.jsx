@@ -79,7 +79,8 @@ class Map extends React.Component {
           'backgroundColor' : '#c6c6c6',
           'margin' : 'auto',
           'borderAlpha': 1,
-          'borderColor': '#000000'
+          'borderColor': '#000000',
+          'borderRadius': '20px'
         }}
         options ={{
           'type': 'map',

@@ -14,6 +14,7 @@ class Map extends React.Component {
     super();
     this.state = {
       images: [],
+      word: ''
     }
   }
   componentWillMount() {
@@ -66,15 +67,23 @@ class Map extends React.Component {
     this.setState({images: images});
   }
 
-  render () {
+  //map will rerender and zoom back out if the state changes
+  shouldComponentUpdate(nextProps) {
+    console.log('this.props', this.props)
+    console.log('nextprops', nextProps)
+    //if the word changes, return false so the map doesn't rerender
+    const different = nextProps.activeWord === this.props.activeWord
+    return different;
+   }
 
+  render () {
     //so listeners can see scope
     var scope = this;
     return (
       <AmCharts.React
         style={{
           'width' : '100%',
-          'height' : '85%',
+          'height' : '75%',
           'backgroundAlpha' : 1,
           'backgroundColor' : '#c6c6c6',
           'margin' : 'auto',
@@ -132,9 +141,11 @@ class Map extends React.Component {
           'listeners': [
             {
               'event': 'clickMapObject',
-              'method': function(event) {
+              'method': function (event) {
                 //add selected object label into store to grab articles
+                console.log(event)
                 scope.props.selectWord(event.mapObject.label)
+                // scope.sayHello(event.mapObject.label)
               }
             },
             {

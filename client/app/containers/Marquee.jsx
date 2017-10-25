@@ -45,7 +45,7 @@ class Marquee extends React.Component {
     //randomize the headlines
     result.sort(() => Math.random() - 0.5)
     this.setState({
-      headlines: result
+      headlines: result.slice(0,50)
     })
   }
 

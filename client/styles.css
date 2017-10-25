@@ -50,6 +50,13 @@ body {
   margin-bottom: 8px;
   font-family: Rubik Mono One;
   font-weight: 200;
+  background-image: url('nasa.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 100;
+  padding-top: 45;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 /* Make it move */

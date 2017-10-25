@@ -10,7 +10,9 @@ import Marquee from "./Marquee.jsx";
 
 const App = () => (
   <MuiThemeProvider>
-    <AppBar />
+    <div className='title'>
+      NewNews
+    </div>
     <div className='marqueeBar'>
       <Marquee />
     </div>

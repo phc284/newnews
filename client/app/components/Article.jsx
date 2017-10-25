@@ -60,7 +60,7 @@ const Article = ({ article }) => (
       subtitle={article.host}
       actAsExpander={true}
       showExpandableButton={true}
-      style={{maxWidth: '89%'}}
+      style={{maxWidth: '89%', paddingRight: '50'}}
     />
     <CardText expandable={true} style={styles.card.text}>
       {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>

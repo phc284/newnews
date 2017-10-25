@@ -7,7 +7,7 @@ import axios from 'axios'
 
 const styles = {
   title: {
-    background: '#373737',
+    background: 'none',
     height: 30,
     margin: 'auto',
     marginBottom: '8px',
@@ -39,6 +39,7 @@ class Marquee extends React.Component {
       .catch((error) => console.log('Map.jsx: ', error));
   }
 
+  //create array of headlines to add to the state
   generateHeadlines(headlines) {
     let result = []
     headlines.forEach((headline) => {
@@ -55,6 +56,7 @@ class Marquee extends React.Component {
 
 
   render() {
+    //make string of headlines to display
     var headlines = this.state.headlines.join('')
     return (
       <AppBar

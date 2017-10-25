@@ -2,7 +2,10 @@
 @import url(https://fonts.googleapis.com/css?family=Rubik+Mono+One);
 
 body {
-  background-color: #373737
+  background-color: #373737;
+  /*background-image: url('nasa-full.jpg');*/
+  /*background-size: 100% 100%;*/
+  /*background-repeat: no-repeat;*/
 }
 
 .sharebutton {
@@ -50,7 +53,7 @@ body {
   margin-bottom: 8px;
   font-family: Rubik Mono One;
   font-weight: 200;
-  background-image: url('nasa.jpg');
+  background-image: url('nasa-full.jpg');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   height: 100;

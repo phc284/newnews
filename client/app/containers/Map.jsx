@@ -17,6 +17,7 @@ class Map extends React.Component {
       word: ''
     }
   }
+
   componentWillMount() {
     axios.get('/concepts')
       .then((response) => {
@@ -26,6 +27,15 @@ class Map extends React.Component {
       .catch((error) => console.log('Map.jsx: ', error));
   }
 
+  //map will rerender and zoom back out if the state changes
+  shouldComponentUpdate(nextProps) {
+    console.log('this.props', this.props)
+    console.log('nextprops', nextProps)
+    //if the word changes, return false so the map doesn't rerender
+    const different = nextProps.activeWord === this.props.activeWord
+    return different;
+  }
+  
   generateImages(conceptData) {
     let images = [];
 
@@ -67,14 +77,6 @@ class Map extends React.Component {
     this.setState({images: images});
   }
 
-  //map will rerender and zoom back out if the state changes
-  shouldComponentUpdate(nextProps) {
-    console.log('this.props', this.props)
-    console.log('nextprops', nextProps)
-    //if the word changes, return false so the map doesn't rerender
-    const different = nextProps.activeWord === this.props.activeWord
-    return different;
-   }
 
   render () {
     //so listeners can see scope

@@ -24,7 +24,7 @@ const styles = {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: '#373737'
+    backgroundColor: 'none'
   },
   list: {
     width: '95%',

@@ -1,59 +1,83 @@
 const Axios = require('axios');
 const Schedule = require('node-schedule');
-const Header = require('../config/config.js');
+const {url, username, password, version} = require('../config/config.js');
+const Continents = require('./Continents.js')
 
 /*// node-schedule time format
 'second, minute, hour, dayOfMonth, month, dayOfWeek'*/
 const fetchTime = '0 0 5 * * *'; //every day at 6am
 const everyTwoSec = '*/2 * * * * *'
 
-const count = 50;
 const date = new Date();
-const today = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
-const returnColumn = ['id', 'title', 'author', 'text', 'url', 'crawl_date',
-  'score', 'country', 'enriched_text.keywords', 'enriched_text.sentiment',
-  'enriched_text.concepts', 'enriched_text.categories'].join('%2C');
+const yesterday = [date.getFullYear(), date.getMonth()+1, date.getDate()-1].join('-');
 
-// const requestURL = `https://watson-api-explorer.mybluemix.net/discovery/api/v1/`
-//   + `environments/${id_envir}/collections/${id_collect}/query?`
-//   + `filter=crawl_date%3C${today}` // crawl_date < today's date
-//   + `&count=${count}`
-//   + `&return=${returnColumn}`
-//   + `&sort=-crawl_date` // sort by crawl_date
-//   + `&version=${version}`
+var continentName = 'AXIOS_TESTRUN'
+var countryList = Continents['Asia']
 
-const aggregation = `https://watson-api-explorer.mybluemix.net/discovery/api/v1/`
-  + `environments/${id_envir}/collections/${id_collect}/query?`
-  + `filter=crawl_date%3C${today}`
-  + `&aggregation=term(enriched_text.keywords.text).top_hits(10)`
-  + `&count=${count}`
-  + `&return=${returnColumn}`
-  + `&version=${version}`
+Axios.get(url, {
+  auth: {
+    username: username,
+    password: password
+  },
+
+  params: {
+    aggregation: `filter(crawl_date>${yesterday})`
+      + `.filter(country::[${countryList.join('|')}])`
+      + `.term(enriched_text.concepts.text).top_hits(20)`,
+    count: 0,
+    version: version
+  }
+
+}).then ( ({data}) => {
+  var staged_articles = [];
+  data.aggregations[0].aggregations[0].aggregations[0].results.map( ({key, aggregations}) =>{
+    aggregations[0].hits.hits.map( ({id, score, title, country, crawl_date,
+      url, host, text, main_image_url, enriched_text}) => {
+      staged_articles.push({
+        id:id,
+        key:key,
+        score:score,
+        title:title,
+        country:country,
+        crawl_date:crawl_date,
+        url:url,
+        host:host,
+        text:text,
+        main_image_url:main_image_url,
+        sentiment_score:enriched_text.sentiment.document.score,
+        concepts: enriched_text.concepts,
+        category:enriched_text.categories[0]
+      });
+    });
+  })
+
+  //saving file
+  fs.open(`./${continentName}_top20_filtered.js`,'w', (err, result) => {
+    if(!err){
+      fs.writeFile(`./${continentName}_top20_filtered.js`, JSON.stringify({results:staged_articles},null,2), (err) => {
+        err?  console.log(err) : console.log(`SUCCESS: ${staged_articles.length} articles written to ${continentName}_top20_filtered.js`);
+      })
+    } else {
+      console.log('FILE OPEN FAIL',err);
+    }
+  })
+
+}).catch( (error) => {
+  console.log(error);
+})
 
 
-  /*
-  https://watson-api-explorer.mybluemix.net/discovery/api/v1/environments/system/collections/news/
-  query?filter=crawl_date%3C2017-10-16&aggregation=term(enriched_text.concepts.text).top_hits(10)&count=50&
-  return=id%2Ctitle%2Cauthor%2Ctext%2Curl%2Ccrawl_date%2Cpublication_date%2Cscore%2Ccountry%2Cenriched_text.keywords
-  %2Cenriched_text.sentiment%2Cenriched_text.concepts%2Cenriched_text.categories&version=2017-10-26
-  */
-// let requestParams = Object.assign({
-//   "aggregation": 'term(enriched_text.keywords.text).top_hits(10)',
-//   "filter" : `crawl_date%3C${today}`,
-//   "count"  : count,
-//   "return" : returnColumn,
-//   "sort"   : "-crawl_date"
-// }, Header);
 // const cronRule = new Schedule.RecurrenceRule();
 // cronRule.hour = 5;
 
-const job = Schedule.scheduleJob(everyTwoSec, ()=>{
-  console.log('two seconds have passed!')
-  console.log(`today's date is: ${today}`)
-  console.log(requestURL);
-  // Axios.get(url).then( (resolve) => {
-  //
-  // }).catch( (err) => {
-  //
-  // })
-})
+// const job = Schedule.scheduleJob(everyTwoSec, ()=>{
+//   console.log('two seconds have passed!')
+//   console.log(`yesterday's date is: ${yesterday}`)
+//   console.log(requestURL);
+//   // Axios.get(url).then( (resolve) => {
+//   //
+//   // }).catch( (err) => {
+//   //
+//   // })
+//   console.log(typeof new Date())
+// })

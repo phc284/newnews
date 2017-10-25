@@ -1,4 +1,4 @@
-{
+module.exports = {
   "results": [
     {
       "id": "mvvAwbJNqetbG0PO1YfJT-PXNH2P5n3vhcuNXNjOgVZZFONJIH9Ofw483MeGnaHD",

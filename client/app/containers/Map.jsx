@@ -86,7 +86,7 @@ class Map extends React.Component {
           'type': 'map',
           'theme' : 'chalk',
           'addClassNames': true,
-          'centerMap': false,
+          // 'centerMap': false,
           'dataProvider' : {
             'map' : 'continentsLow',
             // 'getAreasFromMap' : true,
@@ -168,7 +168,7 @@ class Map extends React.Component {
                 //when home button is clicked (zoomed back out), hide this group of images
                 event.chart.hideGroup('hello')
               }
-            }
+            },
           ]
         }}
       />

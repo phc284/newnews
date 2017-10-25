@@ -7,11 +7,13 @@ import axios from 'axios'
 
 const styles = {
   title: {
-    background: '#8493a8',
+    background: '#373737',
     height: 30,
     margin: 'auto',
     marginBottom: '8px',
-    width: '100%'
+    width: '100%',
+    paddingLeft: '-5px',
+    paddingRight: '0px'
   }
 };
 

@@ -1,4 +1,4 @@
-const data = require('../watson/top_10_filtered');
+// const data = require('../watson/top_10_filtered');
 
 const MAX_CONCEPTS_PER_CONTINENT = 5;
 

@@ -10,7 +10,7 @@ const styles = {
     background: '#8493a8',
     height: 30,
     margin: 'auto',
-    marginBottom: '15px',
+    marginBottom: '8px',
     width: '100%'
   }
 };

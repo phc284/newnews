@@ -27,7 +27,7 @@ body {
 .marquee span {
     display: inline-block;
     padding-left: 100%;  /* show the marquee just outside the paragraph */
-    animation: marquee 250s linear infinite;
+    animation: marquee 275s linear infinite;
     white-space:pre;
 }
 

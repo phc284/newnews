@@ -14,6 +14,9 @@ const styles = {
     width: '100%',
     paddingLeft: '-5px',
     paddingRight: '0px'
+  },
+  span: {
+    height: 50
   }
 };
 
@@ -57,7 +60,7 @@ class Marquee extends React.Component {
       <AppBar
       style={styles.title}
       showMenuIconButton={false}
-      title={<p className="microsoft marquee"><span>{headlines}</span></p>}
+      title={<p className="microsoft marquee"><span style={styles.span}>{headlines}</span></p>}
       />
     )
   }

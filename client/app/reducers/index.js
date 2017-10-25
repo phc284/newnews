@@ -3,7 +3,6 @@ import { combineReducers } from "redux";
 function activeWordReducer (state=null, action) {
   switch(action.type) {
     case 'SELECT_WORD':
-      console.log('payload in word reducer', action.payload)
       return action.payload
       break;
   }

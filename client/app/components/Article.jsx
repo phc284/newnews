@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
 import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
+import Chip from 'material-ui/Chip';
 
 const {
   FacebookShareButton,
@@ -19,6 +20,10 @@ const LinkedinIcon = generateShareIcon('linkedin');
 const PinterestIcon = generateShareIcon('pinterest');
 const RedditIcon = generateShareIcon('reddit');
 const EmailIcon = generateShareIcon('email');
+
+function handleTouchTap() {
+  console.log('can you see me');
+};
 
 const styles = {
   card: {
@@ -48,9 +53,15 @@ const styles = {
     text: {
       paddingTop: '0px',
       paddingBottom: '2px'
+    },
+    chip: {
+      marginRight: 4,
+      display: 'inline-block'
     }
   }
 };
+
+//{article.concepts[1].text.toLowerCase()} chip text, change when connected to db
 
 const Article = ({ article }) => (
   <Card style={styles.card}>
@@ -64,6 +75,11 @@ const Article = ({ article }) => (
     />
     <CardText expandable={true} style={styles.card.text}>
       {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>
+      <div className="chips">
+        <Chip style={styles.card.chip} onClick={handleTouchTap}>stock market</Chip>
+        <Chip style={styles.card.chip} onClick={handleTouchTap}>stock market</Chip>
+        <Chip style={styles.card.chip} onClick={handleTouchTap}>stock market</Chip>
+      </div>
       <div>
         <div className="sharebutton">
           <FacebookShareButton url={article.url}>

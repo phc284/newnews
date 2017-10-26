@@ -14751,21 +14751,6 @@ const eightConcept = [['Cyrillic alphabet', 31], ['Web design', 31]];
 const ninthConcept = ['Communication design', 28];
 const tenthConcept = ['Website', 27];
 
-const SA_EU_inCommon = [ 
-  'Advertising',
-  'Marketing',
-  'Supply and demand',
-  'Management',
-  'Europe',
-  'United States',
-  'English-language films',
-  'Manufacturing',
-  'North America',
-  'World Wide Web',
-  'Investment',
-  'Google' 
-];
-
 const conceptsOccuringMoreThanTwiceAndRelevancyHigherThanEightTenths = { 
   Advertising: { count: 9, relevance: 0.831539, country: [ 'CO', 'PE' ] },
   Marketing: { count: 43, relevance: 0.987864, country: [ 'CO', 'PE', 'AR' ] },

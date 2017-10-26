@@ -4,6 +4,9 @@ const Router = require('koa-router');
 const serve = require('koa-static');
 
 const dbFetch = require('./requestHandlers/dbFetch');
+const articleHandler = require('./requestHandlers/article-handler.js');
+const Article = require('./models/Article.js');
+
 const app = new Koa();
 const router = new Router();
 
@@ -11,16 +14,8 @@ app.use( bodyParser() );
 app.use( serve(__dirname + '/client') );
 
 router
-  .get('/articles/:conceptId', async (ctx, next) => {
-    let conceptId = ctx.params.conceptId;
-
-    await dbFetch.getArticlesForRequestedConcept(conceptId)
-      .then(function(response) {
-        ctx.body = {
-          'articles' : response,
-        };
-      });
-  })
+  .get('/articles', articleHandler.retrieveArticles)
+  .get('/articles/:conceptId', articleHandler.retrieveByConcept)
   .get('/concepts', async (ctx, next) => {
     await dbFetch.getConceptsByContinent()
       .then(function(response) {
@@ -29,7 +24,6 @@ router
         }
       })
   })
-
  .get('/headlines', async (ctx, next) => {
    await dbFetch.getHeadlines()
     .then(function(response) {

@@ -19,7 +19,7 @@ const styles = {
     width: '44%',
   },
   paper: {
-    overflow: 'auto',
+    overflow: 'overlay',
     maxHeight: '75%',
     width: '100%',
     display: 'flex',

@@ -22,7 +22,8 @@ const EmailIcon = generateShareIcon('email');
 
 const styles = {
   card: {
-    maxWidth: '100%',
+    width: '100%',
+    margin: 'auto',
     'borderRadius': '5px',
     icon: {
       margin: '10px',
@@ -60,7 +61,6 @@ const Article = ({ article }) => (
       subtitle={article.host}
       actAsExpander={true}
       showExpandableButton={true}
-      style={{maxWidth: '89%', paddingRight: '50'}}
     />
     <CardText expandable={true} style={styles.card.text}>
       {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>

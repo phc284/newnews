@@ -142,7 +142,6 @@ class Map extends React.Component {
               'event': 'clickMapObject',
               'method': function (event) {
                 //add selected object label into store to grab articles
-                console.log('map object',event.mapObject)
                 scope.props.selectWord(event.mapObject.label)
                 // scope.sayHello(event.mapObject.label)
               }

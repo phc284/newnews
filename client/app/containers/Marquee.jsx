@@ -34,7 +34,6 @@ class Marquee extends React.Component {
     //get headlines from the DB
     axios.get('/headlines')
       .then((response) => {
-        console.log('headlines response', response)
         this.generateHeadlines(response.data)
       })
       .catch((error) => console.log('Map.jsx: ', error));

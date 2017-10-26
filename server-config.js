@@ -27,7 +27,6 @@ router
  .get('/headlines', async (ctx, next) => {
    await dbFetch.getHeadlines()
     .then(function(response) {
-      console.log('headline res', response)
       ctx.body = {
         'headlines': response
       }

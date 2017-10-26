@@ -42,7 +42,6 @@ class Marquee extends React.Component {
 
   //create array of headlines to add to the state
   generateHeadlines(headlines) {
-    console.log('headlines', headlines)
     let result = []
     headlines.headlines.forEach((headline) => {
       var tag = headline.title + '     |     '

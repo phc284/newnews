@@ -29,8 +29,6 @@ class Map extends React.Component {
 
   //map will rerender and zoom back out if the state changes
   shouldComponentUpdate(nextProps) {
-    console.log('this.props', this.props)
-    console.log('nextprops', nextProps)
     //if the word changes, return false so the map doesn't rerender
     const different = nextProps.activeWord === this.props.activeWord
     return different;

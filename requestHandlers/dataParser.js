@@ -111,7 +111,6 @@ var convertObjToArray = function(conceptsObj) {
 }
 
 var filterArticlesHeadline = function(articles) {
-  console.log(articles.data)
   let filteredArticles = [];
 
   articles.forEach(function(article) {

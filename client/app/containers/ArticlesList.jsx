@@ -36,7 +36,7 @@ class Articles extends React.Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.activeWord !== this.props.activeWord) {
-      console.log(this.props.activeWord, nextProps.activeWord);
+      console.log(nextProps.activeWord);
       nextProps.getArticles(nextProps.activeWord);
     }
   }

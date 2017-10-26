@@ -39,7 +39,8 @@ export const getArticles = (query) => {
     //change when route is set
     axios.get('/articles/' + query, {params: {query: query}})
     .then( response => {
-      dispatch({type: 'GET_ARTICLES', payload: response.data.articles})
+      console.log('getArticles action', response)
+      dispatch({type: 'GET_ARTICLES', payload: response.data})
     })
     .catch( error => {
       console.log(error)

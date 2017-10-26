@@ -34,15 +34,17 @@ class Marquee extends React.Component {
     //get headlines from the DB
     axios.get('/headlines')
       .then((response) => {
-        this.generateHeadlines(response.data.headlines)
+        console.log('headlines response', response)
+        this.generateHeadlines(response.data)
       })
       .catch((error) => console.log('Map.jsx: ', error));
   }
 
   //create array of headlines to add to the state
   generateHeadlines(headlines) {
+    console.log('headlines', headlines)
     let result = []
-    headlines.forEach((headline) => {
+    headlines.headlines.forEach((headline) => {
       var tag = headline.title + '     |     '
       result.push(tag)
     })

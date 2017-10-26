@@ -3,6 +3,7 @@ import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
 import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import Chip from 'material-ui/Chip';
 
+
 const {
   FacebookShareButton,
   GooglePlusShareButton,
@@ -33,6 +34,9 @@ const styles = {
     icon: {
       margin: '10px',
       width: '52px'
+    },
+    chip: {
+      display: 'inline-block'
     },
     country: {
       fontWeight: 'bold',
@@ -84,6 +88,11 @@ const Article = ({ article, concepts }) => (
         <Chip style={styles.card.chip} onClick={handleTouchTap}>{concepts[0].text}</Chip>
         <Chip style={styles.card.chip} onClick={handleTouchTap}>{concepts[1].text}</Chip>
         <Chip style={styles.card.chip} onClick={handleTouchTap}>{concepts[2].text}</Chip>
+      </div>
+      <div>
+        <Chip style={styles.card.chip}> Hello </Chip>
+        <Chip style={styles.card.chip}> Two </Chip>
+        <Chip style={styles.card.chip}> Three </Chip>
       </div>
       <div>
         <div className="sharebutton">

@@ -3,9 +3,11 @@
 
 body {
   background-color: #373737;
-  /*background-image: url('nasa-full.jpg');*/
-  /*background-size: 100% 100%;*/
-  /*background-repeat: no-repeat;*/
+  margin: 0;
+  padding: 0;
+  background-image: url('nasa-full.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
 .sharebutton {
@@ -47,15 +49,15 @@ body {
 
 .title {
   color: #ffffff;
-  font-size: 52;
+  font-size: 72;
   display: flex;
   justify-content: center;
   margin-bottom: 8px;
   font-family: Rubik Mono One;
   font-weight: 200;
-  background-image: url('nasa-full.jpg');
+  /*background-image: url('nasa-full.jpg');
   background-size: 100% 100%;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat;*/
   height: 100;
   padding-top: 45;
   margin-left: -8px;

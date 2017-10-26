@@ -6,7 +6,7 @@ import Map from "./Map.jsx";
 import AppBar from "../components/TitleBar.jsx";
 import Articles from "./ArticlesList.jsx";
 import Marquee from "./Marquee.jsx";
-
+import Footer from "../components/Footer.jsx";
 
 const App = () => (
   <MuiThemeProvider>

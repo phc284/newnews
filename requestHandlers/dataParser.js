@@ -1,4 +1,5 @@
 // const data = require('../watson/top_10_filtered');
+const Continents = require('../watson/Continents.js');
 
 const MAX_CONCEPTS_PER_CONTINENT = 5;
 
@@ -46,29 +47,46 @@ var filterArticlesByKeyword = function(articles, requestedConcept) {
 
 var flattenConcepts = function(conceptsRay) {
   let flattenedObj = {
-    'NA' : {},
-    'SA' : {},
-    'EU' : {},
-    'AF' : {},
-    'APAC' : {},
-    'AU' : {},
+    'nAmerica' : {},
+    'sAmerica' : {},
+    'Europe' : {},
+    'Africa' : {},
+    'Asia' : {},
+    'Oceania' : {},
   };
 
   // console.log('dataParser.js, conceptsRay: ', conceptsRay);
 
   conceptsRay.forEach(function(conceptItem) {
-    let continent = mapCountryToContinent[conceptItem.country];
-    let conceptList = conceptItem.concepts;
 
-    // console.log('dataParser.js, continent: ', continent);
-    if(continent) {
-      for(let conceptKey in conceptList) {
-        if(flattenedObj[continent][conceptKey]) {
-          flattenedObj[continent][conceptKey]++;
-        } else {
-          flattenedObj[continent][conceptKey] = 1;
+    if(conceptItem.country){
+
+      var continent;
+      for(let continentName in Continents){
+        if(Continents[continentName].includes(conceptItem.country)){
+          continent = continentName;
         }
       }
+      // let continent = mapCountryToContinent[conceptItem.country];
+      let conceptList = conceptItem.concepts;
+
+      // console.log('dataParser.js, continent: ', continent);
+
+      conceptList.map( ({text, relevance}) => {
+        if(flattenedObj[continent][text]){
+          flattenedObj[continent][text] += relevance;
+        } else {
+          flattenedObj[continent][text] = relevance;
+        }
+
+        // for(let conceptKey in conceptList) {
+        //   if(flattenedObj[continent][conceptKey]) {
+        //     flattenedObj[continent][conceptKey]++;
+        //   } else {
+        //     flattenedObj[continent][conceptKey] = 1;
+        //   }
+        // }
+      });
     }
   });
 

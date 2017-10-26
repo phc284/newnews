@@ -78,12 +78,14 @@ const continents = ['Africa', 'Asia', 'Europe', 'NorthAmerica', 'Oceania', 'Sout
 continents.map( (continentName) => {
   var articles = require(`./${continentName}_top20_filtered.js`);
 
-  Promise.all( articles.results.slice(0,2).map( (article) => {
-    let newArticle = new Article(article);
-    return newArticle.save()
-    .catch( (error) => {
-      console.log(error)
-      });
+  Promise.all( articles.results.map( (article) => {
+    return Article.findOneAndUpdate({id: article.id}, article, {upsert:true})
+    // let newArticle = new Article(article);
+    // return newArticle.save()
+    // .catch( (error) => {
+    //   console.log(error)
+    //   });
+    // })
     })
   );
 

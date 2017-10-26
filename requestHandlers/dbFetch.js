@@ -1,6 +1,7 @@
 const Cassandra = require('cassandra-driver');
 const Promise = require('bluebird');
 const dataParser = require('./dataParser');
+const Article = require('../models/Article.js');
 
 var client = new Cassandra.Client({
   'contactPoints' : ['localhost'],

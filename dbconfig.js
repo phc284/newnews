@@ -42,31 +42,6 @@ client.connect(function(err, result) {
 	exit
 */
 
-/*
-https://watson-api-explorer.mybluemix.net/discovery/api/v1/environments/system/collections/news/
-query?filter=crawl_date%3C2017-10-16&aggregation=term(enriched_text.concepts.text).top_hits(10)&count=50&
-return=id%2Ctitle%2Cauthor%2Ctext%2Curl%2Ccrawl_date%2Cpublication_date%2Cscore%2Ccountry%2Cenriched_text.keywords
-%2Cenriched_text.sentiment%2Cenriched_text.concepts%2Cenriched_text.categories&version=2017-09-01
-*/
-
-// const discovery = new DiscoveryV1({
-//   username: WATSON_API.username,
-//   password: WATSON_API.password,
-//   version_date: '2017-10-16'
-// })
-//
-// discovery.query({
-//   environment_id: 'system',
-//   collection_id: 'news',
-//   count: 0,
-//   aggregation : 'term(enriched_text.concepts.text).filter(crawl_date>2017-10-23).top_hits(1)'
-//
-// }).then( (resolve) => {
-//
-// }).catch( (error) => {
-//   console.log(error)
-// })
-
 var staged_execution = [];
 
 const WatsonTop10 = require("./watson/top_10_filter_19.js"); //STATIC TEST DATA

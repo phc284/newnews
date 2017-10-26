@@ -1,7 +1,14 @@
 const Axios = require('axios');
 const Schedule = require('node-schedule');
+// const Promise = require('bluebird');
+const mongoose = require('mongoose')
+const dbconnection = require('../mongodb_config')
+mongoose.Promise = global.Promise;
+
+const Article = require('../models/Article.js');
 const {url, username, password, version} = require('../config/config.js');
-const Continents = require('./Continents.js')
+const Continents = require('./Continents.js');
+
 
 /*// node-schedule time format
 'second, minute, hour, dayOfMonth, month, dayOfWeek'*/
@@ -14,6 +21,7 @@ const yesterday = [date.getFullYear(), date.getMonth()+1, date.getDate()-1].join
 var continentName = 'AXIOS_TESTRUN'
 var countryList = Continents['Asia']
 
+/*
 Axios.get(url, {
   auth: {
     username: username,
@@ -46,11 +54,12 @@ Axios.get(url, {
         main_image_url:main_image_url,
         sentiment_score:enriched_text.sentiment.document.score,
         concepts: enriched_text.concepts,
-        category:enriched_text.categories[0]
+        category:enriched_text.categories[0].label
       });
     });
   })
-
+*/
+/*
   //saving file
   fs.open(`./${continentName}_top20_filtered.js`,'w', (err, result) => {
     if(!err){
@@ -61,10 +70,24 @@ Axios.get(url, {
       console.log('FILE OPEN FAIL',err);
     }
   })
+*/
 
-}).catch( (error) => {
-  console.log(error);
-})
+//static files to mongoDB
+const continents = ['Africa', 'Asia', 'Europe', 'NorthAmerica', 'Oceania', 'SouthAmerica'];
+
+continents.map( (continentName) => {
+  var articles = require(`./${continentName}_top20_filtered.js`);
+
+  Promise.all( articles.results.slice(0,2).map( (article) => {
+    let newArticle = new Article(article);
+    return newArticle.save()
+    .catch( (error) => {
+      console.log(error)
+      });
+    })
+  );
+
+});
 
 
 // const cronRule = new Schedule.RecurrenceRule();

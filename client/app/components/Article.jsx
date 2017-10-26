@@ -22,8 +22,9 @@ const EmailIcon = generateShareIcon('email');
 
 const styles = {
   card: {
-    margin: 'auto',
     width: '100%',
+    margin: 'auto',
+    'borderRadius': '5px',
     icon: {
       margin: '10px',
       width: '52px'
@@ -38,14 +39,15 @@ const styles = {
     },
     title: {
       fontWeight: 'bold',
-      fontSize: '14px'
+      fontSize: '14px',
     },
     avatar: {
       width: '52px',
       height: '52px'
     },
     text: {
-      paddingTop: '0px'
+      paddingTop: '0px',
+      paddingBottom: '2px'
     }
   }
 };
@@ -65,37 +67,37 @@ const Article = ({ article }) => (
       <div>
         <div className="sharebutton">
           <FacebookShareButton url={article.url}>
-            <FacebookIcon size={18} square />
+            <FacebookIcon size={22} square />
           </FacebookShareButton>
         </div>
         <div className="sharebutton">
           <TwitterShareButton url={article.url}>
-            <TwitterIcon size={18} square />
+            <TwitterIcon size={22} square />
           </TwitterShareButton>
         </div>
         <div className="sharebutton">
           <GooglePlusShareButton url={article.url}>
-            <GooglePlusIcon size={18} square />
+            <GooglePlusIcon size={22} square />
           </GooglePlusShareButton>
         </div>
         <div className="sharebutton">
           <LinkedinShareButton url={article.url}>
-            <LinkedinIcon size={18} square />
+            <LinkedinIcon size={22} square />
           </LinkedinShareButton>
         </div>
         <div className="sharebutton">
           <PinterestShareButton url={article.url}>
-            <PinterestIcon size={18} square />
+            <PinterestIcon size={22} square />
           </PinterestShareButton>
         </div>
         <div className="sharebutton">
           <RedditShareButton url={article.url}>
-            <RedditIcon size={18} square />
+            <RedditIcon size={22} square />
           </RedditShareButton>
         </div>
         <div className="sharebutton">
           <EmailShareButton url={article.url}>
-            <EmailIcon size={18} square />
+            <EmailIcon size={22} square />
           </EmailShareButton>
         </div>
       </div>

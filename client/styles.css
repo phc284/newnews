@@ -1,13 +1,18 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url(https://fonts.googleapis.com/css?family=Rubik+Mono+One);
 
 body {
-  background-color: #373737
+  background-color: #373737;
+
+  background-image: url('nasa-full.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
 .sharebutton {
   display: inline-block;
   padding-right: 10px;
-  padding-top: 5px;
+  padding-top: 10px;
 }
 
 .amcharts-map-image-label tspan {
@@ -26,7 +31,7 @@ body {
 .marquee span {
     display: inline-block;
     padding-left: 100%;  /* show the marquee just outside the paragraph */
-    animation: marquee 250s linear infinite;
+    animation: marquee 275s linear infinite;
     white-space:pre;
 }
 
@@ -39,6 +44,26 @@ body {
 
 .marquee span:hover {
   animation-play-state: paused
+}
+
+.title {
+  color: #ffffff;
+  font-size: 72;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+  font-family: Rubik Mono One;
+  font-weight: 200;
+  /*background-image: url('nasa-full.jpg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;*/
+  height: 100;
+  padding-top: 45;
+  margin-left: -8px;
+  margin-right: -5px;
+  margin-top: -8px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
 }
 
 /* Make it move */

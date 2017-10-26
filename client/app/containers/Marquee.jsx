@@ -7,11 +7,16 @@ import axios from 'axios'
 
 const styles = {
   title: {
-    background: '#8493a8',
+    background: 'none',
     height: 30,
     margin: 'auto',
-    marginBottom: '15px',
-    width: '100%'
+    marginBottom: '8px',
+    width: '100%',
+    paddingLeft: '-5px',
+    paddingRight: '0px'
+  },
+  span: {
+    height: 50
   }
 };
 
@@ -34,28 +39,30 @@ class Marquee extends React.Component {
       .catch((error) => console.log('Map.jsx: ', error));
   }
 
+  //create array of headlines to add to the state
   generateHeadlines(headlines) {
     let result = []
     headlines.forEach((headline) => {
       var tag = headline.title + '     |     '
       result.push(tag)
     })
-    //randomize the headlines order
+    //randomize the headlines
     result.sort(() => Math.random() - 0.5)
     this.setState({
-      headlines: result
+      headlines: result.slice(0,50)
     })
   }
 
 
 
   render() {
+    //make string of headlines to display
     var headlines = this.state.headlines.join('')
     return (
       <AppBar
       style={styles.title}
       showMenuIconButton={false}
-      title={<p className="microsoft marquee"><span>{headlines}</span></p>}
+      title={<p className="microsoft marquee"><span style={styles.span}>{headlines}</span></p>}
       />
     )
   }

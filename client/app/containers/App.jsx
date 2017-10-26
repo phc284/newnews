@@ -7,10 +7,11 @@ import AppBar from "../components/TitleBar.jsx";
 import Articles from "./ArticlesList.jsx";
 import Marquee from "./Marquee.jsx";
 
-
 const App = () => (
   <MuiThemeProvider>
-    <AppBar />
+    <div className='title'>
+      NewNews
+    </div>
     <div className='marqueeBar'>
       <Marquee />
     </div>

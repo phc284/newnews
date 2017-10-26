@@ -16,15 +16,15 @@ const styles = {
   container: {
     display: 'flex',
     justifyContent: 'center',
-    width: '44%'
+    width: '44%',
   },
   paper: {
-    overflow: 'auto',
-    maxHeight: '85%',
+    overflow: 'overlay',
+    maxHeight: '75%',
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: '#373737'
+    backgroundColor: 'none'
   },
   list: {
     width: '95%',

@@ -27,11 +27,9 @@ var getConceptsByContinent = () => {
   //   .then((response) => { return dataParser.flattenConcepts(response) });
 }
 
-var getHeadlines = function () {
-  let query = 'SELECT title, url FROM articles;';
-  return client.execute(query)
-    .then((response) => { return response.rows})
-    .then((response) => { return dataParser.filterArticlesHeadline(response)})
+var getHeadlines = () => {
+  return Article.find({}, 'title url')
+    .then((columns) => { return dataParser.filterArticlesHeadline(columns)})
 }
 
 module.exports = {

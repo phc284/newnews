@@ -14,13 +14,13 @@ class Map extends React.Component {
     super();
     this.state = {
       images: [],
-      word: ''
     }
   }
 
   componentWillMount() {
     axios.get('/concepts')
       .then((response) => {
+        console.log(response)
         let conceptData = response.data.concepts;
         this.generateImages(conceptData);
       })
@@ -29,20 +29,17 @@ class Map extends React.Component {
 
   //map will rerender and zoom back out if the state changes
   shouldComponentUpdate(nextProps) {
-    console.log('this.props', this.props)
-    console.log('nextprops', nextProps)
     //if the word changes, return false so the map doesn't rerender
     const different = nextProps.activeWord === this.props.activeWord
     return different;
   }
-  
+
   generateImages(conceptData) {
     let images = [];
 
     for(let continent in conceptData) {
       conceptData[continent].forEach(function(concept, index) {
         images.push({
-          'groupID': 'hello',
           'latitude' : mapConfig.geoCenters[continent].latitude + mapConfig.coordOffsets[index].latitude,
           'longitude' : mapConfig.geoCenters[continent].longitude + mapConfig.coordOffsets[index].longitude,
           // 'type' : 'circle',
@@ -145,7 +142,6 @@ class Map extends React.Component {
               'event': 'clickMapObject',
               'method': function (event) {
                 //add selected object label into store to grab articles
-                console.log(event)
                 scope.props.selectWord(event.mapObject.label)
                 // scope.sayHello(event.mapObject.label)
               }

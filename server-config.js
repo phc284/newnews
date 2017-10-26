@@ -31,6 +31,7 @@ router
         'headlines': response
       }
     })
+    .catch((err) => {console.log(err)})
   })
 
 app.use( router.routes() );

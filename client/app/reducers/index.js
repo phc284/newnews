@@ -13,7 +13,6 @@ function activeWordReducer (state=null, action) {
 function articleReducer(state=null, action) {
   switch(action.type) {
     case 'GET_ARTICLES':
-    console.log('payload in article reducer', action.payload)
      return action.payload
      break;
   }

@@ -18,6 +18,7 @@ exports.retrieveByConcept = async (ctx, next) => {
 
   let conceptId = ctx.params.conceptId;
   await Article.find({key: conceptId}).then( (rows) => {
+    console.log('inside of article-handler.js: ', rows);
     ctx.body = rows;
   }).catch( (error) => {
     ctx.body = error;

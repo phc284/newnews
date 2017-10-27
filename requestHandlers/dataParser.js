@@ -93,7 +93,7 @@ var flattenConcepts = function(conceptsRay) {
   for(let continent in flattenedObj) {
     flattenedObj[continent] = convertObjToArray(flattenedObj[continent]);
   }
-
+  console.log('flattenobj', flattenedObj)
   return flattenedObj;
 }
 

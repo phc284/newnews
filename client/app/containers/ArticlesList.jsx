@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getArticles } from '../actions';
 import { topten } from '../../../watson/restructured_data.js';
-import List from 'material-ui/List'
-import Paper from 'material-ui/Paper'
+import List from 'material-ui/List';
+import Paper from 'material-ui/Paper';
 
 //add redux functionality to access array of data objects in state
 
@@ -42,7 +42,6 @@ class Articles extends React.Component {
   }
 
   render () {
-    console.log('inside render: ', this.props)
     var articles = this.props.articles || topten;
     return (
       <div style={styles.container}>
@@ -52,7 +51,7 @@ class Articles extends React.Component {
               return <div
                 key={index}
                 style={styles.article}>
-                  <Article article={article}/>
+                  <Article article={article} concepts={article.concepts}/>
                 </div>
             })}
           </List>

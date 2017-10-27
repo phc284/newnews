@@ -1,4 +1,4 @@
-const blacklist = [
+const globalBlacklist = [
   'World Wide Web',
   'Need',
   'Want',
@@ -10,68 +10,16 @@ const blacklist = [
   'Web browser'
 ];
 
-const getConcepts = (array) => {
-  let concepts = {};
-  array.forEach((article) => {
-    article.concepts.forEach((concept) => {
-      if (concepts[concept.text]) {
-        concepts[concept.text]++;
-      } else {
-        concepts[concept.text] = 1;
-      }
-    });
-  });
-  return concepts;
-};
+const blacklistNA = ['United states'];
 
-const getConceptCount = (obj) => {
-  let concepts = [];
-  for (let concept in obj) {
-    if (obj[concept] >= 0) {
-      concepts.push([concept, obj[concept]]);
-    }
-  }
-  return concepts;
-};
+const blacklistEU = ['United kingdom'];
 
-const getNumOfUniqueConcepts = (obj) => {
-  let count = 0;
-  for (let concept in obj) {
-    if (obj[concept] >= 0) {
-      count++;
-    }
-  }
-  return count;
-};
+const blacklistSA = [];
 
-const getKeywords = array => {
-  let keywords = [];
-  array.forEach(article => {
-    if (!keywords.includes(article.key)) {
-      keywords.push(article.key);
-    }
-  });
-  return keywords;
-};
+const blacklistOC = [];
 
-const getCountries = array => {
-  let countries = {};
-  array.forEach(article => {
-    if (!countries[article.country]) {
-      countries[article.country] = 1;
-    } else {
-      countries[article.country]++;
-    }
-  });
-  return countries;
-};
+const blacklistAS = [];
 
-const getCommonConcepts = (obj1, obj2) => {
-  let common = [];
-  for (let concept in obj1) {
-    if (obj2[concept]) {
-      common.push(concept);
-    }
-  }
-  return common;
-};
+const blacklistAF = []; 
+
+//potential blacklist words to discuss: 'Google', 'marketing'

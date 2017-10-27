@@ -32,7 +32,7 @@
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-router": "^7.2.1",
-    "koa-sendfile": "^2.0.0",
+    "koa-send": "^4.1.1",
     "koa-session": "^5.5.0",
     "koa-static": "^4.0.1",
     "material-ui": "^0.19.4",

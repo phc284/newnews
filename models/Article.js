@@ -23,15 +23,6 @@ var articleSchema = new Mongoose.Schema({
     }
 }, {_id: false});
 
-// articleSchema.pre('save', (next) => {
-//   return pHash(this.password, null, null).bind(this)
-//     .then( function(hashed){
-//       console.log(`hashed pass: ${hashed}`);
-//       this.password = hashed;
-//       next();
-//     });
-// });
-
 var Article = Mongoose.model('article', articleSchema);
 
 module.exports = Article;

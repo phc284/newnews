@@ -6,14 +6,12 @@ import Map from "./Map.jsx";
 import AppBar from "../components/TitleBar.jsx";
 import Articles from "./ArticlesList.jsx";
 import Marquee from "./Marquee.jsx";
-import { Link } from 'react-router-dom'
+import Footer from '../components/Footer.jsx'
+
 
 
 const Homepage = () => (
   <div>
-  <div className="aboutus">
-    <Link to='/about'>About Us</Link>
-  </div>
     <div className='title'>
       NewNews
     </div>
@@ -24,6 +22,7 @@ const Homepage = () => (
       <Map />
       <Articles />
     </div>
+    <Footer />
   </div>
 );
 

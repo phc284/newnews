@@ -2,6 +2,7 @@ const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const Router = require('koa-router');
 const serve = require('koa-static');
+const sendfile = require('koa-sendfile')
 
 const dbFetch = require('./requestHandlers/dbFetch');
 const articleHandler = require('./requestHandlers/article-handler.js');
@@ -34,8 +35,13 @@ router
     .catch((err) => {console.log(err)})
   })
 
+
+
 app.use( router.routes() );
 
+app.use(function* index() {
+  yield send(this, '/client/index.html');
+});
 module.exports = app;
 
 

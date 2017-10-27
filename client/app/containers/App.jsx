@@ -6,6 +6,7 @@ import Map from "./Map.jsx";
 import AppBar from "../components/TitleBar.jsx";
 import Articles from "./ArticlesList.jsx";
 import Marquee from "./Marquee.jsx";
+import Modal from "../components/Modal.jsx";
 
 const App = () => (
   <MuiThemeProvider>
@@ -19,6 +20,7 @@ const App = () => (
       <Map />
       <Articles />
     </div>
+    <Modal />
   </MuiThemeProvider>
 );
 

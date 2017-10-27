@@ -5035,7 +5035,6 @@ module.exports = {
       }
     },
     {
-      "id": "p78vd7Gxs3AspqQpm10OKkGPqTZJB9JRPuvei5uAXXh_SiIiLGs0A2j0j38IeBuU",
       "key": "Design",
       "score": 1,
       "title": "Create Logo and stationary by XelNaha",
@@ -14714,3 +14713,117 @@ module.exports = {
     }
   ]
 }
+
+const watsonKeywords = [ 
+  'Marketing',
+  'Cyrillic alphabet',
+  'Graphic design',
+  'Design',
+  'United States',
+  'World Wide Web',
+  'Need',
+  'Experience',
+  'Economics',
+  'Want' 
+];
+
+const representedCountries = { CO: 48, PE: 109, AR: 41, VE: 1, BR: 1 };
+
+const numOfUniqueConcepts = 843;
+const numOfConceptsOccurringTwice = 143;
+const numOfConceptsOccurringThrice = 64;
+const numOfConceptsOccurringFourTimes = 22;
+const numOfConceptsOccurringFiveTimes = 22;
+const numOfConceptsOccurringSixTimes = 24;
+const numOfConceptsOccurringSevenTimes = 9;
+const numOfConceptsOccurringEightTimes = 5;
+const numOfConceptsOccurringNineTimes = 6;
+const numOfConceptsOccurringTenOrMore = 28;
+
+const topConcept = ['Graphic design', 53];
+const secondConcept = ['Design', 49];
+const thirdConcept = ['World Wide Web', 44];
+const fourthConcept = ['Marketing', 43];
+const fifthConcept = ['Need', 39];
+const sixthConcept = [['Want', 38], ['Experience', 38]];
+const seventhConcept = ['WANT', 32];
+const eightConcept = [['Cyrillic alphabet', 31], ['Web design', 31]];
+const ninthConcept = ['Communication design', 28];
+const tenthConcept = ['Website', 27];
+
+const conceptsOccuringMoreThanTwiceAndRelevancyHigherThanEightTenths = { 
+  Advertising: { count: 9, relevance: 0.831539, country: [ 'CO', 'PE' ] },
+  Marketing: { count: 43, relevance: 0.987864, country: [ 'CO', 'PE', 'AR' ] },
+  'Years in the future': { count: 6, relevance: 0.906866, country: [ 'CO' ] },
+  'Search engine optimization': { count: 8, relevance: 0.924087, country: [ 'CO', 'PE' ] },
+  Future: { count: 6, relevance: 0.919632, country: [ 'CO', 'PE' ] },
+  Economics: { count: 21, relevance: 0.906535, country: [ 'CO', 'BR' ] },
+  'Competitor analysis': { count: 10, relevance: 0.915574, country: [ 'CO' ] },
+  Macroeconomics: { count: 3, relevance: 0.803704, country: [ 'CO' ] },
+  'Marketing research': { count: 3, relevance: 0.967976, country: [ 'CO' ] },
+  'Supply and demand': { count: 5, relevance: 0.911216, country: [ 'CO', 'BR' ] },
+  Management: { count: 6, relevance: 0.918791, country: [ 'CO', 'PE' ] },
+  'Electronic commerce': { count: 5, relevance: 0.870888, country: [ 'CO', 'PE' ] },
+  'Strategic management': { count: 6, relevance: 0.890634, country: [ 'PE', 'CO' ] },
+  'Project management': { count: 3, relevance: 0.917795, country: [ 'PE' ] },
+  Need: { count: 39, relevance: 0.975405, country: [ 'PE', 'AR' ] },
+  Sales: { count: 6, relevance: 0.8704, country: [ 'PE' ] },
+  'Nonviolent Communication': { count: 4, relevance: 0.828403, country: [ 'PE' ] },
+  'Computer program': { count: 3, relevance: 0.825388, country: [ 'AR', 'PE' ] },
+  'Source code': { count: 3, relevance: 0.964982, country: [ 'AR', 'PE' ] },
+  Europe: { count: 9, relevance: 0.914791, country: [ 'AR', 'CO' ] },
+  'United States': { count: 26, relevance: 0.989594, country: [ 'AR', 'CO', 'PE', 'VE' ] },
+  Market: { count: 5, relevance: 0.945322, country: [ 'AR', 'PE', 'CO', 'BR' ] },
+  'English-language films': { count: 7, relevance: 0.844249, country: [ 'PE', 'AR', 'CO' ] },
+  Retailing: { count: 4, relevance: 0.959312, country: [ 'PE', 'CO' ] },
+  PHP: { count: 9, relevance: 0.961716, country: [ 'PE', 'AR' ] },
+  'File system': { count: 5, relevance: 0.947193, country: [ 'PE', 'AR' ] },
+  Petroleum: { count: 5, relevance: 0.854346, country: [ 'CO', 'AR', 'VE' ] },
+  Manufacturing: { count: 6, relevance: 0.802294, country: [ 'CO' ] },
+  Asia: { count: 9, relevance: 0.935266, country: [ 'CO', 'BR' ] },
+  'South America': { count: 7, relevance: 0.929625, country: [ 'CO' ] },
+  'North America': { count: 12, relevance: 0.94578, country: [ 'CO' ] },
+  'Middle East': { count: 12, relevance: 0.959108, country: [ 'CO', 'AR' ] },
+  'Qualitative research': { count: 3, relevance: 0.982344, country: [ 'CO' ] },
+  Want: { count: 38, relevance: 0.947926, country: [ 'PE', 'AR', 'CO' ] },
+  'Cyrillic alphabet': { count: 31, relevance: 0.918927, country: [ 'PE', 'AR' ] },
+  'EN standards': { count: 8, relevance: 0.916183, country: [ 'PE', 'AR' ] },
+  'Help me': { count: 5, relevance: 0.911223, country: [ 'PE', 'AR' ] },
+  Help: { count: 4, relevance: 0.870263, country: [ 'PE', 'AR' ] },
+  Linux: { count: 4, relevance: 0.917038, country: [ 'AR', 'PE' ] },
+  Experience: { count: 38, relevance: 0.911231, country: [ 'PE', 'AR' ] },
+  'Graphic design': { count: 53, relevance: 0.989268, country: [ 'PE', 'AR' ] },
+  Typography: { count: 25, relevance: 0.877734, country: [ 'PE' ] },
+  Logo: { count: 18, relevance: 0.939947, country: [ 'PE', 'AR' ] },
+  'Communication design': { count: 28, relevance: 0.804902, country: [ 'PE', 'AR' ] },
+  Design: { count: 49, relevance: 0.949195, country: [ 'PE', 'AR' ] },
+  'Web design': { count: 31, relevance: 0.977065, country: [ 'PE', 'AR', 'CO' ] },
+  'World Wide Web': { count: 44, relevance: 0.976313, country: [ 'PE', 'AR', 'CO' ] },
+  Website: { count: 27, relevance: 0.949429, country: [ 'PE', 'AR', 'CO' ] },
+  'Online shopping': { count: 8, relevance: 0.906006, country: [ 'PE' ] },
+  'Design management': { count: 6, relevance: 0.829313, country: [ 'PE', 'AR' ] },
+  'According to Jim': { count: 3, relevance: 0.858977, country: [ 'PE' ] },
+  'Portable Network Graphics': { count: 6, relevance: 0.970577, country: [ 'AR', 'PE' ] },
+  'File format': { count: 5, relevance: 0.896375, country: [ 'AR', 'PE' ] },
+  'Adobe Illustrator': { count: 12, relevance: 0.874019, country: [ 'AR', 'PE' ] },
+  'Adobe Systems': { count: 9, relevance: 0.81516, country: [ 'AR', 'PE' ] },
+  'Adobe Photoshop': { count: 10, relevance: 0.935665, country: [ 'AR', 'PE' ] },
+  HTML: { count: 5, relevance: 0.927012, country: [ 'AR', 'PE' ] },
+  Medicine: { count: 5, relevance: 0.985333, country: [ 'AR', 'CO' ] },
+  'Adobe Creative Suite': { count: 6, relevance: 0.949435, country: [ 'PE', 'AR' ] },
+  'Domain Name System': { count: 3, relevance: 0.948772, country: [ 'AR', 'CO' ] },
+  'Saudi Arabia': { count: 11, relevance: 0.873393, country: [ 'CO', 'AR', 'PE' ] },
+  'United Arab Emirates': { count: 7, relevance: 0.98278, country: [ 'CO', 'AR', 'PE' ] },
+  'U.S. state': { count: 3, relevance: 0.989661, country: [ 'CO', 'AR' ] },
+  Investment: { count: 3, relevance: 0.939715, country: [ 'PE', 'CO' ] },
+  Bacteria: { count: 3, relevance: 0.956801, country: [ 'CO' ] },
+  Nutrition: { count: 3, relevance: 0.936138, country: [ 'CO' ] },
+  Google: { count: 3, relevance: 0.811286, country: [ 'PE' ] },
+  Animation: { count: 3, relevance: 0.966787, country: [ 'PE', 'AR' ] } 
+};
+
+
+
+
+
+

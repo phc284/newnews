@@ -12,12 +12,17 @@ body {
 .sharebutton {
   display: inline-block;
   padding-right: 10px;
-  padding-top: 10px;
+  padding-top: 4px;
 }
 
 .amcharts-map-image-label tspan {
   font-family: Montserrat;
   font-weight: 900;
+}
+
+.chips {
+  padding-top: 14px;
+  padding-bottom: 2px;
 }
 
 .marquee {

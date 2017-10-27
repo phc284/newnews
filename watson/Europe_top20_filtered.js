@@ -25157,3 +25157,153 @@ module.exports = {
     }
   ]
 }
+
+const watsonKeywords = [ 
+  'English-language films',
+  'United Kingdom',
+  'United States',
+  'Web browser',
+  'European Union',
+  'Manchester United F.C.',
+  'Marketing',
+  'Management',
+  'Premier League',
+  '2016' 
+];
+
+const representedCountries = { GB: 98, IE: 18, FR: 38, CZ: 2, CH: 4, AT: 2, DE: 16, NL: 10, BG: 3, IT: 2, UA: 4, PL: 1, SE: 1, ME: 1 };
+
+const numOfUniqueConcepts = 2072;
+const numOfConceptsOccurringTwice = 378;
+const numOfConceptsOccurringThrice = 124;
+const numOfConceptsOccurringFourTimes = 90;
+const numOfConceptsOccurringFiveTimes = 37;
+const numOfConceptsOccurringSixTimes = 21;
+const numOfConceptsOccurringSevenTimes = 25;
+const numOfConceptsOccurringEightTimes = 7;
+const numOfConceptsOccurringNineTimes = 11;
+const numOfConceptsOccurringTenOrMore = 50; 
+
+const topConcept = [ 'Manchester United F.C.', 41 ];
+const secondConcept = [ 'United Kingdom', 36 ];
+const thirdConcept = [ 'United States', 35 ];
+const fourthConcept = [ 'Premier League', 33 ];
+const fifthConcept = [ 'English-language films', 32 ];
+const sixthConcept = [ 'European Union', 26 ];
+const seventhConcept = [ 'Management', 25 ];
+const eightConcept = [[ 'The Football League', 23 ], [ 'Marketing', 23 ]];
+const ninthConcept = [ '2008–09 in English football', 22 ];
+const tenthConcept = [[ '2016', 21 ], [ 'Web browser', 21 ]];
+
+const EU_SA_inCommon = [ 
+  'Advertising',
+  'Marketing',
+  'Supply and demand',
+  'Management',
+  'Europe',
+  'United States',
+  'English-language films',
+  'Manufacturing',
+  'North America',
+  'World Wide Web',
+  'Investment',
+  'Google' 
+];
+
+const conceptsOccuringMoreThanTwiceAndRelevancyHigherThanEightTenths = { 
+  2016: { count: 21, relevance: 0.941765, country: [ 'GB', 'FR', 'DE', 'NL', 'IT', 'UA', 'IE' ] },
+  2017: { count: 10, relevance: 0.96987, country: [ 'FR', 'GB', 'NL', 'IT', 'UA', 'DE', 'IE' ] },
+  'The X Factor': { count: 4, relevance: 0.966405, country: [ 'GB' ] },
+  'English-language films': { count: 32, relevance: 0.92686, country: [ 'GB', 'IE', 'FR', 'CZ', 'CH', 'AT' ] },
+  Television: { count: 6, relevance: 0.96153, country: [ 'GB', 'IE' ] },
+  'United States': { count: 35, relevance: 0.97137, country: [ 'GB', 'CH', 'FR', 'DE', 'NL', 'IE', 'IT', 'UA' ] },
+  'Managing director': { count: 7, relevance: 0.98213, country: [ 'GB', 'DE', 'UA', 'FR' ] },
+  Film: { count: 3, relevance: 0.927685, country: [ 'IE', 'GB' ] },
+  'New York City': { count: 5, relevance: 0.976321, country: [ 'CZ', 'GB' ] },
+  'New York': { count: 4, relevance: 0.885562, country: [ 'CZ', 'GB' ] },
+  'United Kingdom': { count: 36, relevance: 0.968216, country: [ 'CZ', 'IE', 'GB', 'FR', 'DE' ] },
+  Automobile: { count: 4, relevance: 0.965042, country: [ 'GB', 'IE' ] },
+  'Administrative Council of the European Patent Organisation': { count: 3, relevance: 0.977418, country: [ 'CH' ] },
+  'European Patent Office': { count: 3, relevance: 0.895711, country: [ 'CH' ] },
+  'Benoît Battistelli': { count: 3, relevance: 0.850796, country: [ 'CH' ] },
+  Law: { count: 7, relevance: 0.867309, country: [ 'CH', 'DE', 'NL', 'IT' ] },
+  'European Union': { count: 26, relevance: 0.982467, country: [ 'CH', 'IE', 'FR', 'DE', 'NL', 'BG', 'GB', 'IT', 'UA' ] },
+  Europe: { count: 15, relevance: 0.955243, country: [ 'CH', 'IE', 'FR', 'NL', 'GB', 'UA' ] },
+  England: { count: 12, relevance: 0.988574, country: [ 'GB', 'IE' ] },
+  Bank: { count: 3, relevance: 0.965812, country: [ 'IE', 'DE' ] },
+  'Central bank': { count: 3, relevance: 0.800412, country: [ 'IE' ] },
+  'Executive officer': { count: 3, relevance: 0.831675, country: [ 'IE', 'DE' ] },
+  'Chief executive officer': { count: 3, relevance: 0.806727, country: [ 'IE', 'DE' ] },
+  Euro: { count: 6, relevance: 0.924302, country: [ 'IE', 'FR', 'GB' ] },
+  BBC: { count: 6, relevance: 0.967909, country: [ 'GB', 'IE' ] },
+  'BBC Radio 1': { count: 4, relevance: 0.947501, country: [ 'GB' ] },
+  Management: { count: 25, relevance: 0.984167, country: [ 'GB', 'UA', 'DE', 'NL', 'CH', 'FR', 'IE', 'SE', 'ME' ] },
+  Corporation: { count: 7, relevance: 0.932283, country: [ 'GB', 'NL', 'DE', 'FR' ] },
+  Liverpool: { count: 6, relevance: 0.890686, country: [ 'GB' ] },
+  Music: { count: 4, relevance: 0.8701, country: [ 'GB', 'NL', 'DE' ] },
+  'European Parliament': { count: 13, relevance: 0.958231, country: [ 'IE', 'DE', 'NL', 'GB' ] },
+  Legislature: { count: 4, relevance: 0.805958, country: [ 'IE', 'DE' ] },
+  'European Central Bank': { count: 4, relevance: 0.972194, country: [ 'IE', 'GB' ] },
+  'Member of Parliament': { count: 5, relevance: 0.967888, country: [ 'IE', 'GB', 'DE' ] },
+  'Board of directors': { count: 8, relevance: 0.974504, country: [ 'GB', 'DE', 'UA', 'NL', 'FR' ] },
+  Wales: { count: 3, relevance: 0.989909, country: [ 'GB' ] },
+  'The Football League': { count: 23, relevance: 0.968067, country: [ 'GB', 'BG', 'IE' ] },
+  Japan: { count: 3, relevance: 0.959717, country: [ 'GB', 'IE' ] },
+  'European integration': { count: 5, relevance: 0.821208, country: [ 'FR', 'GB' ] },
+  Spain: { count: 7, relevance: 0.869563, country: [ 'FR', 'GB', 'IE', 'NL' ] },
+  Germany: { count: 12, relevance: 0.94282, country: [ 'FR', 'DE', 'GB', 'IE', 'NL' ] },
+  Italy: { count: 9, relevance: 0.874332, country: [ 'FR', 'GB', 'IT', 'IE', 'NL' ] },
+  Investment: { count: 4, relevance: 0.940667, country: [ 'GB', 'FR' ] },
+  'United States dollar': { count: 8, relevance: 0.955618, country: [ 'FR', 'NL', 'GB', 'IE', 'DE' ] },
+  Government: { count: 7, relevance: 0.832444, country: [ 'NL', 'GB', 'DE', 'IT' ] },
+  Russia: { count: 3, relevance: 0.952638, country: [ 'FR', 'NL', 'IE' ] },
+  'Democratic Party': { count: 3, relevance: 0.849451, country: [ 'FR', 'GB' ] },
+  'Federal government of the United States': { count: 4, relevance: 0.91841, country: [ 'FR', 'GB', 'NL' ] },
+  Sociology: { count: 3, relevance: 0.831536, country: [ 'NL', 'GB', 'DE' ] },
+  'Korean War': { count: 3, relevance: 0.945449, country: [ 'DE', 'IE', 'GB' ] },
+  'North America': { count: 3, relevance: 0.952309, country: [ 'GB', 'FR', 'NL' ] },
+  'World Wide Web': { count: 15, relevance: 0.985951, country: [ 'FR' ] },
+  Google: { count: 14, relevance: 0.837175, country: [ 'FR' ] },
+  'Web browser': { count: 21, relevance: 0.895888, country: [ 'FR', 'NL', 'GB' ] },
+  'Mass media': { count: 4, relevance: 0.909013, country: [ 'BG', 'DE', 'UA' ] },
+  Copyright: { count: 3, relevance: 0.932431, country: [ 'GB', 'FR', 'ME' ] },
+  'All rights reserved': { count: 3, relevance: 0.932361, country: [ 'GB', 'FR', 'ME' ] },
+  'Corporate governance': { count: 7, relevance: 0.975887, country: [ 'DE', 'UA', 'NL', 'GB', 'FR' ] },
+  Nigeria: { count: 3, relevance: 0.977152, country: [ 'GB' ] },
+  'Local Government Areas of Nigeria': { count: 3, relevance: 0.95319, country: [ 'GB' ] },
+  'Cristiano Ronaldo': { count: 14, relevance: 0.983147, country: [ 'GB', 'FR', 'IE' ] },
+  'FIFA World Player of the Year': { count: 12, relevance: 0.964601, country: [ 'GB', 'FR', 'IE' ] },
+  'Real Madrid C.F.': { count: 14, relevance: 0.971637, country: [ 'GB', 'FR', 'IE' ] },
+  'Lionel Messi': { count: 12, relevance: 0.812963, country: [ 'GB', 'FR', 'IE' ] },
+  'Manchester United F.C.': { count: 41, relevance: 0.987028, country: [ 'GB', 'BG', 'FR', 'IE' ] },
+  'Football League Championship': { count: 14, relevance: 0.969615, country: [ 'GB', 'BG', 'IE' ] },
+  'Leeds United A.F.C.': { count: 11, relevance: 0.851754, country: [ 'GB', 'IE' ] },
+  'Premier League': { count: 33, relevance: 0.984567, country: [ 'GB', 'BG', 'FR', 'IE' ] },
+  '2008–09 in English football': { count: 22, relevance: 0.970326, country: [ 'GB', 'BG', 'IE' ] },
+  'Bristol City F.C.': { count: 5, relevance: 0.867607, country: [ 'GB' ] },
+  'Wolverhampton Wanderers F.C.': { count: 10, relevance: 0.945097, country: [ 'GB' ] },
+  'Chelsea F.C.': { count: 15, relevance: 0.967182, country: [ 'GB', 'IE' ] },
+  'FA Cup': { count: 16, relevance: 0.927912, country: [ 'GB', 'BG', 'IE' ] },
+  'Everton F.C.': { count: 14, relevance: 0.98235, country: [ 'GB', 'BG' ] },
+  'Arsenal F.C.': { count: 15, relevance: 0.966976, country: [ 'GB', 'BG', 'IE' ] },
+  'Bolton Wanderers F.C.': { count: 10, relevance: 0.900223, country: [ 'GB' ] },
+  'La Liga': { count: 12, relevance: 0.872778, country: [ 'GB', 'FR', 'IE' ] },
+  '2006 FIFA World Cup': { count: 10, relevance: 0.88964, country: [ 'GB', 'FR', 'IE' ] },
+  'FC Barcelona': { count: 13, relevance: 0.966444, country: [ 'GB', 'FR', 'IE' ] },
+  '2006 FIFA World Cup players': { count: 4, relevance: 0.90051, country: [ 'GB', 'IE' ] },
+  'Stamford Bridge': { count: 7, relevance: 0.860671, country: [ 'GB', 'IE' ] },
+  'Newcastle United F.C.': { count: 9, relevance: 0.986335, country: [ 'GB', 'IE' ] },
+  'Supply and demand': { count: 5, relevance: 0.979678, country: [ 'GB', 'DE', 'FR' ] },
+  Marketing: { count: 23, relevance: 0.987217, country: [ 'GB', 'PL', 'FR', 'DE', 'NL', 'AT', 'IE', 'UA' ] },
+  Manufacturing: { count: 4, relevance: 0.941259, country: [ 'GB', 'DE', 'AT', 'SE' ] },
+  'Generally Accepted Accounting Principles': { count: 4, relevance: 0.98144, country: [ 'FR', 'GB', 'DE' ] },
+  Revenue: { count: 5, relevance: 0.954182, country: [ 'FR', 'DE', 'GB' ] },
+  'Earnings before interest and taxes': { count: 3, relevance: 0.862941, country: [ 'FR', 'GB', 'DE' ] },
+  Advertising: { count: 6, relevance: 0.829553, country: [ 'DE', 'GB', 'IE', 'UA' ] },
+  Philippines: { count: 4, relevance: 0.970991, country: [ 'GB', 'UA' ] },
+  Manila: { count: 4, relevance: 0.877852, country: [ 'GB', 'UA' ] },
+  'Metro Manila': { count: 4, relevance: 0.888659, country: [ 'GB', 'UA' ] },
+  Entrepreneurship: { count: 3, relevance: 0.947153, country: [ 'GB', 'IE' ] },
+  Innovation: { count: 3, relevance: 0.811876, country: [ 'GB', 'FR', 'DE' ] } 
+};
+

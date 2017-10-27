@@ -72,6 +72,7 @@ const styles = {
 // </div>
 
 const Article = ({ article, concepts }) => (
+  console.log(concepts),
   <Card style={styles.card}>
     <CardHeader
       avatar={article.main_image_url ? <img src={article.main_image_url} style={styles.card.avatar}></img> : <i className="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>}
@@ -84,7 +85,9 @@ const Article = ({ article, concepts }) => (
     <CardText expandable={true} style={styles.card.text}>
       {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>
       <div className="chips">
-        <Chip style={styles.card.chip} onClick={handleTouchTap}>{concepts[0].text && concepts[0].text}</Chip>
+        <Chip style={styles.card.chip} onClick={handleTouchTap}>{concepts[0].text}</Chip>
+        <Chip style={styles.card.chip} onClick={handleTouchTap}>{concepts[1].text}</Chip>
+        <Chip style={styles.card.chip} onClick={handleTouchTap}>{concepts[2].text}</Chip>
       </div>
       <div>
         <Chip style={styles.card.chip}> Hello </Chip>

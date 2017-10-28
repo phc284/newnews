@@ -20,7 +20,6 @@ class Map extends React.Component {
   componentWillMount() {
     axios.get('/concepts')
       .then((response) => {
-        console.log(response)
         let conceptData = response.data.concepts;
         this.generateImages(conceptData);
       })

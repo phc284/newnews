@@ -18,6 +18,19 @@ function articleReducer(state=null, action) {
   }
   return state
 }
+
+function activeTagReducer(state = {showModal: false}, action) {
+  switch(action.type) {
+    case 'SELECT_TAG':
+      console.log('in reducer', action.payload)
+      return {tag: action.payload, showModal: true} 
+      break;
+    case 'HIDE_MODAL': {
+      return {showModal: false}
+    }
+  }
+  return state;
+}
 //
 // //change when response structure is set
 // function keywordReducer(state=[], action) {
@@ -30,5 +43,6 @@ function articleReducer(state=null, action) {
 
 export const allReducers = combineReducers({
   articles: articleReducer,
-  activeWord: activeWordReducer
+  activeWord: activeWordReducer,
+  activeTag: activeTagReducer
 });

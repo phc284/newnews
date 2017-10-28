@@ -2207,70 +2207,65 @@ const getCountryCounts = hits => {
   });
 }
 
-class Chart extends React.Component {
-
-  render () {
-    return (
-      <AmCharts.React
-        style={{
-          width: "100%",
-          height: "400px"
-        }}
-        options={{
-          "type": "pie",
-          "theme": "light",
-          "percentPrecision": 0,
-          //groupedColor: "#036850",
-          colors: ["#47776c", "#528c7f", "#5a9b8c", "#64ad9c", "#6ebfac", "#78d3be", "#82e5ce"],
-          gradientRatio: [0, 0.2, 0.4, 0.6, 0.8, 1],
-          "titles": [ {
-            "text": concept.key,
-            "size": 26
-          } ],
-          // "dataProvider": [ 
-          //   {
-          //     "country": "United States",
-          //     "visits": 7252
-          //   }, {
-          //     "country": "China",
-          //     "visits": 3882
-          //   }, {
-          //     "country": "Japan",
-          //     "visits": 1809
-          //   }, {
-          //     "country": "Germany",
-          //     "visits": 1322
-          //   }, {
-          //     "country": "United Kingdom",
-          //     "visits": 5252
-          //   }, {
-          //     "country": "France",
-          //     "visits": 414
-          //   }, {
-          //     "country": "India",
-          //     "visits": 384
-          //   }, {
-          //     "country": "Spain",
-          //     "visits": 211
-          //   } 
-          // ],
-          dataProvider: getCountryCounts(concept.hits),
-          "valueField": "hits",
-          "titleField": "country",
-          "startEffect": "elastic",
-          "startDuration": 2,
-          "labelRadius": 15,
-          "innerRadius": "50%",
-          "depth3D": 10,
-          "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b></span>",
-          "angle": 15,
-          "export": {
-            "enabled": true
-          }
-        }} 
-      />
-    )
-  }
-}
+const Chart = ({tag}) => (
+  <AmCharts.React
+    style={{
+      width: "100%",
+      height: "400px"
+    }}
+    options={{
+      "type": "pie",
+      "theme": "light",
+      "percentPrecision": 0,
+      //groupedColor: "#036850",
+      colors: ["#47776c", "#528c7f", "#5a9b8c", "#64ad9c", "#6ebfac", "#78d3be", "#82e5ce"],
+      gradientRatio: [0, 0.2, 0.4, 0.6, 0.8, 1],
+      "titles": [ {
+        "text": tag,
+        "size": 26
+      } ],
+      // "dataProvider": [ 
+      //   {
+      //     "country": "United States",
+      //     "visits": 7252
+      //   }, {
+      //     "country": "China",
+      //     "visits": 3882
+      //   }, {
+      //     "country": "Japan",
+      //     "visits": 1809
+      //   }, {
+      //     "country": "Germany",
+      //     "visits": 1322
+      //   }, {
+      //     "country": "United Kingdom",
+      //     "visits": 5252
+      //   }, {
+      //     "country": "France",
+      //     "visits": 414
+      //   }, {
+      //     "country": "India",
+      //     "visits": 384
+      //   }, {
+      //     "country": "Spain",
+      //     "visits": 211
+      //   } 
+      // ],
+      dataProvider: getCountryCounts(concept.hits),
+      "valueField": "hits",
+      "titleField": "country",
+      "startEffect": "elastic",
+      "startDuration": 3,
+      "labelRadius": 15,
+      "innerRadius": "50%",
+      "depth3D": 10,
+      "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b></span>",
+      "angle": 15,
+      "export": {
+        "enabled": true
+      }
+    }} 
+  />
+)
 
 export default Chart;

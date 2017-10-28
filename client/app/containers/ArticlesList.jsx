@@ -2,12 +2,10 @@ import React from 'react';
 import Article from '../components/Article.jsx';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getArticles } from '../actions';
-import { topten } from '../../../watson/restructured_data.js';
+import { getArticles, selectTag } from '../actions';
 import List from 'material-ui/List';
 import Paper from 'material-ui/Paper';
-
-//add redux functionality to access array of data objects in state
+import axios from 'axios';
 
 const styles = {
   article: {
@@ -30,20 +28,33 @@ const styles = {
     width: '95%',
     padding: '0px'
   }
-}
+};
 
 class Articles extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      articles: []
+    }
+  }
+
+  componentWillMount() {
+    axios.get('/articles/' + 'United States', {params: {query: 'United States'}})
+    .then( response => {
+      let articles = response.data;
+      this.setState({articles: articles.slice(0, 25)});
+    })
+  }
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.activeWord !== this.props.activeWord) {
-      console.log(nextProps.activeWord);
       nextProps.getArticles(nextProps.activeWord);
     }
   }
 
   render () {
-    var articles = this.props.articles || topten;
-    console.log(articles)
+
+    const articles = this.props.articles || this.state.articles;
     return (
       <div style={styles.container}>
         <Paper zDepth={0} style={styles.paper}>
@@ -52,7 +63,7 @@ class Articles extends React.Component {
               return <div
                 key={index}
                 style={styles.article}>
-                  <Article article={article} concepts={article.concepts}/>
+                  <Article handleTouchTap={this.props.selectTag} article={article} concepts={article.concepts}/>
                 </div>
             })}
           </List>
@@ -70,7 +81,10 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({getArticles: getArticles}, dispatch)
+  return bindActionCreators({
+    getArticles: getArticles,
+    selectTag: selectTag
+  }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Articles);

@@ -2,26 +2,25 @@ import React from "react";
 import { render } from "react-dom";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import Map from "./Map.jsx";
-import AppBar from "../components/TitleBar.jsx";
-import Articles from "./ArticlesList.jsx";
-import Marquee from "./Marquee.jsx";
-import Modal from "../components/Modal.jsx";
+import Homepage from './Homepage.jsx'
+import About from './About.jsx'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
+import createBrowserHistory from 'history/createBrowserHistory'
+
+const history = createBrowserHistory()
+
 
 const App = () => (
-  <MuiThemeProvider>
-    <div className='title'>
-      NewNews
-    </div>
-    <div className='marqueeBar'>
-      <Marquee />
-    </div>
-    <div style={{ marginBottom: "15px", display: 'flex', flexDirection: 'row', width: '100%'}}>
-      <Map />
-      <Articles />
-    </div>
-    <Modal />
-  </MuiThemeProvider>
+  <Router>
+    <MuiThemeProvider history={history}>
+      <Route exact path='/' component={Homepage} />
+      <Route exact path='/about' component={About} />
+    </MuiThemeProvider>
+  </Router>
 );
 
 export default App;

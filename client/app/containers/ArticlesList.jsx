@@ -43,6 +43,7 @@ class Articles extends React.Component {
 
   render () {
     var articles = this.props.articles || topten;
+    console.log(articles)
     return (
       <div style={styles.container}>
         <Paper zDepth={0} style={styles.paper}>

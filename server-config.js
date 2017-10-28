@@ -15,7 +15,7 @@ app.use( bodyParser() );
 app.use( serve(__dirname + '/client') );
 
 router
-  .get('/articles', articleHandler.retrieveArticles)
+  .get('/articles', articleHandler.retrieve24hr, articleHandler.retrieveArticles)
   .get('/articles/:keyId', articleHandler.retrieveByKey)
   .get('/articles/concept/:conceptId', articleHandler.retrieveByConcept)
   .get('/concepts', async (ctx, next) => {

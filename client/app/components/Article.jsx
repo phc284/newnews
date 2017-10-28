@@ -93,11 +93,6 @@ const Article = ({ article, concepts, handleTouchTap }) => (
         })}
       </div>
       <div>
-        <Chip style={styles.card.chip}> Hello </Chip>
-        <Chip style={styles.card.chip}> Two </Chip>
-        <Chip style={styles.card.chip}> Three </Chip>
-      </div>
-      <div>
         <div className="sharebutton">
           <FacebookShareButton url={article.url}>
             <FacebookIcon size={22} square />

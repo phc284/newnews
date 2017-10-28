@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 const style = {
   about: {
     color: 'black',
+    position: 'absolute',
+    right: 15,
+    textDecoration: 'underline'
   },
   copywrite: {
     marginRight: 25
@@ -15,7 +18,7 @@ const style = {
     display: 'flex',
   },
   text: {
-    display: 'flex',
+    display: 'flex'
   },
 };
 

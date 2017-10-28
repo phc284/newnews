@@ -21,7 +21,7 @@ var articleSchema = new Mongoose.Schema({
       score: Number,
       label: String
     }
-}, {_id: false});
+});
 
 var Article = Mongoose.model('article', articleSchema);
 

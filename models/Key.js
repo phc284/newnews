@@ -4,9 +4,10 @@ var keySchema = new Mongoose.Schema({
     key: { type: String, required: true },
     matching_results: Number,
     continent: String,
-    crawl_date: String,
+    query_date: String,
     article_ids: [{
-      type: String, required: true }
+      type: Mongoose.Schema.Types.ObjectId,
+      ref: 'article'
     }]
 });
 

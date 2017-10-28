@@ -37,62 +37,80 @@ for(let continentName in Continents){
       version: version
     }
 
-  }).then ( ({data}) => {
-    // const data = require('./top20_unfiltered.js');
-    data.aggregations[0].aggregations[0].aggregations[0].results.map( async ({key, matching_results, aggregations}) => {
-      await Promise.all( aggregations[0].hits.hits.map( ({id, score, title, country, crawl_date,
-        url, host, text, main_image_url, enriched_text}) => {
-        let article = {
-          id: id,
-          key: key,
-          score: score,
-          title: title,
-          country: country,
-          crawl_date: crawl_date,
-          url: url,
-          host: host,
-          text: text,
-          main_image_url: main_image_url,
-          sentiment_score: enriched_text.sentiment.document.score,
-          concepts: enriched_text.concepts,
-          category: enriched_text.categories[0]? enriched_text.categories[0].label : enriched_text.categories[0]
-        };
-        return Article.findOneAndUpdate({id: id}, article, {upsert:true});
-      })).then( (insertedRows) => {
-        return insertedRows.map(({_id}) => { return _id; });
-
-      })
-      // .catch( (error) => {
-      //   console.log('ARTICLES INSERTION FAIL: ',error)
-      //
-      // })
-      .then( (article_ids) => {
-        // console.log('article_ids = ', article_ids);
-        let key = {
-          key: key,
-          matching_results: matching_results,
-          continent: continentName,
-          query_date: today,
-          article_ids: article_ids
-        };
-
-        return Key.findOneAndUpdate({key: key, continent: continent, query_date:query_date}, key, {upsert:true});
-
-      }).then( (keySaved) => {
-        console.log('KEY SAVED: ', keySaved._id);
-
-      }).catch( (error) => {
-        console.log("KEY INSERTION FAIL: ",error);
-
-      });
-    })
-
-
   }).catch( (error) => {
     console.log('AXIOS REQUEST FAIL: ',error);
+
+  }).then ( ({data}) => {
+    // const data = require('./top20_unfiltered.js');
+    return Promise.all( data.aggregations[0].aggregations[0].aggregations[0].results.map( ({key, matching_results, aggregations}) => {
+
+      var aggregateByKey = {
+        continent: continentName,
+        key: key,
+        matching_results: matching_results,
+        query_date: today,
+        articles: Promise.all( aggregations[0].hits.hits.map( ({id, score, title, country, crawl_date, url, host, text, main_image_url, enriched_text}) => {
+          return Article.findOneAndUpdate({id:id}, {
+            id: id,
+            key: key,
+            score: score,
+            title: title,
+            country: country,
+            crawl_date: crawl_date,
+            url: url,
+            host: host,
+            text: text,
+            main_image_url: main_image_url,
+            sentiment_score: enriched_text.sentiment.document.score,
+            concepts: enriched_text.concepts,
+            category: enriched_text.categories[0]? enriched_text.categories[0].label : enriched_text.categories[0]
+          }, {upsert:true})
+        }) )
+      }
+
+      return Key.findOneAndUpdate({ continent: continentName,
+        key: key,
+        query_date: today }, aggregateByKey, {upsert: true});
+      })
+    )
+
+  }).then( (rows) => {
+    console.log(`SUCCESS: ${rows.length} concepts saved`)
+
+  }).catch( (error) => {
+    console.log(error)
   });
 
+//       // .catch( (error) => {
+//       //   console.log('ARTICLES INSERTION FAIL: ',error)
+//       //
+//       // })
+//       .then( (article_ids) => {
+//         // console.log('article_ids = ', article_ids);
+//         let key = {
+//           key: key,
+//           matching_results: matching_results,
+//           continent: continentName,
+//           query_date: today,
+//           article_ids: article_ids
+//         };
+//
+//         return Key.findOneAndUpdate({key: key, continent: continent, query_date:query_date}, key, {upsert:true});
+//
+//       }).then( (keySaved) => {
+//         console.log('KEY SAVED: ', keySaved._id);
+//
+//       }).catch( (error) => {
+//         console.log("KEY INSERTION FAIL: ",error);
+//
+//       });
+//     })
+//
+//
+//   })
+
 };
+
 
 // saving file
 // fs.open(`./${continentName}_top20_filtered.js`,'w', (err, result) => {

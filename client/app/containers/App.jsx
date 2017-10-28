@@ -13,7 +13,6 @@ import createBrowserHistory from 'history/createBrowserHistory'
 
 const history = createBrowserHistory()
 
-
 const App = () => (
   <Router>
     <MuiThemeProvider history={history}>

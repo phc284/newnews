@@ -21,16 +21,7 @@ var articleSchema = new Mongoose.Schema({
       score: Number,
       label: String
     }
-}, {_id: false});
-
-// articleSchema.pre('save', (next) => {
-//   return pHash(this.password, null, null).bind(this)
-//     .then( function(hashed){
-//       console.log(`hashed pass: ${hashed}`);
-//       this.password = hashed;
-//       next();
-//     });
-// });
+});
 
 var Article = Mongoose.model('article', articleSchema);
 

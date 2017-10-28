@@ -2,28 +2,28 @@ const axios = require('axios');
 
 const geoCenters = {
   'nAmerica' : {
-    'latitude' : 48.3548,
-    'longitude' : -99.9989,
+    'latitude' : 38,
+    'longitude' : -97,
   },
   'sAmerica' : {
-    'latitude' : -15.6006,
-    'longitude' : -56.1004
+    'latitude' : -10,
+    'longitude' : -55,
   },
   'Europe' : {
-    'latitude' : 54.5423,
-    'longitude' : 15.198
+    'latitude' : 52,
+    'longitude' : 20,
   },
   'Africa' : {
-    'latitude' : 1.261,
-    'longitude' : 25
+    'latitude' : 15,
+    'longitude' : 19,
   },
   'Asia' : {
-    'latitude' : 50,
-    'longitude' : 100
+    'latitude' : 46,
+    'longitude' : 105,
   },
   'Oceania' : {
-    'latitude' : -23.02,
-    'longitude' : 140.10
+    'latitude' : -27,
+    'longitude' : 133
   }
 }
 

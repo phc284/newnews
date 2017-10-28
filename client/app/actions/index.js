@@ -8,8 +8,21 @@ export const selectWord = (word) => {
     type: 'SELECT_WORD',
     payload: word
   }
-}
+};
 
+export const selectTag = (tag) => {
+  console.log(tag);
+  return {
+    type: 'SELECT_TAG',
+    payload: tag
+  }
+};
+
+export const hideModal = () => {
+  return {
+    type: 'HIDE_MODAL'
+  }
+};
 // export const getArticles = () => {
 //   return {
 //     type: 'GET_ARTICLES',
@@ -42,7 +55,7 @@ export const getArticles = (query) => {
       dispatch({type: 'GET_ARTICLES', payload: response.data})
     })
   }
-}
+};
 //
 // export default getKeywords = () => {
 //   return (dispatch) => {

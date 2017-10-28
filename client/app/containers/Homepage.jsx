@@ -6,9 +6,8 @@ import Map from "./Map.jsx";
 import AppBar from "../components/TitleBar.jsx";
 import Articles from "./ArticlesList.jsx";
 import Marquee from "./Marquee.jsx";
-import Footer from '../components/Footer.jsx'
-
-
+import Footer from '../components/Footer.jsx';
+import Modal from '../containers/Modal.jsx';
 
 const Homepage = () => (
   <div>
@@ -20,6 +19,7 @@ const Homepage = () => (
     </div>
     <div style={{ marginBottom: "15px", display: 'flex', flexDirection: 'row', width: '100%'}}>
       <Map />
+      <Modal />
       <Articles />
     </div>
     <Footer />

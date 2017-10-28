@@ -1,31 +1,26 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import Chart from '../containers/Chart.jsx';
+import { connect } from 'react-redux';
+import { hideModal } from '../actions';
+import { bindActionCreators } from 'redux';
+
 
 const customContentStyle = {
-  width: '50%',
-  maxHeight: '50%'
+  width: '40%',
+  maxHeight: '40%'
 };
 
-
 class Modal extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      open: false,
-    };
-    this.handleOpen = this.handleOpen.bind(this);
+  constructor(props) {
+    super(props);
+    
     this.handleClose = this.handleClose.bind(this);
   }
 
-  handleOpen () {
-    this.setState({open: true});
-  };
-
   handleClose () {
-    this.setState({open: false});
+    this.props.hideModal();
   };
 
   render() {
@@ -38,20 +33,33 @@ class Modal extends React.Component {
     ];
 
     return (
+      console.log('props in modal', this.props),
       <div>
-        <RaisedButton label="Dialog" onClick={this.handleOpen} />
         <Dialog
           actions={actions}
           modal={false}
-          open={this.state.open}
+          open={this.props.open}
           onRequestClose={this.handleClose}
           contentStyle={customContentStyle}
         >
-          <Chart />
+          <Chart tag={this.props.tag}/>
         </Dialog>
       </div>
     );
   }
 }
 
-export default Modal;
+function mapStateToProps (state) {
+  return {
+    tag: state.activeTag.tag,
+    open: state.activeTag.showModal
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({
+    hideModal: hideModal
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);

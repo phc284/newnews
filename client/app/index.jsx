@@ -9,4 +9,5 @@ import {
   Link
 } from 'react-router-dom'
 
+console.log(store.getState());
 render(<Provider store={store}><App /></Provider>, document.getElementById("app"));

@@ -2,6 +2,7 @@ import React from 'react';
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card';
 import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import Chip from 'material-ui/Chip';
+import {selectTag} from '../actions';
 
 
 const {
@@ -18,13 +19,8 @@ const FacebookIcon = generateShareIcon('facebook');
 const TwitterIcon = generateShareIcon('twitter');
 const GooglePlusIcon = generateShareIcon('google');
 const LinkedinIcon = generateShareIcon('linkedin');
-const PinterestIcon = generateShareIcon('pinterest');
 const RedditIcon = generateShareIcon('reddit');
 const EmailIcon = generateShareIcon('email');
-
-function handleTouchTap() {
-  console.log('can you see me');
-};
 
 const styles = {
   card: {
@@ -60,19 +56,17 @@ const styles = {
     },
     chip: {
       marginRight: 4,
-      display: 'inline-block'
+      display: 'inline-block',
+      lineHeight: '25px'
+    },
+    labelStyle: {
+      fontSize: '12px'
     }
   }
 };
 
-// <div className="chips">
-//   <Chip style={styles.card.chip} onClick={handleTouchTap}>{article.concepts[0].text.toLowerCase()}</Chip>
-//   <Chip style={styles.card.chip} onClick={handleTouchTap}>{article.concepts[1].text.toLowerCase()}</Chip>
-//   <Chip style={styles.card.chip} onClick={handleTouchTap}>{article.concepts[2].text.toLowerCase()}</Chip>
-// </div>
-
-const Article = ({ article, concepts }) => (
-  console.log(concepts),
+const Article = ({ article, concepts, handleTouchTap }) => (
+  console.log(typeof handleTouchTap),
   <Card style={styles.card}>
     <CardHeader
       avatar={article.main_image_url ? <img src={article.main_image_url} style={styles.card.avatar}></img> : <i className="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>}
@@ -84,15 +78,19 @@ const Article = ({ article, concepts }) => (
     />
     <CardText expandable={true} style={styles.card.text}>
       {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>
-      <div className="chips">
-        <Chip style={styles.card.chip} onClick={handleTouchTap}>{concepts[0].text}</Chip>
-        <Chip style={styles.card.chip} onClick={handleTouchTap}>{concepts[1].text}</Chip>
-        <Chip style={styles.card.chip} onClick={handleTouchTap}>{concepts[2].text}</Chip>
-      </div>
-      <div>
-        <Chip style={styles.card.chip}> Hello </Chip>
-        <Chip style={styles.card.chip}> Two </Chip>
-        <Chip style={styles.card.chip}> Three </Chip>
+      <div className="chips">{
+        concepts.map((concept, i) => {
+          if (i < 3) {
+            return <Chip 
+              key={i} 
+              style={styles.card.chip} 
+              labelStyle={styles.card.labelStyle} 
+              onClick={() => {handleTouchTap(concept.text)}}
+            >
+              {concept.text.length < 17 ? concept.text : concept.text.slice(0, 15) + '...'}
+            </Chip>
+          }
+        })}
       </div>
       <div>
         <div className="sharebutton">
@@ -114,11 +112,6 @@ const Article = ({ article, concepts }) => (
           <LinkedinShareButton url={article.url}>
             <LinkedinIcon size={22} square />
           </LinkedinShareButton>
-        </div>
-        <div className="sharebutton">
-          <PinterestShareButton url={article.url}>
-            <PinterestIcon size={22} square />
-          </PinterestShareButton>
         </div>
         <div className="sharebutton">
           <RedditShareButton url={article.url}>

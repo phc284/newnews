@@ -2,8 +2,8 @@ import React from "react";
 import { render } from "react-dom";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import Homepage from './Homepage.jsx';
-import About from './About.jsx';
+import Homepage from '../components/Homepage.jsx';
+import About from '../components/About.jsx';
 import {
   BrowserRouter as Router,
   Route,

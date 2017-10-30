@@ -1,7 +1,7 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import Chart from '../containers/Chart.jsx';
+import Chart from '../components/Chart.jsx';
 import { connect } from 'react-redux';
 import { hideModal } from '../actions';
 import { bindActionCreators } from 'redux';

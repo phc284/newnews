@@ -1,5 +1,6 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
+import TextField from 'material-ui/TextField';
 
 const styles = {
   title: {
@@ -11,12 +12,14 @@ const styles = {
   }
 };
 
-const TitleBar = () => (
+const SearchBar = () => (
   <AppBar
     style={styles.title}
     showMenuIconButton={false}
-    title={<span className='title'> NewNews </span>}
-  />
+  >
+    <TextField hintText="Search by keyword or phrase">
+    </TextField>
+  </AppBar>
 );
 
-export default TitleBar;
+export default SearchBar;

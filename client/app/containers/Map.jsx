@@ -1,11 +1,109 @@
 import React from 'react';
 import AmCharts from '@amcharts/amcharts3-react';
-import * as mapConfig from '../lib/mapConfig';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { selectWord } from '../actions'
 
+import Box2D from 'box2dweb';
+import * as mapConfig from '../lib/mapConfig';
+
 const axios = require('axios');
+
+
+const dummy = [
+  {
+    key: 'United States',
+    matching_results: '50001',
+    continent: 'nAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'President of the United States',
+    matching_results: '40000',
+    continent: 'nAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Stock Market',
+    matching_results: '30000',
+    continent: 'nAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Stock',
+    matching_results: '20000',
+    continent: 'nAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'English-language films',
+    matching_results: '10000',
+    continent: 'nAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'United Kingdom',
+    matching_results: '50000',
+    continent: 'Europe',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Manchester United F.C.',
+    matching_results: '40000',
+    continent: 'Europe',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'English-language films',
+    matching_results: '30000',
+    continent: 'Europe',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'United States',
+    matching_results: '20000',
+    continent: 'Europe',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'United States',
+    matching_results: '10000',
+    continent: 'Europe',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Graphic design',
+    matching_results: '50000',
+    continent: 'sAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Marketing',
+    matching_results: '40000',
+    continent: 'sAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Cyrillic alphabet',
+    matching_results: '30000',
+    continent: 'sAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'World Wide Web',
+    matching_results: '20000',
+    continent: 'sAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Experience',
+    matching_results: '10000',
+    continent: 'sAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }
+]
+
 
 class Map extends React.Component {
   constructor() {
@@ -18,15 +116,17 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/concepts')
-      .then((response) => {
-        console.log('axios get done');
-        let conceptData = response.data.concepts;
-        this.generateImages(conceptData);
-        this.physicsInit();
-        console.log('finished physics init');
-      })
-      .catch((error) => console.log('Map.jsx: ', error));
+    // axios.get('/concepts')
+    //   .then((response) => {
+    //     console.log('axios get done');
+    //     let conceptData = response.data.concepts;
+    //     this.generateImages(conceptData);
+    //     this.physicsInit();
+    //     console.log('finished physics init');
+    //   })
+    //   .catch((error) => console.log('Map.jsx: ', error));
+    console.log('componentDidMount: generating with dummy data');
+    this.physicsInit();
   }
 
   //map will rerender and zoom back out if the state changes
@@ -81,8 +181,6 @@ class Map extends React.Component {
   }
 
   physicsInit() {
-    console.log('Map.jsx componentDidMount, state.images: ', this.state.images);
-
     var map;
     var minBulletSize = 7;
     var maxBulletSize = 80;
@@ -93,19 +191,19 @@ class Map extends React.Component {
     // get min and max values
     var min = Infinity;
     var max = -Infinity;
-    for (var i = 0; i < mapData.length; i++) {
-        var value = mapData[i].value;
-        if (value < min) {
-            min = value;
+    for (var i = 0; i < dummy.length; i++) {
+        var matching_results = dummy[i].matching_results;
+        if (matching_results < min) {
+            min = matching_results;
         }
-        if (value > max) {
-            max = value;
+        if (matching_results > max) {
+            max = matching_results;
         }
     }
 
     map = new AmCharts.AmMap();
     map.addClassNames = true;
-    map.pathToImages = "https://www.amcharts.com/lib/3/images/";
+    // map.pathToImages = "https://www.amcharts.com/lib/3/images/";
     map.fontFamily = "Lato";
     map.fontSize = 15;
     map.creditsPosition = "top-right";
@@ -128,7 +226,7 @@ class Map extends React.Component {
       alpha: 0.7
     }
 
-    map.addClassNames = true;
+    // map.addClassNames = true;
     map.defs = {
       "filter": [{
         "id": "blur",
@@ -156,30 +254,33 @@ class Map extends React.Component {
     var minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
 
     // create circle for each country
-    for (var i = 0; i < mapData.length; i++) {
-      var dataItem = mapData[i];
-      var value = dataItem.value;
+    for (var i = 0; i < dummy.length; i++) {
+      var dataItem = dummy[i];
+      var matching_results = dataItem.matching_results;
       // calculate size of a bubble
-      var square = (value - min) / (max - min) * (maxSquare - minSquare) + minSquare;
+      var square = (matching_results - min) / (max - min) * (maxSquare - minSquare) + minSquare;
       if (square < minSquare) {
         square = minSquare;
       }
       var size = Math.sqrt(square / (Math.PI * 2));
-      var id = dataItem.code;
+      var continent = dataItem.continent;
 
       dataProvider.images.push({
         type: "circle",
         width: size,
         height: size,
-        color: dataItem.color,
-        longitude: latlong[id].longitude,
-        latitude: latlong[id].latitude,
-        title: dataItem.name,
-        value: value
+        // color: dataItem.color,
+        color: '#ffffff',
+        longitude: mapConfig.geoCenters[continent].longitude,
+        latitude: mapConfig.geoCenters[continent].latitude,
+        title: dataItem.key,
+        matching_results: matching_results
       });
     }
 
     map.dataProvider = dataProvider;
+
+    console.log('phys, dataProvider: ', dataProvider);
 
     // Listen for the init event and initialize box2d part
     map.addListener("init", initBox2D)

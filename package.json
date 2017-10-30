@@ -27,6 +27,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "bluebird": "^3.5.1",
+    "box2dweb": "^2.1.0-b",
     "cassandra-driver": "^3.3.0",
     "history": "^4.7.2",
     "koa": "^2.3.0",

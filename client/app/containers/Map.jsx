@@ -18,7 +18,7 @@ class Map extends React.Component {
   componentDidMount() {
     // axios.get('/concepts')
     //   .then((response) => {
-    //     console.log('axios get done');
+    //     console.log('axios get done'); 
     //     let conceptData = response.data.concepts;
     //     this.generateImages(conceptData);
     //     this.physicsInit();
@@ -37,7 +37,7 @@ class Map extends React.Component {
 
   physicsInit() {
     var map;
-    var minBulletSize = 7;
+    var minBulletSize = 20;
     var maxBulletSize = 80;
 
     // set dark theme
@@ -147,7 +147,7 @@ class Map extends React.Component {
 
     // create circle for each country
     var maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI;
-    var minSquare = minBulletSize * minBulletSize * 2 * Math.PI * 20;
+    var minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
 
     // create circle for each country
     for (var i = 0; i < mapConfig.dummy.length; i++) {
@@ -310,7 +310,7 @@ class Map extends React.Component {
       // release initially to do some animation
       releaseBubbles();
       // attach bubbles in some time
-      setTimeout(attachBubbles, 3500);
+      setTimeout(attachBubbles, 3000);
       window.setInterval(update, 1000 / framesPerSecond)
     }
 

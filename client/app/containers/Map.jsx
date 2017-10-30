@@ -1,5 +1,5 @@
 import React from 'react';
-import AmCharts from '@amcharts/amcharts3-react';
+// import AmCharts from '@amcharts/amcharts3-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { selectWord } from '../actions'
@@ -9,110 +9,12 @@ import * as mapConfig from '../lib/mapConfig';
 
 const axios = require('axios');
 
-
-const dummy = [
-  {
-    key: 'United States',
-    matching_results: '50001',
-    continent: 'nAmerica',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'President of the United States',
-    matching_results: '40000',
-    continent: 'nAmerica',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'Stock Market',
-    matching_results: '30000',
-    continent: 'nAmerica',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'Stock',
-    matching_results: '20000',
-    continent: 'nAmerica',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'English-language films',
-    matching_results: '10000',
-    continent: 'nAmerica',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'United Kingdom',
-    matching_results: '50000',
-    continent: 'Europe',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'Manchester United F.C.',
-    matching_results: '40000',
-    continent: 'Europe',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'English-language films',
-    matching_results: '30000',
-    continent: 'Europe',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'United States',
-    matching_results: '20000',
-    continent: 'Europe',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'United States',
-    matching_results: '10000',
-    continent: 'Europe',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'Graphic design',
-    matching_results: '50000',
-    continent: 'sAmerica',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'Marketing',
-    matching_results: '40000',
-    continent: 'sAmerica',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'Cyrillic alphabet',
-    matching_results: '30000',
-    continent: 'sAmerica',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'World Wide Web',
-    matching_results: '20000',
-    continent: 'sAmerica',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }, {
-    key: 'Experience',
-    matching_results: '10000',
-    continent: 'sAmerica',
-    query_date: '10/31/2017',
-    article_ids: [],
-  }
-]
-
-
 class Map extends React.Component {
   constructor() {
     super();
     this.state = {
       images: [],
     }
-    // TODO: need to come up with new data structure
-    // TODO: refactor process for generating mapData and rendering in map
   }
 
   componentDidMount() {
@@ -125,7 +27,6 @@ class Map extends React.Component {
     //     console.log('finished physics init');
     //   })
     //   .catch((error) => console.log('Map.jsx: ', error));
-    console.log('componentDidMount: generating with dummy data');
     this.physicsInit();
   }
 
@@ -136,63 +37,19 @@ class Map extends React.Component {
     return different;
   }
 
-  generateImages(conceptData) {
-    let images = [];
-
-    console.log('conceptData: ', conceptData);
-
-    for(let continent in conceptData) {
-      conceptData[continent].forEach(function(concept, index) {
-        images.push({
-          'latitude' : mapConfig.geoCenters[continent].latitude,
-          'longitude' : mapConfig.geoCenters[continent].longitude,
-          // 'type' : 'circle',
-          // 'color' : mapConfig.bubbleColor.major.bubble,
-          // 'scale' : mapConfig.scale.major,
-          'labelFontSize' : concept[1] > 5 ? 22 : 11 + concept[1] * 1.5,
-          'label' : concept[0],
-          'labelPosition' : 'middle',
-          'labelColor' : mapConfig.bubbleColor.major.label,
-          'selectable' : true,
-          'selectedLabelColor' : '#db2e2e',
-          'code' : continent,
-          'name' : concept[0],
-        })
-      })
-    }
-
-    //dummy data to test hide/show image group
-    images.push({
-      'groupId': 'hello',
-      'latitude' : 0,
-      'longitude' : 25,
-      // 'type' : 'circle',
-      // 'color' : mapConfig.bubbleColor.major.bubble,
-      // 'scale' : mapConfig.scale.major,
-      'labelFontSize' : 28,
-      'label' : "HELLO",
-      'labelPosition' : 'middle',
-      'labelColor' : '#238796',
-      'selectable' : true,
-      'selectedLabelColor' : '#db2e2e'
-    })
-
-    this.setState({images: images});
-  }
-
   physicsInit() {
     var map;
     var minBulletSize = 7;
     var maxBulletSize = 80;
 
     // set dark theme
-    window.AmCharts.theme = AmCharts.themes.black;
+    AmCharts.theme = window.AmCharts.themes.black;
 
     // get min and max values
     var min = Infinity;
     var max = -Infinity;
-    for (var i = 0; i < dummy.length; i++) {
-        var matching_results = dummy[i].matching_results;
+    for (var i = 0; i < mapConfig.dummy.length; i++) {
+        var matching_results = mapConfig.dummy[i].matching_results;
         if (matching_results < min) {
             min = matching_results;
         }
@@ -251,11 +108,11 @@ class Map extends React.Component {
 
     // create circle for each country
     var maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI;
-    var minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
+    var minSquare = minBulletSize * minBulletSize * 2 * Math.PI * 20;
 
     // create circle for each country
-    for (var i = 0; i < dummy.length; i++) {
-      var dataItem = dummy[i];
+    for (var i = 0; i < mapConfig.dummy.length; i++) {
+      var dataItem = mapConfig.dummy[i];
       var matching_results = dataItem.matching_results;
       // calculate size of a bubble
       var square = (matching_results - min) / (max - min) * (maxSquare - minSquare) + minSquare;
@@ -269,6 +126,9 @@ class Map extends React.Component {
         type: "circle",
         width: size,
         height: size,
+        label: dataItem.key,
+        labelPosition: 'middle',
+        labelColor: 'yellow',
         // color: dataItem.color,
         color: '#ffffff',
         longitude: mapConfig.geoCenters[continent].longitude,
@@ -414,14 +274,12 @@ class Map extends React.Component {
       // release initially to do some animation
       releaseBubbles();
       // attach bubbles in some time
-      setTimeout(attachBubbles, 8000);
+      setTimeout(attachBubbles, 3500);
       window.setInterval(update, 1000 / framesPerSecond)
     }
 
     //update bubbles
     function update() {
-      var width = 900;
-      var height = 600;
       var pixels2meters = 30; // box2d uses meters, not pixels and this is ratio
       var framesPerSecond = 40;
 

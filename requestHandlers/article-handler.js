@@ -13,15 +13,25 @@ exports.retrieveArticles = async (ctx, next) => {
   })
 }
 
-exports.retrieveByKey = async (ctx, next) => {
-  await Key.find( {key: ctx.params.key.toLowerCase(), query_date: {$gt:yesterday} } )
-  .populate('article_ids').then( (populatedKey) => {
-    console.log(`article-handler.retrieveByKey, '${ctx.params.key}' key populated with`)
-    ctx.body = populatedKey;
+exports.retrieveGlobalByKey = async (ctx, next) => {
+  console.log('key word is: ',ctx.params.key)
+  await Article.find({key: ctx.params.key.toLowerCase(), crawl_date: {$gt:yesterday}})
+  .then( (articles) =>{
+    ctx.body = articles;
   }).catch( error => {
-    console.log('article-handler.retrieveByKey fail: ', error);
+    console.log(error)
   })
 }
+
+// exports.retrieveByKey = async (ctx, next) => {
+//   await Key.find( {key: ctx.params.key.toLowerCase(), query_date: {$gt:yesterday} } )
+//   .populate('article_ids').then( (populatedKey) => {
+//     console.log(`article-handler.retrieveByKey, '${ctx.params.key}' key populated with`)
+//     ctx.body = populatedKey;
+//   }).catch( error => {
+//     console.log('article-handler.retrieveByKey fail: ', error);
+//   })
+// }
 
 exports.retrieveByConcept = async( ctx, next ) => {
   await Article.find({crawl_date: {$gt:yesterday}}) //.where('crawl_date').gt(yesterday)

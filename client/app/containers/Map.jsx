@@ -7,14 +7,14 @@ import { selectWord } from '../actions'
 
 const axios = require('axios');
 
-// TODO: Render scale seems to be off between North America and Europe
-
 class Map extends React.Component {
   constructor() {
     super();
     this.state = {
       images: [],
     }
+    // TODO: need to come up with new data structure
+    // TODO: refactor process for generating mapData and rendering in map
   }
 
   componentDidMount() {
@@ -23,7 +23,6 @@ class Map extends React.Component {
         console.log('axios get done');
         let conceptData = response.data.concepts;
         this.generateImages(conceptData);
-        console.log('finished generateImages');
         this.physicsInit();
         console.log('finished physics init');
       })
@@ -40,11 +39,13 @@ class Map extends React.Component {
   generateImages(conceptData) {
     let images = [];
 
+    console.log('conceptData: ', conceptData);
+
     for(let continent in conceptData) {
       conceptData[continent].forEach(function(concept, index) {
         images.push({
-          'latitude' : mapConfig.geoCenters[continent].latitude + mapConfig.coordOffsets[index].latitude,
-          'longitude' : mapConfig.geoCenters[continent].longitude + mapConfig.coordOffsets[index].longitude,
+          'latitude' : mapConfig.geoCenters[continent].latitude,
+          'longitude' : mapConfig.geoCenters[continent].longitude,
           // 'type' : 'circle',
           // 'color' : mapConfig.bubbleColor.major.bubble,
           // 'scale' : mapConfig.scale.major,
@@ -53,7 +54,9 @@ class Map extends React.Component {
           'labelPosition' : 'middle',
           'labelColor' : mapConfig.bubbleColor.major.label,
           'selectable' : true,
-          'selectedLabelColor' : '#db2e2e'
+          'selectedLabelColor' : '#db2e2e',
+          'code' : continent,
+          'name' : concept[0],
         })
       })
     }
@@ -180,8 +183,6 @@ class Map extends React.Component {
 
     // Listen for the init event and initialize box2d part
     map.addListener("init", initBox2D)
-
-    console.log('map.dataProvider: ', map.dataProvider);
 
     map.write("chartdiv");
 
@@ -326,8 +327,6 @@ class Map extends React.Component {
       var images = map.dataProvider.images;
 
       for (var i = 0; i < images.length; i++) {
-        if(i === 0) { console.log('++++++++++'); }
-
         var image = images[i];
         var box2Dimage = image.box2Dimage;
 
@@ -342,14 +341,7 @@ class Map extends React.Component {
         image.displayObject.translate(position.x * 30, position.y * 30, 1, true);
       }
 
-      console.log('outer before, box2Dimage.position.x: ', map.dataProvider.images[0].box2Dimage.m_body.m_xf.position.x);
-      console.log('outer before, box2Dimage.position.y: ', map.dataProvider.images[0].box2Dimage.m_body.m_xf.position.y);
-      // debugger;
-
       world.Step(1 / framesPerSecond, 10, 10);
-
-      console.log('outer after, box2Dimage.position.x: ', map.dataProvider.images[0].box2Dimage.m_body.m_xf.position.x);
-      console.log('outer after, box2Dimage.position.y: ', map.dataProvider.images[0].box2Dimage.m_body.m_xf.position.y);
 
       // uncomment next line if you want to see box2d objects in action (also canvas element at the bottom)
       // world.DrawDebugData();
@@ -408,116 +400,3 @@ function mapDispatchToProps (dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
-
-
-
-
-/*render () {
-    //so listeners can see scope
-    var scope = this;
-    return (
-      <AmCharts.React
-        style={{
-          'width' : '100%',
-          'height' : '75%',
-          'backgroundAlpha' : 1,
-          'backgroundColor' : '#c6c6c6',
-          'margin' : 'auto',
-          'borderAlpha': 1,
-          'borderColor': '#000000',
-          'borderRadius': '20px'
-        }}
-        options ={{
-          'type': 'map',
-          'theme' : 'chalk',
-          'addClassNames': true,
-          // 'centerMap': false,
-          'dataProvider' : {
-            'map' : 'continentsLow',
-            // 'getAreasFromMap' : true,
-            'zoomLevel' : mapConfig.zoomSettings.zoomLevel,
-            'zoomLatitude' : mapConfig.zoomSettings.zoomLatitude,
-            'zoomLongitude' : mapConfig.zoomSettings.zoomLongitude,
-            'images' : this.state.images,
-            "areas": [
-              {
-                "id": "africa",
-                "color": "#72b572",
-              }, {
-                "id": "asia",
-                "color": "#dbc54a",
-              }, {
-                "id": "australia",
-                "color": "#978bb5",
-              }, {
-                "id": "europe",
-                "color": "#557daa",
-              }, {
-                "id": "north_america",
-                "color": "#71bcaa",
-              }, {
-                "id": "south_america",
-                "color": "#e0a257"
-              }
-            ]
-          },
-          'areasSettings': {
-            'balloonText' : '',
-            'autoZoom' : false,
-            // 'selectedColor' : '#CC0000',
-            'rollOverColor': undefined,
-            'rollOverOutlineColor': undefined,
-            'outlineThickness': 1,
-            'outlineColor': '#ffffff'
-          },
-          'zoomControl' : {
-            'zoomControlEnabled' : false,
-            'buttonFillColor': '#ffffff',
-            'buttonRollOverColor': '#626262'
-          },
-          'listeners': [
-            {
-              'event': 'clickMapObject',
-              'method': function (event) {
-                //add selected object label into store to grab articles
-                scope.props.selectWord(event.mapObject.label)
-                // scope.sayHello(event.mapObject.label)
-              }
-            },
-            {
-              'event': 'zoomCompleted',
-              'method': function(event) {
-                //if zoom level is over 3, show this group of images on map
-                if(event.chart.zLevelTemp >= 1.7) {
-                  event.chart.showGroup('hello')
-                }
-              }
-            },
-            {
-              'event': 'zoomCompleted',
-              'method': function(event) {
-                //hide group of images if zoom level is less than 3
-                if(event.chart.zLevelTemp <= 1.7) {
-                  event.chart.hideGroup('hello')
-                }
-              }
-            },
-            {
-              'event': 'rendered',
-              'method': function(event) {
-                //when map is rendered, hide this group of images
-                event.chart.hideGroup('hello')
-              }
-            },
-            {
-              'event': 'homeButtonClicked',
-              'method': function(event) {
-                //when home button is clicked (zoomed back out), hide this group of images
-                event.chart.hideGroup('hello')
-              }
-            },
-          ]
-        }}
-      />
-    );
-  }*/

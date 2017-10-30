@@ -1,4 +1,5 @@
 const Mongoose = require('mongoose');
+Mongoose.Promise = global.Promise;
 
 var keySchema = new Mongoose.Schema({
     key: { type: String, required: true },
@@ -10,6 +11,17 @@ var keySchema = new Mongoose.Schema({
       ref: 'article'
     }]
 });
+
+keySchema.statics.findOneOrCreate = function findOneOrCreate(condition, doc) {
+  const self = this;
+
+  return self.findOne(condition)
+    .then((result) => {
+      return result || self.create(doc);
+    }).catch((err) => {
+      return err;
+    })
+};
 
 var Key = Mongoose.model('key', keySchema);
 

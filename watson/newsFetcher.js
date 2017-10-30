@@ -9,7 +9,6 @@ const Key = require('../models/Key.js');
 const {url, username, password, version} = require('../config/config.js');
 const Continents = require('./Continents.js');
 
-
 /*// node-schedule time format
 'second, minute, hour, dayOfMonth, month, dayOfWeek'*/
 const fetchTime = '0 0 5 * * *'; //every day at 6am
@@ -37,14 +36,18 @@ for(let continentName in Continents){
       version: version
     }
 
+  }).catch( (error) => {
+    console.log('AXIOS REQUEST FAIL: ',error);
+
   }).then ( ({data}) => {
     // const data = require('./top20_unfiltered.js');
-    data.aggregations[0].aggregations[0].aggregations[0].results.map( async ({key, matching_results, aggregations}) => {
-      await Promise.all( aggregations[0].hits.hits.map( ({id, score, title, country, crawl_date,
-        url, host, text, main_image_url, enriched_text}) => {
-        let article = {
+    return Promise.all( data.aggregations[0].aggregations[0].aggregations[0].results.map( ({key, matching_results, aggregations}) => {
+
+      return Promise.all( aggregations[0].hits.hits.map( ({id, score, title, country, crawl_date, url, host, text, main_image_url, enriched_text}) => {
+
+        return Article.findOneOrCreate({id:id}, {
           id: id,
-          key: key,
+          key: key.toLowerCase(),
           score: score,
           title: title,
           country: country,
@@ -56,43 +59,49 @@ for(let continentName in Continents){
           sentiment_score: enriched_text.sentiment.document.score,
           concepts: enriched_text.concepts,
           category: enriched_text.categories[0]? enriched_text.categories[0].label : enriched_text.categories[0]
-        };
-        return Article.findOneAndUpdate({id: id}, article, {upsert:true});
-      })).then( (insertedRows) => {
-        return insertedRows.map(({_id}) => { return _id; });
+        })
+
+      }) ).then ( (articles) => { //end of second promise all
+        return articles.filter( ({_id}) => {
+          return _id !== undefined;
+        }).map( ({_id}) => _id );
 
       })
-      // .catch( (error) => {
-      //   console.log('ARTICLES INSERTION FAIL: ',error)
-      //
-      // })
-      .then( (article_ids) => {
-        // console.log('article_ids = ', article_ids);
-        let key = {
-          key: key,
-          matching_results: matching_results,
+      .then((arrayOfIDs) => {
+        var aggregateByKey = {
           continent: continentName,
+          key: key.toLowerCase(),
+          matching_results: matching_results,
           query_date: today,
-          article_ids: article_ids
-        };
+          article_ids: arrayOfIDs
+        }
 
-        return Key.findOneAndUpdate({key: key, continent: continent, query_date:query_date}, key, {upsert:true});
+        console.log('Aggregation by Key: ', aggregateByKey)
 
-      }).then( (keySaved) => {
-        console.log('KEY SAVED: ', keySaved._id);
+        var query = {
+          continent: continentName,
+          key: key.toLowerCase(),
+          query_date: today
+        }
 
-      }).catch( (error) => {
-        console.log("KEY INSERTION FAIL: ",error);
+        console.log('match statement : ', query)
+        return Key.findOneOrCreate(query, aggregateByKey);
+      })
+      .catch(err => {
+        console.log('catching error: ' , err)
+      })
 
-      });
-    })
+    }) ) //end of first promise all
 
+  }).then( (Keys) => {
+    console.log(`SUCCESS: ${Keys.length} keys saved`)
 
   }).catch( (error) => {
-    console.log('AXIOS REQUEST FAIL: ',error);
+    console.log(error)
   });
 
-};
+}
+
 
 // saving file
 // fs.open(`./${continentName}_top20_filtered.js`,'w', (err, result) => {
@@ -104,27 +113,6 @@ for(let continentName in Continents){
 //     console.log('FILE OPEN FAIL',err);
 //   }
 // })
-
-// static files to mongoDB
-// const continents = ['Africa', 'Asia', 'Europe', 'NorthAmerica', 'Oceania', 'SouthAmerica'];
-
-//
-// continents.map( (continentName) => {
-//   var articles = require(`./${continentName}_top20_filtered.js`);
-//
-//   Promise.all( articles.results.map( (article) => {
-//     return Article.findOneAndUpdate({id: article.id}, article, {upsert:true})
-//     // let newArticle = new Article(article);
-//     // return newArticle.save()
-//     // .catch( (error) => {
-//     //   console.log(error)
-//     //   });
-//     // })
-//     })
-//   );
-//
-// });
-
 
 // const cronRule = new Schedule.RecurrenceRule();
 // cronRule.hour = 5;

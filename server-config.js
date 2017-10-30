@@ -6,7 +6,7 @@ const send = require('koa-send')
 
 const dbFetch = require('./requestHandlers/dbFetch');
 const articleHandler = require('./requestHandlers/article-handler.js');
-const Article = require('./models/Article.js');
+const keyHandler = require('./requestHandlers/key-handler.js');
 
 const app = new Koa();
 const router = new Router();
@@ -16,8 +16,10 @@ app.use( serve(__dirname + '/client') );
 
 router
   .get('/articles', articleHandler.retrieveArticles)
-  .get('/articles/:keyId', articleHandler.retrieveByKey)
-  .get('/articles/concept/:conceptId', articleHandler.retrieveByConcept)
+  .get('/articles/:key', articleHandler.retrieveByKey)
+  .get('/articles/concept/:concept', articleHandler.retrieveByConcept)
+  .get('/headlines', articleHandler.retrieveHeadlines)
+  .get('/keys', keyHandler.retrieveKeys)
   .get('/concepts', async (ctx, next) => {
     await dbFetch.getConceptsByContinent()
       .then(function(response) {
@@ -26,61 +28,12 @@ router
         }
       })
   })
-  .get('/headlines', async (ctx, next) => {
-   await dbFetch.getHeadlines()
-    .then(function(response) {
-      ctx.body = {
-        'headlines': response
-      }
-    })
-    .catch((err) => {console.log(err)})
-  })
-
-
 
 app.use( router.routes() );
+// app.use( router.allowedMethods());
 
 app.use(function* index() {
   yield send(this, '/client/index.html');
 });
 
 module.exports = app;
-
-
-// const session = require('koa-session');
-// const dbconfig = require('./dbconfig.js'); //uncomment when ready to connect to db
-// const User = require('./models/user.js');
-// const userHandler = require('./user-handler.js');
-
-// //Sessions
-// app.keys = ['connecting the dots'];
-// /*
-// const CONFIG = {
-//   key: 'koa:sess',
-//   maxAge: 86400000,
-//   overwrite: true,
-//   httpOnly: true,
-//   signed: true,
-//   rolling: false
-// };
-// app.use(session(CONFIG, app));
-// */
-// app.use( session(app) ); //using default CONFIG above
-
-
-// .post('/login', userHandler.checkSession, userHandler.checkUsername, userHandler.login)
-  //   // check session
-  //   // check username in database
-  //   // match password, assign session id
-  // .post('/signup', userHandler.checkUsername, userHandler.signup)
-  //   // check username in database
-  //   // store username/password in database, assign session id
-  // .get('/logout', userHandler.logout)
-  //   // destroy session, redirect to home
-    // retrieve pins from db, sends pins to client
-  // .post('/new-pin', pinHandler.createPin)
-  //   // check session
-  //   // create pin
-
-
-// app.use( router.allowedMethods());

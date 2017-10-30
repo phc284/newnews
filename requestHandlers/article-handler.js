@@ -1,46 +1,48 @@
 const Article = require('../models/Article.js');
+const Key = require('../models/Key.js');
+
+let date = new Date();
+const yesterday = [date.getFullYear(), date.getMonth()+1, date.getDate()-1].join('-');
 
 exports.retrieveArticles = async (ctx, next) => {
-  var yesterday = new Date();
-  yesterday.setDate( yesterday.getDate() - 1 );
-
-  await Article.find({}).where('crawl_date').gt(yesterday).then( (rows) => {
-    ctx.body = rows;
+  await Article.find({crawl_date: {$gt:yesterday}})//.where('crawl_date').gt(yesterday)
+  .then( articles => {
+    ctx.body = articles;
   }).catch( (error) => {
-    ctx.body = error;
+    console.log('article-handler.retrieveArticles fail: ', error);
   })
-
 }
 
 exports.retrieveByKey = async (ctx, next) => {
-  var yesterday = new Date();
-  yesterday.setDate( yesterday.getDate() - 1 );
-
-  // let conceptId = ctx.params.conceptId;
-  await Article.find({key: ctx.params.keyId}).then( (rows) => {
-    /*TODO: add only today's data
-    */
-    console.log('inside of article-handler.js: ', rows);
-    ctx.body = rows;
-  }).catch( (error) => {
-    ctx.body = error;
+  await Key.find( {key: ctx.params.key.toLowerCase(), query_date: {$gt:yesterday} } )
+  .populate('article_ids').then( (populatedKey) => {
+    console.log(`article-handler.retrieveByKey, '${ctx.params.key}' key populated with`)
+    ctx.body = populatedKey;
+  }).catch( error => {
+    console.log('article-handler.retrieveByKey fail: ', error);
   })
 }
 
 exports.retrieveByConcept = async( ctx, next ) => {
-  var yesterday = new Date();
-  yesterday.setDate( yesterday.getDate() - 1 );
-
-  await Article.find().then( rows => {
-    let filtered = rows.filter( (article) => {
-      var MAX_CONCEPT_NUMBER = article.concepts.length < 10? article.concepts.length : 10;
+  await Article.find({crawl_date: {$gt:yesterday}}) //.where('crawl_date').gt(yesterday)
+  .then( rows => {
+    ctx.body = rows.filter( (article) => {
+      var MAX_CONCEPT_NUMBER = article.concepts.length < 5? article.concepts.length : 5;
       for(let i=0; i<MAX_CONCEPT_NUMBER; i++){
-        if(article.concepts[i].text.toLowerCase()=== ctx.params.conceptId.toLowerCase()){
+        if(article.concepts[i].text.toLowerCase() === ctx.params.concept.toLowerCase()){
           return true;
         }
       }
       return false;
     });
-    ctx.body = filtered;
   });
+}
+
+exports.retrieveHeadlines = async( ctx, next ) => {
+  await Article.find({crawl_date: {$gt:yesterday}}, 'title url') //.where('crawl_date').gt(yesterday)
+    .then((columns) => {
+      ctx.body = {'headlines': columns};
+    }).catch( (error) => {
+      console.log('article-handler.js retrieveHeadlines error: ',error);
+    })
 }

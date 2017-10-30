@@ -1,4 +1,5 @@
 const Mongoose = require('mongoose');
+Mongoose.Promise = global.Promise;
 
 var articleSchema = new Mongoose.Schema({
     id: { type: String, unique: true, required: true },
@@ -22,6 +23,17 @@ var articleSchema = new Mongoose.Schema({
       label: String
     }
 });
+
+articleSchema.statics.findOneOrCreate = function findOneOrCreate(condition, doc) {
+  const self = this;
+
+  return self.findOne(condition)
+    .then((result) => {
+      return result || self.create(doc);
+    }).catch((err) => {
+      return err;
+    })
+};
 
 var Article = Mongoose.model('article', articleSchema);
 

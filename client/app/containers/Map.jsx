@@ -1,9 +1,7 @@
 import React from 'react';
-// import AmCharts from '@amcharts/amcharts3-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { selectWord } from '../actions'
-
 import Box2D from 'box2dweb';
 import * as mapConfig from '../lib/mapConfig';
 
@@ -43,7 +41,7 @@ class Map extends React.Component {
     var maxBulletSize = 80;
 
     // set dark theme
-    AmCharts.theme = window.AmCharts.themes.black;
+    AmCharts.theme = AmCharts.themes.chalk;
 
     // get min and max values
     var min = Infinity;
@@ -60,11 +58,10 @@ class Map extends React.Component {
 
     map = new AmCharts.AmMap();
     map.addClassNames = true;
-    // map.pathToImages = "https://www.amcharts.com/lib/3/images/";
-    map.fontFamily = "Lato";
-    map.fontSize = 15;
-    map.creditsPosition = "top-right";
-    map.zoomControl.buttonFillColor = "#343434";
+    map.backgroundAlpha = "1";
+    map.backgroundColor = "#c6c6c6"
+    map.borderAlpha = "1";
+    map.borderColor = "#000000";
 
     // style tooltip
     map.balloon = {
@@ -83,7 +80,6 @@ class Map extends React.Component {
       alpha: 0.7
     }
 
-    // map.addClassNames = true;
     map.defs = {
       "filter": [{
         "id": "blur",
@@ -94,15 +90,58 @@ class Map extends React.Component {
       }]
     };
 
-    // make areas barely visible
     map.areasSettings = {
-      unlistedAreasAlpha: 0.1,
-      unlistedAreasOutlineAlpha: 0
+      'balloonText' : '',
+      'autoZoom' : false,
+      'rollOverColor': undefined,
+      'rollOverOutlineColor': undefined,
+      'outlineThickness': 1,
+      'outlineColor': '#ffffff',
     };
+
+    map.listeners = [
+      {
+        'event' : 'clickMapObject',
+        'method' : (event) => { scope.props.selectWord(event.mapObject.label); }
+      }, {
+        'event' : 'zoomCompleted',
+        'method' : (event) => { if(event.chart.zLevelTemp >= 1.7) { event.chart.showGroup('hello'); } }
+      }, {
+        'event' : 'zoomCompleted',
+        'method' : (event) => { if(event.chart.zLevelTemp < 1.7) { event.chart.hideGroup('hello'); } }
+      }, {
+        'event' : 'rendered',
+        'method' : (event) => { event.chart.hideGroup('hello'); }
+      }, {
+        'event' : 'homeButtonClicked',
+        'method' : (event) => { event.chart.hideGroup('hello'); }
+      }
+    ];
 
     // data provider. We use continents map to show real world map in background.
     var dataProvider = {
       map: "continentsLow",
+      areas: [
+        {
+          "id": "africa",
+          "color": "#72b572",
+        }, {
+          "id": "asia",
+          "color": "#dbc54a",
+        }, {
+          "id": "australia",
+          "color": "#978bb5",
+        }, {
+          "id": "europe",
+          "color": "#557daa",
+        }, {
+          "id": "north_america",
+          "color": "#71bcaa",
+        }, {
+          "id": "south_america",
+          "color": "#e0a257"
+        },
+      ],
       images: []
     }
 
@@ -128,9 +167,8 @@ class Map extends React.Component {
         height: size,
         label: dataItem.key,
         labelPosition: 'middle',
-        labelColor: 'yellow',
-        // color: dataItem.color,
-        color: '#ffffff',
+        labelColor: '#000000',
+        color: '#eeeeee',
         longitude: mapConfig.geoCenters[continent].longitude,
         latitude: mapConfig.geoCenters[continent].latitude,
         title: dataItem.key,
@@ -139,8 +177,6 @@ class Map extends React.Component {
     }
 
     map.dataProvider = dataProvider;
-
-    console.log('phys, dataProvider: ', dataProvider);
 
     // Listen for the init event and initialize box2d part
     map.addListener("init", initBox2D)
@@ -342,7 +378,7 @@ class Map extends React.Component {
 
   render() {
     return (
-      <div id="chartdiv" style={{width: '900px', height: '600px', margin: 'auto'}} />
+      <div id="chartdiv" style={{width: '900px', height: '600px', margin: 'auto', borderRadius: '20px'}} />
     );
   }  
 }

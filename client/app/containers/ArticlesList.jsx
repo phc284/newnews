@@ -53,7 +53,6 @@ class Articles extends React.Component {
   }
 
   render () {
-
     const articles = this.props.articles || this.state.articles;
     return (
       <div style={styles.container}>

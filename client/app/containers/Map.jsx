@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { selectWord } from '../actions'
 import Box2D from 'box2dweb';
 import * as mapConfig from '../lib/mapConfig';
+import * as mapHelpers from '../lib/mapHelpers';
 
 const axios = require('axios');
 
@@ -16,11 +17,10 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    this.physicsInit();
     axios.get('/keys')
       .then((response) => {
-        console.log('axios get done: ', response); 
-        this.physicsInit();
+        let parsedData = mapHelpers.mongoKeyParser(response.data);
+        this.physicsInit(parsedData);
       })
       .catch((error) => console.log('Map.jsx: ', error));
   }
@@ -32,10 +32,10 @@ class Map extends React.Component {
   //   return different;
   // }
 
-  physicsInit() {
+  physicsInit(mongoData) {
     var map;
-    var minBulletSize = 20;
-    var maxBulletSize = 80;
+    var minBulletSize = 40;
+    var maxBulletSize = 100;
 
     // set dark theme
     AmCharts.theme = AmCharts.themes.chalk;
@@ -43,8 +43,8 @@ class Map extends React.Component {
     // get min and max values
     var min = Infinity;
     var max = -Infinity;
-    for (var i = 0; i < mapConfig.dummy.length; i++) {
-      var matching_results = mapConfig.dummy[i].matching_results;
+    for (var i = 0; i < mongoData.length; i++) {
+      var matching_results = mongoData[i].matching_results;
       if (matching_results < min) {
         min = matching_results;
       }
@@ -65,7 +65,7 @@ class Map extends React.Component {
       adjustBorderColor: false,
       horizontalPadding: 20,
       verticalPadding: 10,
-      color: "#FFFFFF",
+      color: "#000000",
       maxWidth: 300,
       borderAlpha: 0,
       borderThickness: 1
@@ -154,8 +154,8 @@ class Map extends React.Component {
     var minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
 
     // create circle for each country
-    for (var i = 0; i < mapConfig.dummy.length; i++) {
-      var dataItem = mapConfig.dummy[i];
+    for (var i = 0; i < mongoData.length; i++) {
+      var dataItem = mongoData[i];
       var matching_results = dataItem.matching_results;
       // calculate size of a bubble
       var square = (matching_results - min) / (max - min) * (maxSquare - minSquare) + minSquare;
@@ -187,8 +187,6 @@ class Map extends React.Component {
     // map.addListener("init", initBox2D)
 
     map.write("chartdiv");
-
-    console.log('map.dataProvider: ', map.dataProvider);
 
     var width = 900;
     var height = 600;

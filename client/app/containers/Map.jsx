@@ -7,10 +7,6 @@ import * as mapConfig from '../lib/mapConfig';
 
 const axios = require('axios');
 
-// TODO: change image management back to state
-// use setstate
-// re-render to check if then it picks up the listeners
-
 class Map extends React.Component {
   constructor() {
     super();
@@ -20,16 +16,13 @@ class Map extends React.Component {
   }
 
   componentDidMount() {
-    // axios.get('/concepts')
-    //   .then((response) => {
-    //     console.log('axios get done'); 
-    //     let conceptData = response.data.concepts;
-    //     this.generateImages(conceptData);
-    //     this.physicsInit();
-    //     console.log('finished physics init');
-    //   })
-    //   .catch((error) => console.log('Map.jsx: ', error));
     this.physicsInit();
+    axios.get('/keys')
+      .then((response) => {
+        console.log('axios get done: ', response); 
+        this.physicsInit();
+      })
+      .catch((error) => console.log('Map.jsx: ', error));
   }
 
   //map will rerender and zoom back out if the state changes
@@ -51,13 +44,13 @@ class Map extends React.Component {
     var min = Infinity;
     var max = -Infinity;
     for (var i = 0; i < mapConfig.dummy.length; i++) {
-        var matching_results = mapConfig.dummy[i].matching_results;
-        if (matching_results < min) {
-            min = matching_results;
-        }
-        if (matching_results > max) {
-            max = matching_results;
-        }
+      var matching_results = mapConfig.dummy[i].matching_results;
+      if (matching_results < min) {
+        min = matching_results;
+      }
+      if (matching_results > max) {
+        max = matching_results;
+      }
     }
 
     map = new AmCharts.AmMap();
@@ -112,22 +105,22 @@ class Map extends React.Component {
         'method' : (event) => { if(event.chart.zLevelTemp < 1.7) { event.chart.hideGroup('hello'); } }
       }, {
         'event' : 'rendered',
-        'method' : (event) => { console.log('rendered!'); event.chart.hideGroup('hello'); }
+        'method' : (event) => { event.chart.hideGroup('hello'); }
       }, {
         'event' : 'homeButtonClicked',
         'method' : (event) => { event.chart.hideGroup('hello'); }
       }, {
         'event' : 'init',
         'method' : initBox2D,
-      }, /*{
+      }, {
         'event' : 'clickMapObject',
-        'method' : (event) => { console.log('clicked: ', event); scope.props.selectWord(event.mapObject.label); }
-      }*/
+        'method' : (event) => { console.log('clicked: ', event); this.props.selectWord(event.mapObject.label); }
+      }
     ];
 
-    map.addListener("clickMapObject", function(event) {
-      console.log('something got clicked');
-    });
+    // map.addListener("clickMapObject", function(event) {
+    //   console.log('something got clicked');
+    // });
 
     // data provider. We use continents map to show real world map in background.
     var dataProvider = {
@@ -183,7 +176,8 @@ class Map extends React.Component {
         longitude: mapConfig.geoCenters[continent].longitude,
         latitude: mapConfig.geoCenters[continent].latitude,
         title: dataItem.key,
-        matching_results: matching_results
+        matching_results: matching_results,
+        selectable: true,
       });
     }
 

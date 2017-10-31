@@ -65,8 +65,18 @@ const styles = {
   }
 };
 
-const Article = ({ article, concepts, handleTouchTap }) => (
-  console.log(typeof handleTouchTap),
+const sortConcepts = obj => {
+  let conceptArray = [];
+  for (let key in obj) {
+    conceptArray.push({text: key, relevance: obj[key]});
+  }
+  return conceptArray.sort((a, b) => {
+    return b.relevance - a.relevance;
+  });
+};
+
+const Article = ({ article, handleTouchTap, concepts }) => (
+  concepts = sortConcepts(concepts),
   <Card style={styles.card}>
     <CardHeader
       avatar={article.main_image_url ? <img src={article.main_image_url} style={styles.card.avatar}></img> : <i className="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>}

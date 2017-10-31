@@ -65,7 +65,20 @@ const styles = {
   }
 };
 
-const Article = ({ article, concepts, handleTouchTap }) => (
+// const getTopThreeConcepts = obj => {
+//   let conceptArray = [];
+//   for (let key in obj) {
+//     conceptArray.push({key: concept[key]});
+//   }
+//   return conceptArray.sort(a, b) => {
+//     return b.relevance - a.relevance;
+//   }
+// };
+
+// const concepts = getTopThreeConcepts(this.props.concepts);
+
+
+const Article = ({ article, handleTouchTap }) => (
   console.log(typeof handleTouchTap),
   <Card style={styles.card}>
     <CardHeader

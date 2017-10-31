@@ -7,6 +7,10 @@ import * as mapConfig from '../lib/mapConfig';
 
 const axios = require('axios');
 
+// TODO: change image management back to state
+// use setstate
+// re-render to check if then it picks up the listeners
+
 class Map extends React.Component {
   constructor() {
     super();
@@ -29,11 +33,11 @@ class Map extends React.Component {
   }
 
   //map will rerender and zoom back out if the state changes
-  shouldComponentUpdate(nextProps) {
-    //if the word changes, return false so the map doesn't rerender
-    const different = nextProps.activeWord === this.props.activeWord
-    return different;
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   //if the word changes, return false so the map doesn't rerender
+  //   const different = nextProps.activeWord === this.props.activeWord
+  //   return different;
+  // }
 
   physicsInit() {
     var map;
@@ -101,9 +105,6 @@ class Map extends React.Component {
 
     map.listeners = [
       {
-        'event' : 'clickMapObject',
-        'method' : (event) => { scope.props.selectWord(event.mapObject.label); }
-      }, {
         'event' : 'zoomCompleted',
         'method' : (event) => { if(event.chart.zLevelTemp >= 1.7) { event.chart.showGroup('hello'); } }
       }, {
@@ -111,12 +112,22 @@ class Map extends React.Component {
         'method' : (event) => { if(event.chart.zLevelTemp < 1.7) { event.chart.hideGroup('hello'); } }
       }, {
         'event' : 'rendered',
-        'method' : (event) => { event.chart.hideGroup('hello'); }
+        'method' : (event) => { console.log('rendered!'); event.chart.hideGroup('hello'); }
       }, {
         'event' : 'homeButtonClicked',
         'method' : (event) => { event.chart.hideGroup('hello'); }
-      }
+      }, {
+        'event' : 'init',
+        'method' : initBox2D,
+      }, /*{
+        'event' : 'clickMapObject',
+        'method' : (event) => { console.log('clicked: ', event); scope.props.selectWord(event.mapObject.label); }
+      }*/
     ];
+
+    map.addListener("clickMapObject", function(event) {
+      console.log('something got clicked');
+    });
 
     // data provider. We use continents map to show real world map in background.
     var dataProvider = {
@@ -142,7 +153,7 @@ class Map extends React.Component {
           "color": "#e0a257"
         },
       ],
-      images: []
+      images: [],
     }
 
     // create circle for each country
@@ -179,9 +190,11 @@ class Map extends React.Component {
     map.dataProvider = dataProvider;
 
     // Listen for the init event and initialize box2d part
-    map.addListener("init", initBox2D)
+    // map.addListener("init", initBox2D)
 
     map.write("chartdiv");
+
+    console.log('map.dataProvider: ', map.dataProvider);
 
     var width = 900;
     var height = 600;

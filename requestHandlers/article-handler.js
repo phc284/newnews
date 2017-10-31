@@ -34,16 +34,19 @@ exports.retrieveGlobalByKey = async (ctx, next) => {
 // }
 
 exports.retrieveByConcept = async( ctx, next ) => {
-  await Article.find({crawl_date: {$gt:yesterday}}) //.where('crawl_date').gt(yesterday)
-  .then( rows => {
-    ctx.body = rows.filter( (article) => {
-      var MAX_CONCEPT_NUMBER = article.concepts.length < 5? article.concepts.length : 5;
-      for(let i=0; i<MAX_CONCEPT_NUMBER; i++){
-        if(article.concepts[i].text.toLowerCase() === ctx.params.concept.toLowerCase()){
-          return true;
-        }
-      }
-      return false;
+  console.log(`concept : '${ctx.params.concept.toLowerCase()}'`)
+  await Article.find({ crawl_date: {$gt:yesterday} }) //.where('crawl_date').gt(yesterday)
+  .then( (articles) => {
+    ctx.body = articles.filter( (article) => {
+      // article.concepts? console.log('nvm') : console.log(article);
+      return article.concepts.hasOwnProperty( ctx.params.concept.toLowerCase() );
+      // var MAX_CONCEPT_NUMBER = article.concepts.length < 5? article.concepts.length : 5;
+      // for(let i=0; i<MAX_CONCEPT_NUMBER; i++){
+      //   if(article.concepts[i].text.toLowerCase() === ctx.params.concept.toLowerCase()){
+      //     return true;
+      //   }
+      // }
+      // return false;
     });
   });
 }

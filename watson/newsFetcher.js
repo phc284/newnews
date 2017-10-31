@@ -45,6 +45,13 @@ for(let continentName in Continents){
 
       return Promise.all( aggregations[0].hits.hits.map( ({id, score, title, country, crawl_date, url, host, text, main_image_url, enriched_text}) => {
 
+        let concepts = enriched_text.concepts.filter( ({relevance}) => {
+          return relevance >= 0.7;
+        }).reduce( (accum, concept) => {
+          accum[concept.text.toLowerCase()] = concept.relevance;
+          return accum;
+        }, {}) || {};
+        // console.log('newsFetcher, continentName / concepts',continentName, concepts)
         return Article.findOneOrCreate({id:id}, {
           id: id,
           key: key.toLowerCase(),
@@ -57,7 +64,7 @@ for(let continentName in Continents){
           text: text,
           main_image_url: main_image_url,
           sentiment_score: enriched_text.sentiment.document.score,
-          concepts: enriched_text.concepts,
+          concepts: concepts,
           category: enriched_text.categories[0]? enriched_text.categories[0].label : enriched_text.categories[0]
         })
 
@@ -76,7 +83,7 @@ for(let continentName in Continents){
           article_ids: arrayOfIDs
         }
 
-        console.log('Aggregation by Key: ', aggregateByKey)
+        // console.log('Aggregation by Key: ', aggregateByKey)
 
         var query = {
           continent: continentName,
@@ -84,7 +91,7 @@ for(let continentName in Continents){
           query_date: today
         }
 
-        console.log('match statement : ', query)
+        // console.log('match statement : ', query)
         return Key.findOneOrCreate(query, aggregateByKey);
       })
       .catch(err => {

@@ -55,25 +55,25 @@ class Map extends React.Component {
 
     map = new AmCharts.AmMap();
     map.addClassNames = true;
-    map.backgroundAlpha = "1";
-    map.backgroundColor = "#c6c6c6"
-    map.borderAlpha = "1";
-    map.borderColor = "#000000";
+    // map.backgroundAlpha = "1";
+    // map.backgroundColor = "#c6c6c6"
+    // map.borderAlpha = "1";
+    // map.borderColor = "#000000";
 
     // style tooltip
-    map.balloon = {
-      adjustBorderColor: false,
-      horizontalPadding: 20,
-      verticalPadding: 10,
-      color: "#000000",
-      maxWidth: 300,
-      borderAlpha: 0,
-      borderThickness: 1
-    }
+    // map.balloon = {
+    //   adjustBorderColor: false,
+    //   horizontalPadding: 20,
+    //   verticalPadding: 10,
+    //   color: "#000000",
+    //   maxWidth: 300,
+    //   borderAlpha: 0,
+    //   borderThickness: 1
+    // }
 
     // bubbles are images, we set opacity and tooltip text
     map.imagesSettings = {
-      balloonText: "[[title]]: [[value]]",
+      balloonText: '',
       alpha: 0.7
     }
 
@@ -94,6 +94,12 @@ class Map extends React.Component {
       'rollOverOutlineColor': undefined,
       'outlineThickness': 1,
       'outlineColor': '#ffffff',
+    };
+
+    map.zoomControl = {
+      'zoomControlEnabled' : true,
+      'buttonFillColor': '#ffffff',
+      'buttonRollOverColor': '#626262'
     };
 
     map.listeners = [
@@ -125,6 +131,9 @@ class Map extends React.Component {
     // data provider. We use continents map to show real world map in background.
     var dataProvider = {
       map: "continentsLow",
+      zoomLevel : mapConfig.zoomSettings.zoomLevel,
+      zoomLatitude : mapConfig.zoomSettings.zoomLatitude,
+      zoomLongitude : mapConfig.zoomSettings.zoomLongitude,
       areas: [
         {
           "id": "africa",
@@ -383,7 +392,18 @@ class Map extends React.Component {
 
   render() {
     return (
-      <div id="chartdiv" style={{width: '900px', height: '600px', margin: 'auto', borderRadius: '20px'}} />
+      <div id="chartdiv" 
+          style={{
+          'width' : '100%',
+          'height' : '75%',
+          'backgroundAlpha' : 1,
+          'backgroundColor' : '#c6c6c6',
+          'margin' : 'auto',
+          'borderAlpha': 1,
+          'borderColor': '#000000',
+          'borderRadius': '20px'
+        }}
+       />
     );
   }  
 }

@@ -14,7 +14,6 @@ var keySchema = new Mongoose.Schema({
 
 keySchema.statics.findOneOrCreate = function findOneOrCreate(condition, doc) {
   const self = this;
-
   return self.findOne(condition)
     .then((result) => {
       return result || self.create(doc);

@@ -51,7 +51,7 @@ for(let continentName in Continents){
           accum[concept.text.toLowerCase()] = concept.relevance;
           return accum;
         }, {}) || {};
-        // console.log('newsFetcher, continentName / concepts',continentName, concepts)
+
         return Article.findOneOrCreate({id:id}, {
           id: id,
           key: key.toLowerCase(),

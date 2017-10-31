@@ -2,28 +2,28 @@ const axios = require('axios');
 
 const geoCenters = {
   'nAmerica' : {
-    'latitude' : 48.3548,
-    'longitude' : -99.9989,
+    'latitude' : 38,
+    'longitude' : -97,
   },
   'sAmerica' : {
-    'latitude' : -15.6006,
-    'longitude' : -56.1004
+    'latitude' : -10,
+    'longitude' : -55,
   },
   'Europe' : {
-    'latitude' : 54.5423,
-    'longitude' : 15.198
+    'latitude' : 52,
+    'longitude' : 20,
   },
   'Africa' : {
-    'latitude' : 1.261,
-    'longitude' : 25
+    'latitude' : 15,
+    'longitude' : 19,
   },
   'Asia' : {
-    'latitude' : 50,
-    'longitude' : 100
+    'latitude' : 46,
+    'longitude' : 105,
   },
   'Oceania' : {
-    'latitude' : -23.02,
-    'longitude' : 140.10
+    'latitude' : -27,
+    'longitude' : 133
   }
 }
 
@@ -72,10 +72,195 @@ const zoomSettings = {
   'zoomLongitude' : 5,
 }
 
+const dummy = [
+  {
+    key: 'United States',
+    matching_results: '50000',
+    continent: 'nAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'President of the United States',
+    matching_results: '40000',
+    continent: 'nAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Stock Market',
+    matching_results: '30000',
+    continent: 'nAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Stock',
+    matching_results: '20000',
+    continent: 'nAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'English-language films',
+    matching_results: '10000',
+    continent: 'nAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'United Kingdom',
+    matching_results: '50000',
+    continent: 'Europe',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Manchester United F.C.',
+    matching_results: '40000',
+    continent: 'Europe',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'English-language films',
+    matching_results: '30000',
+    continent: 'Europe',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'United States',
+    matching_results: '20000',
+    continent: 'Europe',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'United States',
+    matching_results: '10000',
+    continent: 'Europe',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Graphic design',
+    matching_results: '50000',
+    continent: 'sAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Marketing',
+    matching_results: '40000',
+    continent: 'sAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Cyrillic alphabet',
+    matching_results: '30000',
+    continent: 'sAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'World Wide Web',
+    matching_results: '20000',
+    continent: 'sAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Experience',
+    matching_results: '10000',
+    continent: 'sAmerica',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'India',
+    matching_results: '50000',
+    continent: 'Asia',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'United States',
+    matching_results: '40000',
+    continent: 'Asia',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Government',
+    matching_results: '30000',
+    continent: 'Asia',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Bharatiya Janata Party',
+    matching_results: '20000',
+    continent: 'Asia',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Gujarat',
+    matching_results: '10000',
+    continent: 'Asia',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'South Africa',
+    matching_results: '50000',
+    continent: 'Africa',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Nigeria',
+    matching_results: '40000',
+    continent: 'Africa',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'President of the United States',
+    matching_results: '30000',
+    continent: 'Africa',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Africa',
+    matching_results: '20000',
+    continent: 'Africa',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'United States',
+    matching_results: '10000',
+    continent: 'Africa',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'Australia',
+    matching_results: '50000',
+    continent: 'Oceania',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'New Zealand',
+    matching_results: '40000',
+    continent: 'Oceania',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'English-language films',
+    matching_results: '30000',
+    continent: 'Oceania',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'United States',
+    matching_results: '20000',
+    continent: 'Oceania',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }, {
+    key: 'United Kingdom',
+    matching_results: '10000',
+    continent: 'Oceania',
+    query_date: '10/31/2017',
+    article_ids: [],
+  }
+]
+
 module.exports = {
   geoCenters: geoCenters,
   coordOffsets: coordOffsets,
   scale: scale,
   bubbleColor: bubbleColor,
   zoomSettings: zoomSettings,
+  dummy: dummy,
 }

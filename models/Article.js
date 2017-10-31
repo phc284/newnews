@@ -13,11 +13,7 @@ var articleSchema = new Mongoose.Schema({
     text: String,
     main_image_url: String,
     sentiment_score: Number,
-    concepts: [{
-      text: { type: String, required: true },
-      relevance: Number,
-      dbpedia_resource: String
-    }],
+    concepts: Mongoose.Schema.Types.Mixed,
     category: {
       score: Number,
       label: String

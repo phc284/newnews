@@ -65,21 +65,18 @@ const styles = {
   }
 };
 
-// const getTopThreeConcepts = obj => {
-//   let conceptArray = [];
-//   for (let key in obj) {
-//     conceptArray.push({key: concept[key]});
-//   }
-//   return conceptArray.sort(a, b) => {
-//     return b.relevance - a.relevance;
-//   }
-// };
+const sortConcepts = obj => {
+  let conceptArray = [];
+  for (let key in obj) {
+    conceptArray.push({text: key, relevance: obj[key]});
+  }
+  return conceptArray.sort((a, b) => {
+    return b.relevance - a.relevance;
+  });
+};
 
-// const concepts = getTopThreeConcepts(this.props.concepts);
-
-
-const Article = ({ article, handleTouchTap }) => (
-  console.log(typeof handleTouchTap),
+const Article = ({ article, handleTouchTap, concepts }) => (
+  concepts = sortConcepts(concepts),
   <Card style={styles.card}>
     <CardHeader
       avatar={article.main_image_url ? <img src={article.main_image_url} style={styles.card.avatar}></img> : <i className="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>}

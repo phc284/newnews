@@ -33,7 +33,6 @@ class Modal extends React.Component {
     ];
 
     return (
-      console.log('props in modal', this.props),
       <div>
         <Dialog
           actions={actions}

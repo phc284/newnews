@@ -175,6 +175,17 @@ class Map extends React.Component {
       var continent = dataItem.continent;
       var fontSize = size * 0.2;
       var topic = dataItem.key.split(' ').join('\n');
+
+      //shift the label on the bubble to fit in bubble better
+      var labelShift = 0;
+      if (!topic.includes('\n')) {
+        labelShift = 0
+      } else if(topic.length > 12){
+        labelShift = -11;
+      } else if (topic.length > 8) {
+        labelShift = -6;
+      }
+
       // dataItem.key.length > fontSize ? topic = dataItem.key.slice(0, fontSize) : topic = dataItem.key;
 
       dataProvider.images.push({
@@ -183,6 +194,7 @@ class Map extends React.Component {
         height: size,
         label: topic,
         labelPosition: 'middle',
+        labelShiftY: labelShift,
         labelColor: '#000000',
         labelFontSize: fontSize,
         color: '#eeeeee',
@@ -396,7 +408,7 @@ class Map extends React.Component {
 
   render() {
     return (
-      <div id="chartdiv" 
+      <div id="chartdiv"
           style={{
           'width' : '100%',
           'height' : '75%',
@@ -409,7 +421,7 @@ class Map extends React.Component {
         }}
        />
     );
-  }  
+  }
 }
 
 

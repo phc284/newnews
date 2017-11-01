@@ -175,8 +175,9 @@ class Map extends React.Component {
       var continent = dataItem.continent;
       var fontSize = size * 0.2;
       var topic = dataItem.key.split(' ').join('\n');
+
+      //shift the label on the bubble to fit in bubble better
       var labelShift = 0;
-      console.log(topic)
       if (!topic.includes('\n')) {
         labelShift = 0
       } else if(topic.length > 12){

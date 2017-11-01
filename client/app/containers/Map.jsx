@@ -12,7 +12,7 @@ class Map extends React.Component {
   constructor() {
     super();
     this.state = {
-      images: [],
+      images: []
     }
   }
 
@@ -25,12 +25,14 @@ class Map extends React.Component {
       .catch((error) => console.log('Map.jsx: ', error));
   }
 
-  // //map will rerender and zoom back out if the state changes
-  // shouldComponentUpdate(nextProps) {
-  //   //if the word changes, return false so the map doesn't rerender
-  //   const different = nextProps.activeWord === this.props.activeWord
-  //   return different;
-  // }
+  //map will rerender and zoom back out if the state changes
+  shouldComponentUpdate(nextProps) {
+    //if the word changes, return false so the map doesn't rerender
+    console.log(this.state.data)
+    console.log(this.state.fullData)
+    const different = this.state.data === this.state.fullData
+    return different;
+  }
 
   physicsInit(mongoData) {
     var map;
@@ -120,18 +122,6 @@ class Map extends React.Component {
 
     map.listeners = [
       {
-        'event' : 'zoomCompleted',
-        'method' : (event) => { if(event.chart.zLevelTemp >= 1.7) { event.chart.showGroup('bottom5'); } }
-      }, {
-        'event' : 'zoomCompleted',
-        'method' : (event) => { if(event.chart.zLevelTemp < 1.7) { event.chart.hideGroup('bottom5'); } }
-      }, {
-        'event' : 'rendered',
-        'method' : (event) => { event.chart.hideGroup('bottom5'); }
-      }, {
-        'event' : 'homeButtonClicked',
-        'method' : (event) => { event.chart.hideGroup('bottom5'); }
-      }, {
         'event' : 'init',
         'method' : initBox2D,
       }, {
@@ -247,7 +237,7 @@ class Map extends React.Component {
           title: dataItem.key,
           matching_results: matching_results,
           selectable: true,
-          groupId: i < 5 ? '' : 'bottom5',
+          // groupId: i < 5 ? '' : 'bottom5',
         });
       }
 
@@ -466,7 +456,6 @@ class Map extends React.Component {
           'margin' : 'auto',
           'borderAlpha': 1,
           'borderColor': '#000000',
-          'borderRadius': '20px'
         }}
        />
     );

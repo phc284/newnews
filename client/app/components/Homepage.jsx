@@ -7,7 +7,6 @@ import Articles from "../containers/ArticlesList.jsx";
 import Marquee from "./Marquee.jsx";
 import Footer from './Footer.jsx';
 import Modal from '../containers/Modal.jsx';
-import SearchBar from './SearchBar.jsx';
 import Header from './Header.jsx';
 
 const Homepage = () => (

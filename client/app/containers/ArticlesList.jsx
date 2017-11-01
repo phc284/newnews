@@ -42,9 +42,8 @@ class Articles extends React.Component {
   componentWillMount() {
     axios.get('/keys')
     .then( response => {
-      console.log(response.data.topArticles);
-      // let articles = response.data;
-      // this.setState({articles: articles.slice(0, 25)});
+      let articles = response.data.topArticles;
+      this.setState({articles: articles});
     })
   }
 

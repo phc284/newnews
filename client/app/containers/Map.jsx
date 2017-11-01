@@ -396,7 +396,7 @@ class Map extends React.Component {
 
   render() {
     return (
-      <div id="chartdiv" 
+      <div id="chartdiv"
           style={{
           'width' : '100%',
           'height' : '75%',
@@ -409,7 +409,7 @@ class Map extends React.Component {
         }}
        />
     );
-  }  
+  }
 }
 
 

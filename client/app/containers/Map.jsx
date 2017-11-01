@@ -173,18 +173,22 @@ class Map extends React.Component {
       }
       var size = Math.sqrt(square / (Math.PI * 2));
       var continent = dataItem.continent;
+      var fontSize = size * 0.2;
+      var topic = dataItem.key.split(' ').join('\n');
+      // dataItem.key.length > fontSize ? topic = dataItem.key.slice(0, fontSize) : topic = dataItem.key;
 
       dataProvider.images.push({
         type: "circle",
         width: size,
         height: size,
-        label: dataItem.key,
+        label: topic,
         labelPosition: 'middle',
         labelColor: '#000000',
+        labelFontSize: fontSize,
         color: '#eeeeee',
         longitude: mapConfig.geoCenters[continent].longitude,
         latitude: mapConfig.geoCenters[continent].latitude,
-        title: dataItem.key,
+        //title: dataItem.key,
         matching_results: matching_results,
         selectable: true,
       });

@@ -10,7 +10,7 @@ exports.retrieveKeys = async (ctx, next) => {
   await Key.find({ query_date: {$gt:yesterday} }).then( (keyConcepts) => {
     keysSave = keyConcepts;
     return Promise.all( keyConcepts.map( ({article_ids}) => {
-      return Article.find({_id:article_ids[0]})
+      return Article.findOne({_id:article_ids})
     }) )
 
   }).then( (topArticles) => {

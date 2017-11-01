@@ -18,7 +18,6 @@ router
   .get('/articles', articleHandler.retrieveArticles)
   .get('/articles/:key', articleHandler.retrieveGlobalByKey)
   // .get('/articles/:key', articleHandler.retrieveByKey)
-  
   .get('/articles/concept/:concept', articleHandler.retrieveByConcept)
   .get('/headlines', articleHandler.retrieveHeadlines)
   .get('/keys', keyHandler.retrieveKeys)

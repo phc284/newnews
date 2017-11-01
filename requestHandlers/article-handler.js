@@ -14,7 +14,7 @@ exports.retrieveArticles = async (ctx, next) => {
 }
 
 exports.retrieveGlobalByKey = async (ctx, next) => {
-  console.log('key word is: ',ctx.params.key)
+  console.log('key word is: ', ctx.params.key)
   await Article.find( { key: ctx.params.key.toLowerCase(),
     crawl_date: {$gt:yesterday} } ).then( (articles) =>{
     ctx.body = articles;
@@ -34,11 +34,16 @@ exports.retrieveGlobalByKey = async (ctx, next) => {
 // }
 
 exports.retrieveByConcept = async( ctx, next ) => {
-  await Article.find({ crawl_date: {$gt:yesterday} }).then( (articles) => {
-    ctx.body = articles.filter( (article) => {
-      return article.concepts.hasOwnProperty( ctx.params.concept.toLowerCase() );
-    })
+  await Article.find({}).where(`concepts.${ctx.params.concept}`).ne(undefined)
+    .where('crawl_date').gt(yesterday).then( (articles) => {
+      ctx.body = articles;
   })
+
+  // await Article.find({ crawl_date: {$gt:yesterday} }).then( (articles) => {
+  //   ctx.body = articles.filter( (article) => {
+  //     return article.concepts.hasOwnProperty( ctx.params.concept.toLowerCase() );
+  //   })
+  // })
 }
 
 exports.retrieveHeadlines = async( ctx, next ) => {

@@ -175,6 +175,14 @@ class Map extends React.Component {
       var continent = dataItem.continent;
       var fontSize = size * 0.2;
       var topic = dataItem.key.split(' ').join('\n');
+      var labelShift = 0;
+      console.log(topic)
+      if(topic.length > 12){
+        labelShift = -11;
+      } else if (topic.length > 8) {
+        labelShift = -6;
+      }
+
       // dataItem.key.length > fontSize ? topic = dataItem.key.slice(0, fontSize) : topic = dataItem.key;
 
       dataProvider.images.push({
@@ -183,6 +191,7 @@ class Map extends React.Component {
         height: size,
         label: topic,
         labelPosition: 'middle',
+        labelShiftY: labelShift,
         labelColor: '#000000',
         labelFontSize: fontSize,
         color: '#eeeeee',

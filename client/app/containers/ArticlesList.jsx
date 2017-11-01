@@ -40,10 +40,11 @@ class Articles extends React.Component {
   }
 
   componentWillMount() {
-    axios.get('/articles/' + 'United States', {params: {query: 'United States'}})
+    axios.get('/keys')
     .then( response => {
-      let articles = response.data;
-      this.setState({articles: articles.slice(0, 25)});
+      console.log(response.data.topArticles);
+      // let articles = response.data;
+      // this.setState({articles: articles.slice(0, 25)});
     })
   }
 

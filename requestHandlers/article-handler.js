@@ -2,7 +2,8 @@ const Article = require('../models/Article.js');
 const Key = require('../models/Key.js');
 
 let date = new Date();
-const yesterday = [date.getFullYear(), date.getMonth()+1, date.getDate()-1].join('-');
+date.setDate(date.getDate()-1);
+const yesterday = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
 
 exports.retrieveArticles = async (ctx, next) => {
   await Article.find({crawl_date: {$gt:yesterday}}).then( articles => {

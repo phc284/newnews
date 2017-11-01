@@ -16,7 +16,8 @@ const everyTwoSec = '*/2 * * * * *'
 
 const date = new Date();
 const today = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
-const yesterday = [date.getFullYear(), date.getMonth()+1, date.getDate()-1].join('-');
+date.setDate(date.getDate()-1);
+const yesterday = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
 
 for(let continentName in Continents){
 
@@ -29,9 +30,9 @@ for(let continentName in Continents){
     },
 
     params: {
-      aggregation: `filter(crawl_date>${yesterday})`
+      aggregation: `filter(crawl_date>2017-10-31)`
         + `.filter(country::[${countryList.join('|')}])`
-        + `.term(enriched_text.concepts.text).top_hits(30)`,
+        + `.term(enriched_text.concepts.text).top_hits(20)`,
       count: 0,
       version: version
     }

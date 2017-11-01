@@ -20,6 +20,7 @@ class Map extends React.Component {
     axios.get('/keys')
       .then((response) => {
         let parsedData = mapHelpers.mongoKeyParser(response.data);
+        console.log('Map.jsx parsedData: ', parsedData);
         this.physicsInit(parsedData);
       })
       .catch((error) => console.log('Map.jsx: ', error));
@@ -46,6 +47,7 @@ class Map extends React.Component {
 
     for(let region in mongoData) {
       for(let i = 0; i < mongoData[region].length; i++) {
+        console.log(mongoData[region][i].matching_results)
         let matching_results = mongoData[region][i].matching_results;
         if(matching_results < min) {
           min = matching_results;
@@ -218,19 +220,6 @@ class Map extends React.Component {
         let size = Math.sqrt(square / (Math.PI * 2));
         let continent = dataItem.continent;
 
-        var fontSize = size * 0.2;
-        var topic = dataItem.key.split(' ').join('\n');
-
-        //shift the label on the bubble to fit in bubble better
-        var labelShift = 0;
-        if (!topic.includes('\n')) {
-          labelShift = 0
-        } else if(topic.length > 12){
-          labelShift = -11;
-        } else if (topic.length > 8) {
-          labelShift = -6;
-        }
-
         dataProvider.images.push({
           type: 'circle',
           width: size,
@@ -247,12 +236,11 @@ class Map extends React.Component {
           groupId: i < 5 ? 'top5' : 'bottom5',
         });
       }
-
-      
-      // dataItem.key.length > fontSize ? topic = dataItem.key.slice(0, fontSize) : topic = dataItem.key;
     }
 
     map.dataProvider = dataProvider;
+
+    console.log('Map.jsx, map.dataProvider: ', map.dataProvider);
 
     // Listen for the init event and initialize box2d part
     // map.addListener("init", initBox2D)
@@ -454,7 +442,7 @@ class Map extends React.Component {
 
   render() {
     return (
-      <div id="chartdiv"
+      <div id="chartdiv" 
           style={{
           'width' : '100%',
           'height' : '75%',
@@ -467,7 +455,7 @@ class Map extends React.Component {
         }}
        />
     );
-  }
+  }  
 }
 
 

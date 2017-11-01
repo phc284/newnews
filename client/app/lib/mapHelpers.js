@@ -11,16 +11,13 @@ var mongoKeyParser = function({keys, topArticles}) {
 
 	// mongoData.forEach((entry) => { regionalizedData[entry.continent].push(entry); });
 	keys.forEach((entry) => { regionalizedData[entry.continent].push(entry); });
-
-	console.log('regionalized data: ', regionalizedData);
-
-	let result = [];
-
-	for(let region in regionalizedData) {
-		result = result.concat(regionalizedData[region].sort((a, b) => { return b.matching_results - a.matching_results; }).slice(0, 5));
+	
+	for(let region in regionalizedData) { 
+		regionalizedData[region] = regionalizedData[region].sort((a, b) => { return b.matching_results - a.matching_results; });
 	}
 
-	return result;
+	return regionalizedData;
+
 }
 
 module.exports = {

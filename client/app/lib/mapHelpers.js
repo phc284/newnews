@@ -1,5 +1,5 @@
 
-var mongoKeyParser = function(mongoData) {
+var mongoKeyParser = function({keys, topArticles}) {
 	let regionalizedData = {
 		'nAmerica' : [],
 		'sAmerica' : [],
@@ -9,13 +9,14 @@ var mongoKeyParser = function(mongoData) {
 		'Oceania' : [],
 	}
 
-	mongoData.forEach((entry) => { regionalizedData[entry.continent].push(entry); });
+	// mongoData.forEach((entry) => { regionalizedData[entry.continent].push(entry); });
+	keys.forEach((entry) => { regionalizedData[entry.continent].push(entry); });
 
 	console.log('regionalized data: ', regionalizedData);
 
 	let result = [];
 
-	for(let region in regionalizedData) { 
+	for(let region in regionalizedData) {
 		result = result.concat(regionalizedData[region].sort((a, b) => { return b.matching_results - a.matching_results; }).slice(0, 5));
 	}
 

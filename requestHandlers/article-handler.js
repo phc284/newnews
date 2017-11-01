@@ -16,10 +16,8 @@ exports.retrieveArticles = async (ctx, next) => {
 exports.retrieveGlobalByKey = async (ctx, next) => {
   console.log('key word is: ', ctx.params.key)
   await Article.find(
-    {
-      key: ctx.params.key.toLowerCase(),
-      crawl_date: {$gt:yesterday}
-    } ).then( (articles) =>{
+    { key: ctx.params.key.toLowerCase(),
+      crawl_date: {$gt:yesterday} }).then( (articles) =>{
     ctx.body = articles;
   }).catch( error => {
     console.log(error)

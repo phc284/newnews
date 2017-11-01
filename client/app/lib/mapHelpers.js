@@ -11,8 +11,8 @@ var mongoKeyParser = function({keys, topArticles}) {
 
 	// mongoData.forEach((entry) => { regionalizedData[entry.continent].push(entry); });
 	keys.forEach((entry) => { regionalizedData[entry.continent].push(entry); });
-	
-	for(let region in regionalizedData) { 
+
+	for(let region in regionalizedData) {
 		regionalizedData[region] = regionalizedData[region].sort((a, b) => { return b.matching_results - a.matching_results; });
 	}
 

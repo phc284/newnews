@@ -25,7 +25,7 @@ class Map extends React.Component {
       .catch((error) => console.log('Map.jsx: ', error));
   }
 
-  //map will rerender and zoom back out if the state changes
+  // //map will rerender and zoom back out if the state changes
   // shouldComponentUpdate(nextProps) {
   //   //if the word changes, return false so the map doesn't rerender
   //   const different = nextProps.activeWord === this.props.activeWord
@@ -85,7 +85,7 @@ class Map extends React.Component {
     // }
 
     // bubbles are images, we set opacity and tooltip text
-    //This is so that the bubbles don't change positions 
+    //This is so that the bubbles don't change positions
     map.fitMapToContainer = false;
 
     map.imagesSettings = {
@@ -121,16 +121,16 @@ class Map extends React.Component {
     map.listeners = [
       {
         'event' : 'zoomCompleted',
-        'method' : (event) => { if(event.chart.zLevelTemp >= 1.7) { event.chart.showGroup('hello'); } }
+        'method' : (event) => { if(event.chart.zLevelTemp >= 1.7) { event.chart.showGroup('bottom5'); } }
       }, {
         'event' : 'zoomCompleted',
-        'method' : (event) => { if(event.chart.zLevelTemp < 1.7) { event.chart.hideGroup('hello'); } }
+        'method' : (event) => { if(event.chart.zLevelTemp < 1.7) { event.chart.hideGroup('bottom5'); } }
       }, {
         'event' : 'rendered',
-        'method' : (event) => { event.chart.hideGroup('hello'); }
+        'method' : (event) => { event.chart.hideGroup('bottom5'); }
       }, {
         'event' : 'homeButtonClicked',
-        'method' : (event) => { event.chart.hideGroup('hello'); }
+        'method' : (event) => { event.chart.hideGroup('bottom5'); }
       }, {
         'event' : 'init',
         'method' : initBox2D,
@@ -247,11 +247,11 @@ class Map extends React.Component {
           title: dataItem.key,
           matching_results: matching_results,
           selectable: true,
-          groupId: i < 5 ? 'top5' : 'bottom5',
+          groupId: i < 5 ? '' : 'bottom5',
         });
       }
 
-      
+
       // dataItem.key.length > fontSize ? topic = dataItem.key.slice(0, fontSize) : topic = dataItem.key;
     }
 

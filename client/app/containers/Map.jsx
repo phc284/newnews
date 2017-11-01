@@ -177,7 +177,9 @@ class Map extends React.Component {
       var topic = dataItem.key.split(' ').join('\n');
       var labelShift = 0;
       console.log(topic)
-      if(topic.length > 12){
+      if (!topic.includes('\n')) {
+        labelShift = 0
+      } else if(topic.length > 12){
         labelShift = -11;
       } else if (topic.length > 8) {
         labelShift = -6;

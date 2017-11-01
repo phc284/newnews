@@ -85,6 +85,9 @@ class Map extends React.Component {
     // }
 
     // bubbles are images, we set opacity and tooltip text
+    //This is so that the bubbles don't change positions 
+    map.fitMapToContainer = false;
+
     map.imagesSettings = {
       balloonText: '',
       alpha: 0.7

@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat);
 @import url(https://fonts.googleapis.com/css?family=Rubik+Mono+One);
 @import url(https://fonts.googleapis.com/css?family=Space+Mono);
+@import url(https://fonts.googleapis.com/css?family=Lobster);
 
 body {
   background-color: #373737;
@@ -38,8 +39,8 @@ body {
 }
 
 .marqueeBar {
-  margin-bottom: 25;
-  margin-top: 10;
+  margin-bottom: 0;
+  margin-top: 25;
 }
 
 .marquee span {
@@ -134,6 +135,34 @@ h1 {
 #description h3 {
   text-align: center;
   margin-left: 50;
+}
+
+#design {
+  background: #79a6f6 center fixed;
+  padding: 80px 0;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#design h1 {
+  text-align: center;
+  font-size: 6vmin;
+  margin-left: 50;
+}
+
+#design h3 {
+  text-align: center;
+  margin-left: 50;
+  display: inline-block;
+}
+
+
+#watsonpower {
+  height: 200;
+  width: 400;
+  display: inline-block;
 }
 
 .profpic {

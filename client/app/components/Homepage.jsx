@@ -15,7 +15,6 @@ const Homepage = () => (
       NewNews
     </div>
     <Modal />
-    <SearchBar />
     <div className='marqueeBar'>
       <Marquee />
     </div>

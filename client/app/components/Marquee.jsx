@@ -8,7 +8,7 @@ import axios from 'axios'
 const styles = {
   title: {
     background: 'none',
-    height: 30,
+    height: 20,
     margin: 'auto',
     marginBottom: '8px',
     width: '100%',
@@ -16,7 +16,7 @@ const styles = {
     paddingRight: '0px'
   },
   span: {
-    height: 50
+    height: 50,
   }
 };
 

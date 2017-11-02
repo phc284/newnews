@@ -8,21 +8,19 @@ import Marquee from "./Marquee.jsx";
 import Footer from './Footer.jsx';
 import Modal from '../containers/Modal.jsx';
 import SearchBar from './SearchBar.jsx';
+import Header from './Header.jsx';
 
 const Homepage = () => (
   <div>
-    <div className='title'>
-      NewNews
-    </div>
+      <Header />
     <Modal />
-    <SearchBar />
+    <div style={{ marginTop: '50px', marginBottom: "2px", display: 'flex', flexDirection: 'row', width: '100%'}}>
+      <Map />
+    </div>
     <div className='marqueeBar'>
       <Marquee />
     </div>
-    <div style={{ marginBottom: "15px", display: 'flex', flexDirection: 'row', width: '100%'}}>
-      <Map />
-      <Articles />
-    </div>
+    <Articles />
     <Footer />
   </div>
 );

@@ -15,9 +15,9 @@ const fetchTime = '0 0 5 * * *'; //every day at 6am
 const everyTwoSec = '*/2 * * * * *'
 
 const date = new Date();
-const today = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
-date.setDate(date.getDate()-1);
-const yesterday = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
+const today = date.toJSON().split('T')[0];
+date.setDate(date.getDate()+1);
+const tomorrow = date.toJSON().split('T')[0];
 
 for(let continentName in Continents){
 
@@ -30,9 +30,9 @@ for(let continentName in Continents){
     },
 
     params: {
-      aggregation: `filter(crawl_date>2017-10-31)`
+      aggregation: `filter(crawl_date>=${today},crawl_date<${tomorrow})` //,crawl_date<${today})`
         + `.filter(country::[${countryList.join('|')}])`
-        + `.term(enriched_text.concepts.text).top_hits(20)`,
+        + `.term(enriched_title.concepts.text,count:20).top_hits(15)`,
       count: 0,
       version: version
     }
@@ -74,8 +74,9 @@ for(let continentName in Continents){
           return _id !== undefined;
         }).map( ({_id}) => _id );
 
-      })
-      .then((arrayOfIDs) => {
+      }).then((arrayOfIDs) => {
+        console.log(`${arrayOfIDs.length} articles saved`);
+
         var aggregateByKey = {
           continent: continentName,
           key: key.toLowerCase(),
@@ -83,17 +84,14 @@ for(let continentName in Continents){
           query_date: today,
           article_ids: arrayOfIDs
         }
-
         // console.log('Aggregation by Key: ', aggregateByKey)
-
         var query = {
           continent: continentName,
           key: key.toLowerCase(),
           query_date: today
         }
-
-        // console.log('match statement : ', query)
         return Key.findOneOrCreate(query, aggregateByKey);
+
       })
       .catch(err => {
         console.log('catching error: ' , err)

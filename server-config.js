@@ -29,6 +29,7 @@ router
         }
       })
   })
+  .get('/hosts', articleHandler.findHost)
 
 app.use( router.routes() );
 // app.use( router.allowedMethods());

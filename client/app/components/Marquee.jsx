@@ -60,8 +60,8 @@ class Marquee extends React.Component {
   render() {
     const makeHeadline = (headlines) => {
       return (
-          headlines.map((headline) => {
-            return <a target="_blank" href={headline.url}>{headline.title}</a>
+          headlines.map((headline, i) => {
+            return <a target="_blank" href={headline.url} key={i}>{headline.title}</a>
           })
         )
     }

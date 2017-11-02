@@ -126,7 +126,7 @@ class Map extends React.Component {
         'method' : initBox2D,
       }, {
         'event' : 'clickMapObject',
-        'method' : (event) => { console.log('clicked: ', event); this.props.selectWord(event.mapObject.value); }
+        'method' : (event) => { console.log('clicked: ', event); this.props.selectWord(event.mapObject.label); }
       }
     ];
 
@@ -236,8 +236,7 @@ class Map extends React.Component {
           latitude: mapConfig.geoCenters[continent].latitude,
           title: dataItem.key,
           matching_results: matching_results,
-          selectable: true,
-          value: dataItem.key
+          selectable: true
           // groupId: i < 5 ? '' : 'bottom5',
         });
       }

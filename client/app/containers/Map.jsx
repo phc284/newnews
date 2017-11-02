@@ -119,43 +119,46 @@ class Map extends React.Component {
 
     for(let region in mongoData) {
       // get min and max values
-      const minBulletSize = 20;
+      const minBulletSize = 30;
       const maxBulletSize = 80;
 
       let min = Infinity;
       let max = -Infinity;
 
-      console.log('++++++++++');
-      console.log('region: ', region);
-
-      for(let region in mongoData) {
-        for(let i = 0; i < mongoData[region].length; i++) {
-          let matching_results = mongoData[region][i].matching_results;
-          if(matching_results < min) {
-            min = matching_results;
-          }
-          if(matching_results > max) {
-            max = matching_results;
-          }
+      for(let i = 0; i < mongoData[region].length; i++) {
+        let matching_results = mongoData[region][i].matching_results;
+        if(matching_results < min) {
+          min = matching_results;
+        }
+        if(matching_results > max) {
+          max = matching_results;
         }
       }
 
+      console.log('++++++++++');
+      console.log('region: ', region);
+      console.log('regional max: ', max);
+      console.log('regional min: ', min);
+      console.log('mongoData[region]: ', mongoData[region]);
+
       // create circle for each country
-      let maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI; // these do not use the loop above, which is why sizing is not regional
-      let minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
+      // let maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI; // these do not use the loop above, which is why sizing is not regional
+      // let minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
 
       for(let i = 0; i < mongoData[region].length; i++) {
         let dataItem = mongoData[region][i];
         let matching_results = dataItem.matching_results;
 
         // calculate size of a bubble
-        let square = (matching_results - min) / (max - min) * (maxSquare - minSquare) + minSquare; // this formula needs to be altered
+        // let square = (matching_results - min) / (max - min) * (maxSquare - minSquare) + minSquare;
+        let square = (matching_results - min) / (max - min) * (maxBulletSize - minBulletSize) + minBulletSize;
 
-        if(square < minSquare) {
-          square = minSquare;
-        }
+        // if(square < minSquare) {
+        //   square = minSquare;
+        // }
 
-        let size = Math.sqrt(square / (Math.PI * 2));
+        // let size = Math.sqrt(square / (Math.PI * 2));
+        let size = square;
         let continent = dataItem.continent;
 
         var fontSize = size * 0.2;
@@ -172,9 +175,8 @@ class Map extends React.Component {
         }
 
         console.log('----------');
-        console.log('minSquare: ', minSquare);
-        console.log('maxSquare: ', maxSquare);
-        console.log('square: ', square);
+        console.log('max: ', max);
+        console.log('min: ', min);
         console.log('matching_results: ', matching_results);
         console.log('size: ', size);
 

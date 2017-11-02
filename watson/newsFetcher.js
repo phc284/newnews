@@ -15,12 +15,9 @@ const fetchTime = '0 0 5 * * *'; //every day at 6am
 const everyTwoSec = '*/2 * * * * *'
 
 const date = new Date();
-// const today = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
-date.setDate(date.getDate()-1);
-// const yesterday = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
-var today = '2017-11-01'
-var tomorrow = '2017-11-02'
-
+const today = date.toJSON().split('T')[0];
+date.setDate(date.getDate()+1);
+const tomorrow = date.toJSON().split('T')[0];
 
 for(let continentName in Continents){
 
@@ -35,7 +32,7 @@ for(let continentName in Continents){
     params: {
       aggregation: `filter(crawl_date>=${today},crawl_date<${tomorrow})` //,crawl_date<${today})`
         + `.filter(country::[${countryList.join('|')}])`
-        + `.term(enriched_title.concepts.text,count:20).top_hits(20)`,
+        + `.term(enriched_title.concepts.text,count:20).top_hits(15)`,
       count: 0,
       version: version
     }

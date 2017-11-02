@@ -3,7 +3,7 @@ const Article = require('../models/Article.js');
 
 let date = new Date();
 date.setDate(date.getDate()-1);
-const yesterday = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
+const yesterday = date.toJSON().split('T')[0];
 
 exports.retrieveKeys = async (ctx, next) => {
   var keysSave = [];

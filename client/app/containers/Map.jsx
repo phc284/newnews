@@ -38,7 +38,7 @@ class Map extends React.Component {
     var map;
 
     // set dark theme
-    AmCharts.theme = AmCharts.themes.chalk;
+    AmCharts.theme = AmCharts.themes.black;
 
     map = new AmCharts.AmMap();
     map.addClassNames = true;
@@ -51,6 +51,8 @@ class Map extends React.Component {
       balloonText: '',
       alpha: 0.7
     }
+
+
 
     map.defs = {
       "filter": [{
@@ -69,6 +71,8 @@ class Map extends React.Component {
       'rollOverOutlineColor': undefined,
       'outlineThickness': 1,
       'outlineColor': '#ffffff',
+      'unlistedAreasAlpha': 0.1,
+      'unlistedAreasOutlineAlpha': 0
     };
 
     map.zoomControl = {
@@ -94,28 +98,29 @@ class Map extends React.Component {
       zoomLatitude : mapConfig.zoomSettings.zoomLatitude,
       zoomLongitude : mapConfig.zoomSettings.zoomLongitude,
       areas: [
-        {
-          "id": "africa",
-          "color": "#72b572",
-        }, {
-          "id": "asia",
-          "color": "#dbc54a",
-        }, {
-          "id": "australia",
-          "color": "#978bb5",
-        }, {
-          "id": "europe",
-          "color": "#557daa",
-        }, {
-          "id": "north_america",
-          "color": "#71bcaa",
-        }, {
-          "id": "south_america",
-          "color": "#e0a257"
-        },
+        // {
+        //   "id": "africa",
+        //   // "color": "#72b572",
+        // }, {
+        //   "id": "asia",
+        //   // "color": "#dbc54a",
+        // }, {
+        //   "id": "australia",
+        //   // "color": "#978bb5",
+        // }, {
+        //   "id": "europe",
+        //   // "color": "#557daa",
+        // }, {
+        //   "id": "north_america",
+        //   // "color": "#71bcaa",
+        // }, {
+        //   "id": "south_america",
+        //   // "color": "#e0a257"
+        // },
       ],
       images: [],
     }
+
 
     for(let region in mongoData) {
       // get min and max values
@@ -187,14 +192,13 @@ class Map extends React.Component {
           label: dataItem.key,
           labelPosition: 'middle',
           labelColor: '#000000',
-          color: '#eeeeee',
+          color: mapConfig.regionColor[region],
           longitude: mapConfig.geoCenters[continent].longitude,
           latitude: mapConfig.geoCenters[continent].latitude,
           title: dataItem.key,
           matching_results: matching_results,
           selectable: true,
           value: dataItem.key
-          // groupId: i < 5 ? '' : 'bottom5',
         });
       }
 

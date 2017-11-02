@@ -37,7 +37,7 @@ class Marquee extends React.Component {
       .then((response) => {
         this.generateHeadlines(response.data)
       })
-      .catch((error) => console.log('Map.jsx: ', error));
+      .catch((error) => console.log('Marquee.jsx: ', error));
   }
 
   // create array of headlines to add to the state
@@ -58,6 +58,7 @@ class Marquee extends React.Component {
 
 
   render() {
+    //make each headline a clickable link
     const makeHeadline = (headlines) => {
       return (
           headlines.map((headline, i) => {

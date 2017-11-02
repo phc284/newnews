@@ -39,8 +39,8 @@ body {
 }
 
 .marqueeBar {
-  margin-bottom: 25;
-  margin-top: 10;
+  margin-bottom: 0;
+  margin-top: 25;
 }
 
 .marquee span {

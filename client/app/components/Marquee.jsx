@@ -17,6 +17,7 @@ const styles = {
   },
   span: {
     height: 50,
+    color: 'white'
   }
 };
 
@@ -39,12 +40,13 @@ class Marquee extends React.Component {
       .catch((error) => console.log('Map.jsx: ', error));
   }
 
-  //create array of headlines to add to the state
+  // create array of headlines to add to the state
   generateHeadlines(headlines) {
     let result = []
     headlines.headlines.forEach((headline) => {
-      var tag = headline.title + '     |     '
-      result.push(tag)
+      var title = headline.title + "       |       "
+      var art = { title: title, url: headline.url}
+      result.push(art)
     })
     //randomize the headlines
     result.sort(() => Math.random() - 0.5)
@@ -56,14 +58,16 @@ class Marquee extends React.Component {
 
 
   render() {
+    const makeHeadline = (headlines) => {
+      return (
+          headlines.map((headline) => {
+            return <a target="_blank" href={headline.url}>{headline.title}</a>
+          })
+        )
+    }
     //make string of headlines to display
-    var headlines = this.state.headlines.join('')
     return (
-      <AppBar
-      style={styles.title}
-      showMenuIconButton={false}
-      title={<p className="microsoft marquee"><span style={styles.span}>{headlines}</span></p>}
-      />
+      <p className="marquee"><span style={styles.span}>{makeHeadline(this.state.headlines)}</span></p>
     )
   }
 }

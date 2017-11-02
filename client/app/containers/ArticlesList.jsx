@@ -14,7 +14,7 @@ const styles = {
   container: {
     display: 'flex',
     justifyContent: 'center',
-    width: '44%',
+    width: '98%',
     margin: 'auto'
   },
   paper: {
@@ -23,10 +23,10 @@ const styles = {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: 'none'
+    backgroundColor: "rgba(255, 255, 255, 0.25)",
   },
   list: {
-    width: '95%',
+    width: '100%',
     padding: '0px'
   }
 };

@@ -16,7 +16,7 @@ const style = {
     bottom: 0,
     left: 10,
     color: 'white',
-    fontSize: 18
+    fontSize: 22
   },
   Header: {
     backgroundColor: "rgba(255, 255, 255, 0.25)",

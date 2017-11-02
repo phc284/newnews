@@ -34,7 +34,6 @@ const About = () => (
       <div className="container">
         <div>
           <h1>We are dotConnection</h1>
-          <h3>BLAH LBAH BLAH BLAH BLAH BLAH BLAH BLAH</h3>
           <span>
             <RaisedButton buttonStyle={{ padding: 5 }} style={styles.button}>
               <a
@@ -45,6 +44,15 @@ const About = () => (
               </a>
             </RaisedButton>
           </span>
+        </div>
+      </div>
+    </section>
+
+    <section id="design">
+      <div className="container">
+        <div>
+          <h1>The Process</h1>
+          <h3></h3>
         </div>
       </div>
     </section>

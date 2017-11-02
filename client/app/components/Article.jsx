@@ -24,15 +24,12 @@ const EmailIcon = generateShareIcon('email');
 
 const styles = {
   card: {
-    width: '75%',
+    width: '100%',
     margin: 'auto',
-    // 'borderRadius': '5px',
+    'borderRadius': '5px',
     icon: {
       margin: '10px',
       width: '52px'
-    },
-    country: {
-      fontWeight: 'bold',
     },
     title: {
       fontWeight: 'bold',

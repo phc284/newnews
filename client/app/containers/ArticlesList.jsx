@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getArticles, selectTag } from '../actions';
 import List from 'material-ui/List';
+import GridList from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
 import axios from 'axios';
 
@@ -14,8 +15,7 @@ const styles = {
   container: {
     display: 'flex',
     justifyContent: 'center',
-    width: '98%',
-    margin: 'auto'
+    width: '44%',
   },
   paper: {
     overflow: 'overlay',
@@ -23,10 +23,10 @@ const styles = {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    backgroundColor: "rgba(255, 255, 255, 0.25)",
+    backgroundColor: 'none'
   },
   list: {
-    width: '100%',
+    width: '95%',
     padding: '0px'
   }
 };
@@ -43,6 +43,7 @@ class Articles extends React.Component {
     axios.get('/keys')
     .then( response => {
       let articles = response.data.topArticles;
+      console.log(articles);
       this.setState({articles: articles});
     })
   }

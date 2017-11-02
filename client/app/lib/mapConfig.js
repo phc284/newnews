@@ -75,7 +75,7 @@ const bubbleColor = {
 
 const zoomSettings = {
   'zoomLevel' : 1.25,
-  'zoomLatitude' : 35,
+  'zoomLatitude' : 23,
   'zoomLongitude' : 5,
 }
 
@@ -263,6 +263,15 @@ const dummy = [
   }
 ]
 
+const regionColor = {
+  'nAmerica' : "#71bcaa",
+  'sAmerica' : '#ECA060',
+  'Europe' : "#557daa",
+  'Africa' : '#72b572',
+  'Asia' : "#dbc54a",
+  'Oceania' : "#978bb5"
+}
+
 module.exports = {
   geoCenters: geoCenters,
   coordOffsets: coordOffsets,
@@ -270,4 +279,5 @@ module.exports = {
   bubbleColor: bubbleColor,
   zoomSettings: zoomSettings,
   dummy: dummy,
+  regionColor: regionColor
 }

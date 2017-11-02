@@ -43,7 +43,6 @@ class Articles extends React.Component {
     axios.get('/keys')
     .then( response => {
       let articles = response.data.topArticles;
-      console.log(articles);
       this.setState({articles: articles});
     })
   }

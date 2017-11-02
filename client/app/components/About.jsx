@@ -34,10 +34,7 @@ const About = () => (
       <div className="container">
         <div>
           <h1>We are dotConnection</h1>
-          <h3>
-            We are bringing blah blah blah blah blah blah blah blah blah blah
-            blah blah blah blah
-          </h3>
+          <h3>BLAH LBAH BLAH BLAH BLAH BLAH BLAH BLAH</h3>
           <span>
             <RaisedButton buttonStyle={{ padding: 5 }} style={styles.button}>
               <a
@@ -62,10 +59,7 @@ const About = () => (
           <div>
             <h1>Julie Johnson</h1>
             <h3>
-              Something Something Something Something Something Something
-              Something Something Something Something Something Something
-              Something Something Something Something Something Something
-              Something Something
+              Software Engineer
             </h3>
           </div>
         </div>
@@ -78,10 +72,7 @@ const About = () => (
           <div>
             <h1>Jonathan Cao</h1>
             <h3>
-              Something Something Something Something Something Something
-              Something Something Something Something Something Something
-              Something Something Something Something Something Something
-              Something Something
+              Software Engineer
             </h3>
           </div>
           <img
@@ -102,10 +93,7 @@ const About = () => (
           <div>
             <h1>Kenneth Kang</h1>
             <h3>
-              HACK HACK HACK HACK HACK HACK
-              HACK HACK HACK HACK HACK HACK
-              HACK HACK HACK HACK HACK HACK
-              HACK HACK HACK HACK HACK HACK
+              Software Engineer
             </h3>
           </div>
         </div>
@@ -118,10 +106,7 @@ const About = () => (
           <div>
             <h1>Peter Choi</h1>
             <h3>
-              Something Something Something Something Something Something
-              Something Something Something Something Something Something
-              Something Something Something Something Something Something
-              Something Something
+              Software Engineer
             </h3>
           </div>
           <img

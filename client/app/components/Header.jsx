@@ -7,15 +7,16 @@ const style = {
     position: 'absolute',
     right: 15,
     textDecoration: 'underline',
-    bottom: 5,
+    bottom: 2,
     color: 'white',
   },
-  copywrite: {
+  title: {
     marginRight: 25,
     position: 'absolute',
-    bottom: 5,
+    bottom: 0,
     left: 10,
     color: 'white',
+    fontSize: 18
   },
   Header: {
     backgroundColor: "rgba(255, 255, 255, 0.25)",
@@ -33,7 +34,7 @@ const style = {
 const Header = () => (
   <div style={style.Header}>
     <div style={style.text}>
-      <div style={style.copywrite}>NewNews</div>
+      <div style={style.title}>NewNews</div>
       <Link to="/about"><div style={style.about}>About Us</div></Link>
     </div>
   </div>

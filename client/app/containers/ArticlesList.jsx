@@ -15,6 +15,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     width: '44%',
+    margin: 'auto'
   },
   paper: {
     overflow: 'overlay',

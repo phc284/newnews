@@ -138,7 +138,7 @@ h1 {
 }
 
 #design {
-  background: #59CEED center fixed;
+  background: #79a6f6 center fixed;
   padding: 80px 0;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -155,6 +155,14 @@ h1 {
 #design h3 {
   text-align: center;
   margin-left: 50;
+  display: inline-block;
+}
+
+
+#watsonpower {
+  height: 200;
+  width: 400;
+  display: inline-block;
 }
 
 .profpic {

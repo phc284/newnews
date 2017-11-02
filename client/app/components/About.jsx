@@ -34,6 +34,7 @@ const About = () => (
       <div className="container">
         <div>
           <h1>We are dotConnection</h1>
+          <h3>We are a team of software engineers trying to bring awareness to news that happens outside of our own bubble</h3>
           <span>
             <RaisedButton buttonStyle={{ padding: 5 }} style={styles.button}>
               <a
@@ -50,9 +51,10 @@ const About = () => (
 
     <section id="design">
       <div className="container">
-        <div>
           <h1>The Process</h1>
-          <h3></h3>
+        <div className="row">
+          <img id="watsonpower" src="https://onereach.com/img/watson_poweredby_black.svg"/>
+          <h3>Using the power of IBM Watson's Discovery News, we were able to gather ......</h3>
         </div>
       </div>
     </section>

@@ -25,7 +25,6 @@ const getCountryCounts = hits => {
   });
 };
 
-
 class Chart extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +33,7 @@ class Chart extends React.Component {
     }
   }
 
-  componentWillMount(props) {
+  componentDidMount(props) {
     axios.get('/articles/concept/' + this.props.tag, {params: {query: this.props.tag}})
     .then(response => {
       this.setState({hits: response.data});
@@ -42,8 +41,8 @@ class Chart extends React.Component {
   }
 
   render() {
-    console.log(countries);
-    return (
+    return this.state.hits.length 
+      ? (
       <AmCharts.React
         style={{
           width: "100%",
@@ -106,6 +105,7 @@ class Chart extends React.Component {
         }} 
       />
     )
+    : <span>Loading....</span>
   }
 }
 

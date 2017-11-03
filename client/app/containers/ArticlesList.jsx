@@ -4,30 +4,31 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getArticles, selectTag } from '../actions';
 import List from 'material-ui/List';
+import GridList from 'material-ui/GridList';
 import Paper from 'material-ui/Paper';
 import axios from 'axios';
 
 const styles = {
-  article: {
-    marginBottom: '5px',
-  },
   container: {
     display: 'flex',
     justifyContent: 'center',
-    width: '44%',
-    margin: 'auto'
+    width: '100%',
   },
   paper: {
     overflow: 'overlay',
     maxHeight: '75%',
     width: '100%',
     display: 'flex',
-    justifyContent: 'center',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
     backgroundColor: 'none'
   },
   list: {
     width: '95%',
     padding: '0px'
+  },
+  article: {
+    // marginBottom: '5px',
   }
 };
 
@@ -40,10 +41,10 @@ class Articles extends React.Component {
   }
 
   componentWillMount() {
-    axios.get('/articles/' + 'United States', {params: {query: 'United States'}})
+    axios.get('/keys')
     .then( response => {
-      let articles = response.data;
-      this.setState({articles: articles.slice(0, 25)});
+      let articles = response.data.topArticles;
+      this.setState({articles: articles});
     })
   }
 
@@ -58,15 +59,14 @@ class Articles extends React.Component {
     return (
       <div style={styles.container}>
         <Paper zDepth={0} style={styles.paper}>
-          <List style={styles.list}>
             {articles.map((article, index) => {
-              return <div
-                key={index}
-                style={styles.article}>
-                  <Article handleTouchTap={this.props.selectTag} article={article} concepts={article.concepts}/>
-                </div>
-            })}
-          </List>
+              if (article) {
+                return <div
+                  key={index}
+                  style={styles.article}>
+                    <Article handleTouchTap={this.props.selectTag} article={article} concepts={article.concepts}/>
+                  </div>
+              }})}
         </Paper>
       </div>
     );

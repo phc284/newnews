@@ -4,7 +4,6 @@ import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import Chip from 'material-ui/Chip';
 import {selectTag} from '../actions';
 
-
 const {
   FacebookShareButton,
   GooglePlusShareButton,
@@ -24,27 +23,20 @@ const EmailIcon = generateShareIcon('email');
 
 const styles = {
   card: {
-    width: '100%',
-    margin: 'auto',
-    'borderRadius': '5px',
+    width: '400px',
+    height: '300px',
+    display: 'flex',
+    borderRadius: '0px',
+    boxShadow: 'none',
+    padngBottom: '10px',
     icon: {
       margin: '10px',
       width: '52px'
     },
-    chip: {
-      display: 'inline-block'
-    },
-    country: {
-      fontWeight: 'bold',
-    },
-    thumbnail: {
-      maxWidth: '40px',
-      border: '1px solid',
-      borderColor: 'cadetblue'
-    },
     title: {
       fontWeight: 'bold',
       fontSize: '14px',
+      maxWidth: '320px'
     },
     avatar: {
       width: '52px',
@@ -52,7 +44,7 @@ const styles = {
     },
     text: {
       paddingTop: '0px',
-      paddingBottom: '2px'
+      paddingBottom: '2px',
     },
     chip: {
       marginRight: 4,
@@ -62,6 +54,27 @@ const styles = {
     labelStyle: {
       fontSize: '12px'
     }
+  },
+  featured: {
+    boxShadow: 'none',
+    width: '800px',
+    height: '300px',
+    display: 'flex',
+    borderRadius: '0px',
+    padding: '5px',
+    avatar: {
+      width: '120px',
+      height: '120px',
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: '22px',
+      maxWidth: '600px'
+    },
+    subtitle: {
+      fontWeight: 'bold',
+      fontSize: '16px',
+    },
   }
 };
 
@@ -77,16 +90,22 @@ const sortConcepts = obj => {
 
 const Article = ({ article, handleTouchTap, concepts }) => (
   concepts = sortConcepts(concepts),
-  <Card style={styles.card}>
+  console.log(article.featured),
+  <Card style={article.featured ? styles.featured : styles.card}>
     <CardHeader
-      avatar={article.main_image_url ? <img src={article.main_image_url} style={styles.card.avatar}></img> : <i className="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>}
-      title={article.title.length > 60 ? article.title.slice(0, 60).concat('...') : article.title}
-      titleStyle={styles.card.title}
+      avatar={article.main_image_url ? 
+        <img 
+          src={article.main_image_url} 
+          style={article.featured ? styles.featured.avatar : styles.card.avatar}>
+        </img> 
+          : <i className="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>}
+      title={article.title.length > 70 ? article.title.slice(0, 60).concat('...') : article.title}
+      titleStyle={article.featured ? styles.featured.title : styles.card.title}
       subtitle={article.host}
-      actAsExpander={true}
-      showExpandableButton={true}
+      subtitleStyle={article.featured? styles.featured.subtitle : null}
+      actAsExpander={false}
     />
-    <CardText expandable={true} style={styles.card.text}>
+    <CardText expandable={false} style={styles.card.text}>
       {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>
       <div className="chips">{
         concepts.map((concept, i) => {

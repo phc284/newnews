@@ -1,13 +1,8 @@
-const globalBlacklist = [
-  'World Wide Web',
-  'Need',
-  'Want',
-  'Experience',
-  'Website',
-  2016,
-  2017,
-  'English-language films',
-  'Web browser'
+exports.globalBlacklist = [
+  'world wide web', 'need', 'want', 'experience', 'website', '2016', '2017',
+  'web browser', 'the indian express', 'the new indian express', 'sale',
+  'bbc', 'associated press', 'english-language films', 'graphic design',
+  'help me', 'help', 'marketing', 'typography', 'web design', 'web server'
 ];
 
 const blacklistNA = ['United states'];
@@ -20,6 +15,6 @@ const blacklistOC = [];
 
 const blacklistAS = [];
 
-const blacklistAF = []; 
+const blacklistAF = [];
 
 //potential blacklist words to discuss: 'Google', 'marketing'

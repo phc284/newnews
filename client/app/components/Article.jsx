@@ -24,7 +24,8 @@ const EmailIcon = generateShareIcon('email');
 
 const styles = {
   card: {
-    width: '100%',
+    // width: '100%',
+    maxWidth: '30%',
     margin: 'auto',
     'borderRadius': '5px',
     icon: {

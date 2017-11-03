@@ -9,25 +9,26 @@ import Paper from 'material-ui/Paper';
 import axios from 'axios';
 
 const styles = {
-  article: {
-    marginBottom: '5px',
-  },
   container: {
     display: 'flex',
     justifyContent: 'center',
-    width: '44%',
+    width: '100%',
   },
   paper: {
     overflow: 'overlay',
     maxHeight: '75%',
     width: '100%',
     display: 'flex',
-    justifyContent: 'center',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
     backgroundColor: 'none'
   },
   list: {
     width: '95%',
     padding: '0px'
+  },
+  article: {
+    // marginBottom: '5px',
   }
 };
 
@@ -59,7 +60,6 @@ class Articles extends React.Component {
     return (
       <div style={styles.container}>
         <Paper zDepth={0} style={styles.paper}>
-          <List style={styles.list}>
             {articles.map((article, index) => {
               if (article) {
                 return <div
@@ -68,7 +68,6 @@ class Articles extends React.Component {
                     <Article handleTouchTap={this.props.selectTag} article={article} concepts={article.concepts}/>
                   </div>
               }})}
-          </List>
         </Paper>
       </div>
     );

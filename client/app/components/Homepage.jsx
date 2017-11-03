@@ -8,6 +8,7 @@ import Marquee from "./Marquee.jsx";
 import Footer from './Footer.jsx';
 import Modal from '../containers/Modal.jsx';
 import Header from './Header.jsx';
+import GridListExampleComplex from '../containers/Newspaper.jsx';
 
 const Homepage = () => (
   <div>
@@ -19,7 +20,7 @@ const Homepage = () => (
     <div className='marqueeBar'>
       <Marquee />
     </div>
-    <Articles />
+    <GridListExampleComplex />
     <Footer />
   </div>
 );

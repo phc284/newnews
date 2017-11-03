@@ -98,15 +98,15 @@ const Article = ({ article, handleTouchTap, concepts }) => (
           src={article.main_image_url} 
           style={article.featured ? styles.featured.avatar : styles.card.avatar}>
         </img> 
-          : <i className="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>}
+          : <i className={article.featured ? "fa fa-newspaper-o fa-5x" : "fa fa-newspaper-o fa-3x"} aria-hidden="true"></i>}
       title={article.title.length > 70 ? article.title.slice(0, 60).concat('...') : article.title}
       titleStyle={article.featured ? styles.featured.title : styles.card.title}
       subtitle={article.host}
       subtitleStyle={article.featured? styles.featured.subtitle : null}
       actAsExpander={false}
     />
-    <CardText expandable={false} style={styles.card.text}>
-      {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>
+    <CardText expandable={false} style={styles.card.text} >
+      {article.featured ? article.text.slice(0,400) + '...' : article.text.slice(0,200) + '...' } <a target="_blank" href={article.url}>See More</a>
       <div className="chips">{
         concepts.map((concept, i) => {
           if (i < 3) {

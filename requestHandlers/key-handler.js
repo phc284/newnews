@@ -12,7 +12,7 @@ exports.retrieveKeys = async (ctx, next) => {
   var keys = [];
   var topArticles = [];
   await Key.find({
-    query_date: {$gte:yesterday}
+    query_date: {$gt:yesterday}
   }).then( (keyConcepts) => {
     keys = keyConcepts;
     for(let continentName in Continents){

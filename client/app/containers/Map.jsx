@@ -25,23 +25,66 @@ class Map extends React.Component {
       .catch((error) => console.log('Map.jsx: ', error));
   }
 
-  //map will rerender and zoom back out if the state changes
-  shouldComponentUpdate(nextProps) {
-    //if the word changes, return false so the map doesn't rerender
-    console.log(this.state.data)
-    console.log(this.state.fullData)
-    const different = this.state.data === this.state.fullData
-    return different;
-  }
+  // //map will rerender and zoom back out if the state changes
+  // shouldComponentUpdate(nextProps) {
+  //   //if the word changes, return false so the map doesn't rerender
+  //   console.log(this.state.data)
+  //   console.log(this.state.fullData)
+  //   const different = this.state.data === this.state.fullData
+  //   return different;
+  // }
 
   physicsInit(mongoData) {
     var map;
+    var minBulletSize = 40;
+    var maxBulletSize = 100;
 
     // set dark theme
     AmCharts.theme = AmCharts.themes.chalk;
 
+    // get min and max values
+    var min = Infinity;
+    var max = -Infinity;
+
+    for(let region in mongoData) {
+      for(let i = 0; i < mongoData[region].length; i++) {
+        let matching_results = mongoData[region][i].matching_results;
+        if(matching_results < min) {
+          min = matching_results;
+        }
+        if(matching_results > max) {
+          max = matching_results;
+        }
+      }
+    }
+
+    // for (var i = 0; i < mongoData.length; i++) {
+    //   var matching_results = mongoData[i].matching_results;
+    //   if (matching_results < min) {
+    //     min = matching_results;
+    //   }
+    //   if (matching_results > max) {
+    //     max = matching_results;
+    //   }
+    // }
+
     map = new AmCharts.AmMap();
     map.addClassNames = true;
+    // map.backgroundAlpha = "1";
+    // map.backgroundColor = "#c6c6c6"
+    // map.borderAlpha = "1";
+    // map.borderColor = "#000000";
+
+    // style tooltip
+    // map.balloon = {
+    //   adjustBorderColor: false,
+    //   horizontalPadding: 20,
+    //   verticalPadding: 10,
+    //   color: "#000000",
+    //   maxWidth: 300,
+    //   borderAlpha: 0,
+    //   borderThickness: 1
+    // }
 
     // bubbles are images, we set opacity and tooltip text
     //This is so that the bubbles don't change positions
@@ -51,6 +94,8 @@ class Map extends React.Component {
       balloonText: '',
       alpha: 0.7
     }
+
+
 
     map.defs = {
       "filter": [{
@@ -68,7 +113,7 @@ class Map extends React.Component {
       'rollOverColor': undefined,
       'rollOverOutlineColor': undefined,
       'outlineThickness': 1,
-      'outlineColor': '#ffffff',
+      'outlineColor': '#ffffff'
     };
 
     map.zoomControl = {
@@ -87,6 +132,10 @@ class Map extends React.Component {
       }
     ];
 
+    // map.addListener("clickMapObject", function(event) {
+    //   console.log('something got clicked');
+    // });
+
     // data provider. We use continents map to show real world map in background.
     var dataProvider = {
       map: "continentsLow",
@@ -96,23 +145,23 @@ class Map extends React.Component {
       areas: [
         {
           "id": "africa",
-          "color": "#72b572",
+          "color": "#D8D8D8",
         }, {
           "id": "asia",
-          "color": "#dbc54a",
+          "color": "#D8D8D8",
         }, {
           "id": "australia",
-          "color": "#978bb5",
+          "color": "#D8D8D8",
         }, {
           "id": "europe",
-          "color": "#557daa",
+          "color": "#D8D8D8",
         }, {
           "id": "north_america",
-          "color": "#71bcaa",
+          "color": "#D8D8D8",
         }, {
           "id": "south_america",
-          "color": "#e0a257"
-        },
+          "color": "#D8D8D8"
+        }
       ],
       images: [],
     }
@@ -144,34 +193,58 @@ class Map extends React.Component {
 
         let continent = dataItem.continent;
 
-        var fontSize = size * 0.2;
         var topic = dataItem.key.split(' ').join('\n');
+
+        //set font size for the bubbles
+        let fontSize = size / 5.5
 
         //shift the label on the bubble to fit in bubble better
         var labelShift = 0;
-        if (!topic.includes('\n')) {
-          labelShift = 0
-        } else if(topic.length > 12){
-          labelShift = -11;
-        } else if (topic.length > 8) {
-          labelShift = -6;
+
+        //check to see if there is a line break and shift labels
+        if (topic.match(/\n/g) !== null) {
+          if (topic.match(/\n/g).length > 2) {
+            labelShift = -20
+          } else if (topic.match(/\n/g).length > 1) {
+            labelShift = -15
+          } else {
+            labelShift = -8
+          }
+        }
+
+        //make font size smaller if text too long on big bubbles
+        if (size > 45 && topic.length > 13) {
+          fontSize /= 1.5
+        }
+
+        //shift labels for smaller bubbles
+        if (size < 45) {
+          fontSize /= 1.4
+          if (topic.match(/\n/g) !== null) {
+            if (topic.match(/\n/g).length >= 2) {
+              labelShift = -10
+            } else if (topic.match(/\n/g).length > 0) {
+              labelShift = -3
+            }
+          }
         }
 
         dataProvider.images.push({
           type: 'circle',
           width: size,
           height: size,
-          label: dataItem.key,
+          label: topic,
           labelPosition: 'middle',
+          labelFontSize: fontSize,
+          labelShiftY: labelShift,
           labelColor: '#000000',
-          color: '#eeeeee',
+          color: mapConfig.regionColor[region],
           longitude: mapConfig.geoCenters[continent].longitude,
           latitude: mapConfig.geoCenters[continent].latitude,
           title: dataItem.key,
           matching_results: matching_results,
           selectable: true,
           value: dataItem.key
-          // groupId: i < 5 ? '' : 'bottom5',
         });
       }
 
@@ -180,6 +253,9 @@ class Map extends React.Component {
     }
 
     map.dataProvider = dataProvider;
+
+    // Listen for the init event and initialize box2d part
+    // map.addListener("init", initBox2D)
 
     map.write("chartdiv");
 
@@ -379,7 +455,7 @@ class Map extends React.Component {
           'width' : '100%',
           'height' : '75%',
           'backgroundAlpha' : 1,
-          'backgroundColor' : '#c6c6c6',
+          'backgroundColor' : '#F3F3F3',
           'margin' : 'auto',
           'borderAlpha': 1,
           'borderColor': '#000000',

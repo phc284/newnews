@@ -19,7 +19,7 @@ const style = {
     fontSize: 22
   },
   Header: {
-    backgroundColor: "rgba(255, 255, 255, 0.25)",
+    backgroundColor: "rgba(0, 0, 0, 0.25)",
     position: 'absolute',
     top: 0,
     width: '100%',

@@ -16,6 +16,8 @@ const style = {
     padding: 10,
     marginTop: 60,
     display: 'flex',
+    alignItems: 'flex-end'
+
   },
   text: {
     display: 'flex'

@@ -13,7 +13,7 @@ var mongoKeyParser = function({keys, topArticles}) {
 	keys.forEach((entry) => { regionalizedData[entry.continent].push(entry); });
 
 	for(let region in regionalizedData) {
-		regionalizedData[region] = regionalizedData[region].sort((a, b) => { return b.matching_results - a.matching_results; }).slice(0, 10);
+		regionalizedData[region] = regionalizedData[region].sort((a, b) => { return b.matching_results - a.matching_results; }).slice(0, 15);
 	}
 
 	return regionalizedData;

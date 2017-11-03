@@ -12,9 +12,9 @@ import Header from './Header.jsx';
 
 const Homepage = () => (
   <div>
-      <Header />
+    <Header />
     <Modal />
-    <div style={{ marginTop: '50px', marginBottom: "2px", display: 'flex', flexDirection: 'row', width: '100%'}}>
+    <div style={{ marginTop: '30px', marginBottom: "2px", display: 'flex', flexDirection: 'row', width: '100%'}}>
       <Map />
     </div>
     <div className='marqueeBar'>

@@ -26,7 +26,7 @@ const About = () => (
       <div className="container-fluid">
         <Link to="/"><div style={styles.back}><i style={styles.arrow} className="fa fa-long-arrow-left" aria-hidden="true"></i>
   Map</div></Link>
-        <h1 className="brand-heading">Meet our Team</h1>
+        <h1 className="brand-heading title">Meet our Team</h1>
       </div>
     </section>
 
@@ -34,7 +34,7 @@ const About = () => (
       <div className="container">
         <div>
           <h1>We are dotConnection</h1>
-          <h3>We are a team of software engineers trying to bring awareness to news that happens outside of our own bubble</h3>
+          <h3>Forged in the world-renowned labs of Hack Reactor Austin, we are dotConnnection: masters of machine learning and data visualization. Our vision is to bring to the world a news platform unhindered by its creators of bias or political spin.</h3>
           <span>
             <RaisedButton buttonStyle={{ padding: 5 }} style={styles.button}>
               <a
@@ -51,10 +51,9 @@ const About = () => (
 
     <section id="design">
       <div className="container">
-          <h1>The Process</h1>
+          <h1>NewNews<img id="watsonpower" src="https://onereach.com/img/watson_poweredby_black.svg"/></h1>
         <div className="row">
-          <img id="watsonpower" src="https://onereach.com/img/watson_poweredby_black.svg"/>
-          <h3>Using the power of IBM Watson's Discovery News, we were able to gather ......</h3>
+          <h3>We have harnessed the power of IBM Watson's Discovery News platform to bring you news data and insights from all over the world. Leveraging the poweful frameworks in amCharts/amMaps (fabulously created by a small team based out of Lithuania) and the Box2D physics engine (famous for its implementation in Angry Birds), we present to you the New News.</h3>
         </div>
       </div>
     </section>
@@ -63,7 +62,7 @@ const About = () => (
       <div className="container">
         <div className="row">
           <img
-            className="profpic"
+            className="profpic left"
             src="https://vignette1.wikia.nocookie.net/disney/images/5/54/Maui.jpg/revision/latest?cb=20161226102355"
           />
           <div>
@@ -86,7 +85,7 @@ const About = () => (
             </h3>
           </div>
           <img
-            className="profpic"
+            className="profpic right"
             src="https://vignette1.wikia.nocookie.net/disney/images/5/54/Maui.jpg/revision/latest?cb=20161226102355"
           />
         </div>
@@ -97,7 +96,7 @@ const About = () => (
       <div className="container">
         <div className="row">
           <img
-            className="profpic"
+            className="profpic left"
             src="https://pbs.twimg.com/profile_images/700753841495486464/aJgO79C9.png"
           />
           <div>
@@ -120,7 +119,7 @@ const About = () => (
             </h3>
           </div>
           <img
-            className="profpic"
+            className="profpic right"
             src="https://vignette1.wikia.nocookie.net/disney/images/5/54/Maui.jpg/revision/latest?cb=20161226102355"
           />
         </div>

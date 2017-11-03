@@ -1,11 +1,11 @@
 const Key = require('../models/Key.js');
 const Article = require('../models/Article.js');
 const Continents = require('../watson/Continents.js');
+const Blacklist = require('../watson/Blacklist.js')
 
 let date = new Date();
 date.setDate(date.getDate()-1);
 const yesterday = date.toJSON().split('T')[0];
-
 
 exports.retrieveKeys = async (ctx, next) => {
   console.log(yesterday)
@@ -14,10 +14,12 @@ exports.retrieveKeys = async (ctx, next) => {
   await Key.find({
     query_date: {$gt:yesterday}
   }).then( (keyConcepts) => {
-    keys = keyConcepts;
+    keys = keyConcepts.filter( ({key}) => { return !Blacklist.globalBlacklist.includes(key) });
+    return keys;
+  }).then( (filteredKeys) => {
     for(let continentName in Continents){
-      topArticles = topArticles.concat( keyConcepts.filter( (keyConcept) => {
-        return keyConcept.continent === continentName;
+      topArticles = topArticles.concat( filteredKeys.filter( (filteredKey) => {
+        return filteredKey.continent === continentName;
       }).slice(0,3).map( ({article_ids}) => {
         return Article.findOne({_id:article_ids[0]});
       }) );

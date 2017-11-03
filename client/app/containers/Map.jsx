@@ -25,14 +25,14 @@ class Map extends React.Component {
       .catch((error) => console.log('Map.jsx: ', error));
   }
 
-  //map will rerender and zoom back out if the state changes
-  shouldComponentUpdate(nextProps) {
-    //if the word changes, return false so the map doesn't rerender
-    console.log(this.state.data)
-    console.log(this.state.fullData)
-    const different = this.state.data === this.state.fullData
-    return different;
-  }
+  // //map will rerender and zoom back out if the state changes
+  // shouldComponentUpdate(nextProps) {
+  //   //if the word changes, return false so the map doesn't rerender
+  //   console.log(this.state.data)
+  //   console.log(this.state.fullData)
+  //   const different = this.state.data === this.state.fullData
+  //   return different;
+  // }
 
   physicsInit(mongoData) {
     var map;
@@ -183,7 +183,7 @@ class Map extends React.Component {
           max = matching_results;
         }
       }
-      
+
       for(let i = 0; i < mongoData[region].length; i++) {
         let dataItem = mongoData[region][i];
         let matching_results = dataItem.matching_results;
@@ -193,25 +193,40 @@ class Map extends React.Component {
 
         let continent = dataItem.continent;
 
-        var fontSize = size * 0.2;
         var topic = dataItem.key.split(' ').join('\n');
+
+        //set font size for the bubbles
+        let fontSize = size / 5.5
 
         //shift the label on the bubble to fit in bubble better
         var labelShift = 0;
-        if (topic.includes('\n')) {
-          labelShift -= 5
-        } 
-        if(topic.length > 11){
-          labelShift -= 3;
-        } else if (topic.length > 8) {
-          labelShift -= 6;
+
+        //check to see if there is a line break and shift labels
+        if (topic.match(/\n/g) !== null) {
+          if (topic.match(/\n/g).length > 2) {
+            labelShift = -20
+          } else if (topic.match(/\n/g).length > 1) {
+            labelShift = -15
+          } else {
+            labelShift = -8
+          }
         }
 
-        let fontSize = size / 5.5
-
-        if (size < 45) {
+        //make font size smaller if text too long on big bubbles
+        if (size > 45 && topic.length > 13) {
           fontSize /= 1.5
-          labelShift = -3
+        }
+
+        //shift labels for smaller bubbles
+        if (size < 45) {
+          fontSize /= 1.4
+          if (topic.match(/\n/g) !== null) {
+            if (topic.match(/\n/g).length >= 2) {
+              labelShift = -10
+            } else if (topic.match(/\n/g).length > 0) {
+              labelShift = -3
+            }
+          }
         }
 
         dataProvider.images.push({

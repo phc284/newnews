@@ -1,7 +1,7 @@
 const Key = require('../models/Key.js');
 const Article = require('../models/Article.js');
 const Continents = require('../watson/Continents.js');
-const Blacklist = require('../watson/Blacklist.js')
+const Blacklist = require('../watson/blacklist.js')
 
 let date = new Date();
 date.setDate(date.getDate()-1);

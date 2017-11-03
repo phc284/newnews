@@ -24,7 +24,7 @@ const About = () => (
   <div className="aboutpage">
     <section id="intro">
       <div className="container-fluid">
-        <Link to="/"><div style={styles.back}><i style={styles.arrow} class="fa fa-long-arrow-left" aria-hidden="true"></i>
+        <Link to="/"><div style={styles.back}><i style={styles.arrow} className="fa fa-long-arrow-left" aria-hidden="true"></i>
   Map</div></Link>
         <h1 className="brand-heading">Meet our Team</h1>
       </div>

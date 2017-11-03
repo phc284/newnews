@@ -43,6 +43,7 @@ class Articles extends React.Component {
     axios.get('/keys')
     .then( response => {
       let articles = response.data.topArticles;
+      console.log(articles);
       this.setState({articles: articles});
     })
   }
@@ -60,12 +61,13 @@ class Articles extends React.Component {
         <Paper zDepth={0} style={styles.paper}>
           <List style={styles.list}>
             {articles.map((article, index) => {
-              return <div
-                key={index}
-                style={styles.article}>
-                  <Article handleTouchTap={this.props.selectTag} article={article} concepts={article.concepts}/>
-                </div>
-            })}
+              if (article) {
+                return <div
+                  key={index}
+                  style={styles.article}>
+                    <Article handleTouchTap={this.props.selectTag} article={article} concepts={article.concepts}/>
+                  </div>
+              }})}
           </List>
         </Paper>
       </div>

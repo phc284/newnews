@@ -24,10 +24,10 @@ const EmailIcon = generateShareIcon('email');
 
 const styles = {
   card: {
-    // width: '100%',
-    maxWidth: '30%',
-    margin: 'auto',
-    'borderRadius': '5px',
+    width: '400px',
+    height: '250px',
+    display: 'flex',
+    borderRadius: '0px',
     icon: {
       margin: '10px',
       width: '52px'
@@ -35,6 +35,7 @@ const styles = {
     title: {
       fontWeight: 'bold',
       fontSize: '14px',
+      maxWidth: '320px'
     },
     avatar: {
       width: '52px',
@@ -42,7 +43,38 @@ const styles = {
     },
     text: {
       paddingTop: '0px',
-      paddingBottom: '2px'
+      paddingBottom: '2px',
+    },
+    chip: {
+      marginRight: 4,
+      display: 'inline-block',
+      lineHeight: '25px'
+    },
+    labelStyle: {
+      fontSize: '12px'
+    }
+  },
+  featured: {
+    width: '800px',
+    height: '500px',
+    display: 'flex',
+    borderRadius: '0px',
+    icon: {
+      margin: '10px',
+      width: '52px'
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: '14px',
+      maxWidth: '320px'
+    },
+    avatar: {
+      width: '52px',
+      height: '52px'
+    },
+    text: {
+      paddingTop: '0px',
+      paddingBottom: '2px',
     },
     chip: {
       marginRight: 4,
@@ -67,16 +99,16 @@ const sortConcepts = obj => {
 
 const Article = ({ article, handleTouchTap, concepts }) => (
   concepts = sortConcepts(concepts),
-  <Card style={styles.card}>
+  console.log(article.featured),
+  <Card style={article.featured ? styles.featured : styles.card}>
     <CardHeader
       avatar={article.main_image_url ? <img src={article.main_image_url} style={styles.card.avatar}></img> : <i className="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>}
       title={article.title.length > 60 ? article.title.slice(0, 60).concat('...') : article.title}
       titleStyle={styles.card.title}
       subtitle={article.host}
-      actAsExpander={true}
-      showExpandableButton={true}
+      actAsExpander={false}
     />
-    <CardText expandable={true} style={styles.card.text}>
+    <CardText expandable={false} style={styles.card.text}>
       {article.text.slice(0,200)}... <a target="_blank" href={article.url}>See More</a>
       <div className="chips">{
         concepts.map((concept, i) => {

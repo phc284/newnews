@@ -280,3 +280,19 @@ h1 {
 }
 
 /* END OF ABOUT PAGE STYLES */
+
+.newspaper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.article {
+
+}
+
+

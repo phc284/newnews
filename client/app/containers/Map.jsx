@@ -135,30 +135,13 @@ class Map extends React.Component {
         }
       }
 
-      console.log('++++++++++');
-      console.log('region: ', region);
-      console.log('regional max: ', max);
-      console.log('regional min: ', min);
-      console.log('mongoData[region]: ', mongoData[region]);
-
-      // create circle for each country
-      // let maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI; // these do not use the loop above, which is why sizing is not regional
-      // let minSquare = minBulletSize * minBulletSize * 2 * Math.PI;
-
       for(let i = 0; i < mongoData[region].length; i++) {
         let dataItem = mongoData[region][i];
         let matching_results = dataItem.matching_results;
 
         // calculate size of a bubble
-        // let square = (matching_results - min) / (max - min) * (maxSquare - minSquare) + minSquare;
-        let square = (matching_results - min) / (max - min) * (maxBulletSize - minBulletSize) + minBulletSize;
+        let size = (matching_results - min) / (max - min) * (maxBulletSize - minBulletSize) + minBulletSize;
 
-        // if(square < minSquare) {
-        //   square = minSquare;
-        // }
-
-        // let size = Math.sqrt(square / (Math.PI * 2));
-        let size = square;
         let continent = dataItem.continent;
 
         var fontSize = size * 0.2;
@@ -173,12 +156,6 @@ class Map extends React.Component {
         } else if (topic.length > 8) {
           labelShift = -6;
         }
-
-        console.log('----------');
-        console.log('max: ', max);
-        console.log('min: ', min);
-        console.log('matching_results: ', matching_results);
-        console.log('size: ', size);
 
         dataProvider.images.push({
           type: 'circle',
@@ -305,9 +282,9 @@ class Map extends React.Component {
         jointDef.bodyB = nail.GetBody();
         // the following tow lines describes stiffness of a string, try to modify them.
         jointDef.dampingRatio = 0.4;
-        jointDef.frequencyHz = 1.5;
+        jointDef.frequencyHz = 1;
         // lenght 0 means that the bubble will try to be at the nail position (if other bubbles allow)
-        jointDef.length = 0;
+        jointDef.length = 0.25;
         //connect the centers
         jointDef.localAnchorA = new b2Vec2(0, 0);
         jointDef.localAnchorB = new b2Vec2(0, 0);
@@ -352,10 +329,6 @@ class Map extends React.Component {
         var bbody = box2Dimage.GetBody();
         var position = bbody.GetPosition(); // position = image.box2Dimage.getBody().getPosition()
 
-        // console.log('position: ', position);
-
-        var currentX = position.x;
-        var currentY = position.y;
         image.displayObject.translate(position.x * 30, position.y * 30, 1, true);
       }
 

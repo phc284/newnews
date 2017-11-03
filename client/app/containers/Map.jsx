@@ -182,21 +182,22 @@ class Map extends React.Component {
           max = matching_results;
         }
       }
-    }
+    
 
-    for(let region in mongoData) {
-      for(let i = 0; i < mongoData[region].length; i++) {
+    for(let i = 0; i < mongoData[region].length; i++) {
         let dataItem = mongoData[region][i];
         let matching_results = dataItem.matching_results;
 
         // calculate size of a bubble
-        let square = (matching_results - min) / (max - min) * (maxSquare - minSquare) + minSquare;
+        // let square = (matching_results - min) / (max - min) * (maxSquare - minSquare) + minSquare;
+        let square = (matching_results - min) / (max - min) * (maxBulletSize - minBulletSize) + minBulletSize;
 
-        if(square < minSquare) {
-          square = minSquare;
-        }
+        // if(square < minSquare) {
+        //   square = minSquare;
+        // }
 
-        let size = Math.sqrt(square / (Math.PI * 2));
+        // let size = Math.sqrt(square / (Math.PI * 2));
+        let size = square;
         let continent = dataItem.continent;
 
         var fontSize = size * 0.2;

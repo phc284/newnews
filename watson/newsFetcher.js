@@ -16,9 +16,10 @@ const everyTwoSec = '*/2 * * * * *'
 
 const date = new Date();
 const today = date.toJSON().split('T')[0];
-date.setDate(date.getDate()+1);
-const tomorrow = date.toJSON().split('T')[0];
-
+date.setDate(date.getDate()-1);
+const yesterday = date.toJSON().split('T')[0];
+console.log(`today's date is: ${today}`)
+console.log(`yesterday's date is: ${yesterday}`)
 for(let continentName in Continents){
 
   var countryList = Continents[continentName];
@@ -30,9 +31,9 @@ for(let continentName in Continents){
     },
 
     params: {
-      aggregation: `filter(crawl_date>=${today},crawl_date<${tomorrow})` //,crawl_date<${today})`
+      aggregation: `filter(crawl_date>${yesterday})`
         + `.filter(country::[${countryList.join('|')}])`
-        + `.term(enriched_title.concepts.text,count:20).top_hits(15)`,
+        + `.term(enriched_title.concepts.text,count:20).top_hits(20)`,
       count: 0,
       version: version
     }
@@ -74,9 +75,8 @@ for(let continentName in Continents){
           return _id !== undefined;
         }).map( ({_id}) => _id );
 
-      }).then((arrayOfIDs) => {
-        console.log(`${arrayOfIDs.length} articles saved`);
-
+      })
+      .then((arrayOfIDs) => {
         var aggregateByKey = {
           continent: continentName,
           key: key.toLowerCase(),
@@ -84,14 +84,17 @@ for(let continentName in Continents){
           query_date: today,
           article_ids: arrayOfIDs
         }
+
         // console.log('Aggregation by Key: ', aggregateByKey)
+
         var query = {
           continent: continentName,
           key: key.toLowerCase(),
           query_date: today
         }
-        return Key.findOneOrCreate(query, aggregateByKey);
 
+        // console.log('match statement : ', query)
+        return Key.findOneOrCreate(query, aggregateByKey);
       })
       .catch(err => {
         console.log('catching error: ' , err)
@@ -108,6 +111,7 @@ for(let continentName in Continents){
 
 }
 
+// keys, continent, headlines,
 
 // saving file
 // fs.open(`./${continentName}_top20_filtered.js`,'w', (err, result) => {

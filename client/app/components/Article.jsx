@@ -56,34 +56,9 @@ const styles = {
   },
   featured: {
     width: '800px',
-    height: '500px',
+    height: '250px',
     display: 'flex',
-    borderRadius: '0px',
-    icon: {
-      margin: '10px',
-      width: '52px'
-    },
-    title: {
-      fontWeight: 'bold',
-      fontSize: '14px',
-      maxWidth: '320px'
-    },
-    avatar: {
-      width: '52px',
-      height: '52px'
-    },
-    text: {
-      paddingTop: '0px',
-      paddingBottom: '2px',
-    },
-    chip: {
-      marginRight: 4,
-      display: 'inline-block',
-      lineHeight: '25px'
-    },
-    labelStyle: {
-      fontSize: '12px'
-    }
+    borderRadius: '0px'
   }
 };
 

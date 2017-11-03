@@ -89,7 +89,7 @@ class Newspaper extends React.Component {
       <Paper className="newspaper" zDepth={1}>
         {articles.map((article, index) => {
           if (article) {
-            if (articles.length >= 5 && index%9 === 0) {
+            if (articles.length >= 5 && index%8 === 0) {
               article.featured = true;
             }
             return <div>

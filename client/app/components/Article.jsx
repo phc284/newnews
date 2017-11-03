@@ -4,7 +4,6 @@ import { ShareButtons, ShareCounts, generateShareIcon } from 'react-share';
 import Chip from 'material-ui/Chip';
 import {selectTag} from '../actions';
 
-
 const {
   FacebookShareButton,
   GooglePlusShareButton,
@@ -25,9 +24,11 @@ const EmailIcon = generateShareIcon('email');
 const styles = {
   card: {
     width: '400px',
-    height: '250px',
+    height: '300px',
     display: 'flex',
     borderRadius: '0px',
+    boxShadow: 'none',
+    padngBottom: '10px',
     icon: {
       margin: '10px',
       width: '52px'
@@ -55,10 +56,25 @@ const styles = {
     }
   },
   featured: {
+    boxShadow: 'none',
     width: '800px',
-    height: '250px',
+    height: '300px',
     display: 'flex',
-    borderRadius: '0px'
+    borderRadius: '0px',
+    padding: '5px',
+    avatar: {
+      width: '120px',
+      height: '120px',
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: '22px',
+      maxWidth: '600px'
+    },
+    subtitle: {
+      fontWeight: 'bold',
+      fontSize: '16px',
+    },
   }
 };
 
@@ -77,10 +93,16 @@ const Article = ({ article, handleTouchTap, concepts }) => (
   console.log(article.featured),
   <Card style={article.featured ? styles.featured : styles.card}>
     <CardHeader
-      avatar={article.main_image_url ? <img src={article.main_image_url} style={styles.card.avatar}></img> : <i className="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>}
-      title={article.title.length > 60 ? article.title.slice(0, 60).concat('...') : article.title}
-      titleStyle={styles.card.title}
+      avatar={article.main_image_url ? 
+        <img 
+          src={article.main_image_url} 
+          style={article.featured ? styles.featured.avatar : styles.card.avatar}>
+        </img> 
+          : <i className="fa fa-newspaper-o fa-3x" aria-hidden="true"></i>}
+      title={article.title.length > 70 ? article.title.slice(0, 60).concat('...') : article.title}
+      titleStyle={article.featured ? styles.featured.title : styles.card.title}
       subtitle={article.host}
+      subtitleStyle={article.featured? styles.featured.subtitle : null}
       actAsExpander={false}
     />
     <CardText expandable={false} style={styles.card.text}>

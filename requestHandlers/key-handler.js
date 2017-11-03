@@ -3,7 +3,7 @@ const Article = require('../models/Article.js');
 const Continents = require('../watson/Continents.js');
 
 let date = new Date();
-date.setDate(date.getDate()-2);
+date.setDate(date.getDate()-1);
 const yesterday = date.toJSON().split('T')[0];
 
 

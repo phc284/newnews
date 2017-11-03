@@ -24,27 +24,11 @@ exports.retrieveGlobalByKey = async (ctx, next) => {
   })
 }
 
-// exports.retrieveByKey = async (ctx, next) => {
-//   await Key.find( {key: ctx.params.key.toLowerCase(), query_date: {$gt:yesterday} } )
-//   .populate('article_ids').then( (populatedKey) => {
-//     console.log(`article-handler.retrieveByKey, '${ctx.params.key}' key populated with`)
-//     ctx.body = populatedKey;
-//   }).catch( error => {
-//     console.log('article-handler.retrieveByKey fail: ', error);
-//   })
-// }
-
 exports.retrieveByConcept = async( ctx, next ) => {
   await Article.find({}).where(`concepts.${ctx.params.concept}`).ne(undefined)
     .where('crawl_date').gt(yesterday).then( (articles) => {
       ctx.body = articles;
   })
-
-  // await Article.find({ crawl_date: {$gt:yesterday} }).then( (articles) => {
-  //   ctx.body = articles.filter( (article) => {
-  //     return article.concepts.hasOwnProperty( ctx.params.concept.toLowerCase() );
-  //   })
-  // })
 }
 
 exports.retrieveHeadlines = async( ctx, next ) => {

@@ -38,7 +38,7 @@ class Map extends React.Component {
     var map;
 
     // set dark theme
-    AmCharts.theme = AmCharts.themes.black;
+    AmCharts.theme = AmCharts.themes.chalk;
 
     map = new AmCharts.AmMap();
     map.addClassNames = true;
@@ -70,9 +70,7 @@ class Map extends React.Component {
       'rollOverColor': undefined,
       'rollOverOutlineColor': undefined,
       'outlineThickness': 1,
-      'outlineColor': '#ffffff',
-      'unlistedAreasAlpha': 0.1,
-      'unlistedAreasOutlineAlpha': 0
+      'outlineColor': '#ffffff'
     };
 
     map.zoomControl = {
@@ -98,25 +96,25 @@ class Map extends React.Component {
       zoomLatitude : mapConfig.zoomSettings.zoomLatitude,
       zoomLongitude : mapConfig.zoomSettings.zoomLongitude,
       areas: [
-        // {
-        //   "id": "africa",
-        //   // "color": "#72b572",
-        // }, {
-        //   "id": "asia",
-        //   // "color": "#dbc54a",
-        // }, {
-        //   "id": "australia",
-        //   // "color": "#978bb5",
-        // }, {
-        //   "id": "europe",
-        //   // "color": "#557daa",
-        // }, {
-        //   "id": "north_america",
-        //   // "color": "#71bcaa",
-        // }, {
-        //   "id": "south_america",
-        //   // "color": "#e0a257"
-        // },
+        {
+          "id": "africa",
+          "color": "#D8D8D8",
+        }, {
+          "id": "asia",
+          "color": "#D8D8D8",
+        }, {
+          "id": "australia",
+          "color": "#D8D8D8",
+        }, {
+          "id": "europe",
+          "color": "#D8D8D8",
+        }, {
+          "id": "north_america",
+          "color": "#D8D8D8",
+        }, {
+          "id": "south_america",
+          "color": "#D8D8D8"
+        }
       ],
       images: [],
     }
@@ -140,11 +138,11 @@ class Map extends React.Component {
         }
       }
 
-      console.log('++++++++++');
-      console.log('region: ', region);
-      console.log('regional max: ', max);
-      console.log('regional min: ', min);
-      console.log('mongoData[region]: ', mongoData[region]);
+      // console.log('++++++++++');
+      // console.log('region: ', region);
+      // console.log('regional max: ', max);
+      // console.log('regional min: ', min);
+      // console.log('mongoData[region]: ', mongoData[region]);
 
       // create circle for each country
       // let maxSquare = maxBulletSize * maxBulletSize * 2 * Math.PI; // these do not use the loop above, which is why sizing is not regional
@@ -171,26 +169,36 @@ class Map extends React.Component {
 
         //shift the label on the bubble to fit in bubble better
         var labelShift = 0;
-        if (!topic.includes('\n')) {
-          labelShift = 0
-        } else if(topic.length > 12){
-          labelShift = -11;
+        if (topic.includes('\n')) {
+          labelShift -= 5
+        } 
+        if(topic.length > 11){
+          labelShift -= 3;
         } else if (topic.length > 8) {
-          labelShift = -6;
+          labelShift -= 6;
         }
+        
 
-        console.log('----------');
-        console.log('max: ', max);
-        console.log('min: ', min);
-        console.log('matching_results: ', matching_results);
-        console.log('size: ', size);
+        // console.log('----------');
+        // console.log('max: ', max);
+        // console.log('min: ', min);
+        // console.log('matching_results: ', matching_results);
+        // console.log('size: ', size);
+        let fontSize = size / 5.5
+
+        if (size < 45) {
+          fontSize /= 1.5
+          labelShift = -3
+        }
 
         dataProvider.images.push({
           type: 'circle',
           width: size,
           height: size,
-          label: dataItem.key,
+          label: topic,
           labelPosition: 'middle',
+          labelFontSize: fontSize,
+          labelShiftY: labelShift,
           labelColor: '#000000',
           color: mapConfig.regionColor[region],
           longitude: mapConfig.geoCenters[continent].longitude,
@@ -309,7 +317,7 @@ class Map extends React.Component {
         jointDef.bodyB = nail.GetBody();
         // the following tow lines describes stiffness of a string, try to modify them.
         jointDef.dampingRatio = 0.4;
-        jointDef.frequencyHz = 1.5;
+        jointDef.frequencyHz = 1;
         // lenght 0 means that the bubble will try to be at the nail position (if other bubbles allow)
         jointDef.length = 0;
         //connect the centers
@@ -410,7 +418,7 @@ class Map extends React.Component {
           'width' : '100%',
           'height' : '75%',
           'backgroundAlpha' : 1,
-          'backgroundColor' : '#c6c6c6',
+          'backgroundColor' : '#F3F3F3',
           'margin' : 'auto',
           'borderAlpha': 1,
           'borderColor': '#000000',

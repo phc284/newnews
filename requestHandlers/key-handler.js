@@ -3,15 +3,16 @@ const Article = require('../models/Article.js');
 const Continents = require('../watson/Continents.js');
 
 let date = new Date();
-date.setDate(date.getDate()-1);
+date.setDate(date.getDate()-2);
 const yesterday = date.toJSON().split('T')[0];
 
 
 exports.retrieveKeys = async (ctx, next) => {
+  console.log(yesterday)
   var keys = [];
   var topArticles = [];
   await Key.find({
-    query_date: {$gt:yesterday}
+    query_date: {$gte:yesterday}
   }).then( (keyConcepts) => {
     keys = keyConcepts;
     for(let continentName in Continents){
@@ -23,6 +24,7 @@ exports.retrieveKeys = async (ctx, next) => {
     }
     return Promise.all(topArticles);
   }).then( (articles) => {
+    console.log(articles.length)
     ctx.body = {
       keys: keys,
       topArticles: articles

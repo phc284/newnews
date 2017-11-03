@@ -97,22 +97,22 @@ class Map extends React.Component {
       areas: [
         {
           "id": "africa",
-          "color": "#D8D8D8",
+          "color": "#B2B2B2",
         }, {
           "id": "asia",
-          "color": "#D8D8D8",
+          "color": "#B2B2B2",
         }, {
           "id": "australia",
-          "color": "#D8D8D8",
+          "color": "#B2B2B2",
         }, {
           "id": "europe",
-          "color": "#D8D8D8",
+          "color": "#B2B2B2",
         }, {
           "id": "north_america",
-          "color": "#D8D8D8",
+          "color": "#B2B2B2",
         }, {
           "id": "south_america",
-          "color": "#D8D8D8"
+          "color": "#B2B2B2"
         }
       ],
       images: [],
@@ -166,28 +166,38 @@ class Map extends React.Component {
         var fontSize = size * 0.2;
         var topic = dataItem.key.split(' ').join('\n');
 
-        //shift the label on the bubble to fit in bubble better
-        var labelShift = 0;
-        if (topic.includes('\n')) {
-          labelShift -= 5
-        } 
-        if(topic.length > 11){
-          labelShift -= 3;
-        } else if (topic.length > 8) {
-          labelShift -= 6;
-        }
-        
-
-        // console.log('----------');
-        // console.log('max: ', max);
-        // console.log('min: ', min);
-        // console.log('matching_results: ', matching_results);
-        // console.log('size: ', size);
+        //set font size for the bubbles
         let fontSize = size / 5.5
 
-        if (size < 45) {
+        //shift the label on the bubble to fit in bubble better
+        var labelShift = 0;
+
+        //check to see if there is a line break and shift labels
+        if (topic.match(/\n/g) !== null) {
+          if (topic.match(/\n/g).length > 2) {
+            labelShift = -20
+          } else if (topic.match(/\n/g).length > 1) {
+            labelShift = -15
+          } else {
+            labelShift = -8
+          }
+        } 
+ 
+        //make font size smaller if text too long on big bubbles
+        if (size > 45 && topic.length > 13) {
           fontSize /= 1.5
-          labelShift = -3
+        }
+
+        //shift labels for smaller bubbles
+        if (size < 45) {
+          fontSize /= 1.4
+          if (topic.match(/\n/g) !== null) {
+            if (topic.match(/\n/g).length >= 2) {
+              labelShift = -10
+            } else if (topic.match(/\n/g).length > 0) {
+              labelShift = -3
+            }
+          }
         }
 
         dataProvider.images.push({

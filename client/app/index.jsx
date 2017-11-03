@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
 import App from './components/App.jsx';
+import Footer from './components/Footer.jsx'
 import store from './store.js';
 import {
   BrowserRouter as Router,

@@ -183,7 +183,7 @@ class Map extends React.Component {
           max = matching_results;
         }
       }
-
+      
       for(let i = 0; i < mongoData[region].length; i++) {
         let dataItem = mongoData[region][i];
         let matching_results = dataItem.matching_results;

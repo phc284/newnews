@@ -28,20 +28,62 @@ class Map extends React.Component {
   //map will rerender and zoom back out if the state changes
   shouldComponentUpdate(nextProps) {
     //if the word changes, return false so the map doesn't rerender
-    console.log(this.state.data)
-    console.log(this.state.fullData)
+
     const different = this.state.data === this.state.fullData
     return different;
   }
 
   physicsInit(mongoData) {
     var map;
+    var minBulletSize = 40;
+    var maxBulletSize = 100;
 
     // set dark theme
     AmCharts.theme = AmCharts.themes.chalk;
 
+    // get min and max values
+    var min = Infinity;
+    var max = -Infinity;
+
+    for(let region in mongoData) {
+      for(let i = 0; i < mongoData[region].length; i++) {
+        let matching_results = mongoData[region][i].matching_results;
+        if(matching_results < min) {
+          min = matching_results;
+        }
+        if(matching_results > max) {
+          max = matching_results;
+        }
+      }
+    }
+
+    // for (var i = 0; i < mongoData.length; i++) {
+    //   var matching_results = mongoData[i].matching_results;
+    //   if (matching_results < min) {
+    //     min = matching_results;
+    //   }
+    //   if (matching_results > max) {
+    //     max = matching_results;
+    //   }
+    // }
+
     map = new AmCharts.AmMap();
     map.addClassNames = true;
+    // map.backgroundAlpha = "1";
+    // map.backgroundColor = "#c6c6c6"
+    // map.borderAlpha = "1";
+    // map.borderColor = "#000000";
+
+    // style tooltip
+    // map.balloon = {
+    //   adjustBorderColor: false,
+    //   horizontalPadding: 20,
+    //   verticalPadding: 10,
+    //   color: "#000000",
+    //   maxWidth: 300,
+    //   borderAlpha: 0,
+    //   borderThickness: 1
+    // }
 
     // bubbles are images, we set opacity and tooltip text
     //This is so that the bubbles don't change positions
@@ -85,9 +127,13 @@ class Map extends React.Component {
         'method' : initBox2D,
       }, {
         'event' : 'clickMapObject',
-        'method' : (event) => { console.log('clicked: ', event); this.props.selectWord(event.mapObject.value); }
+        'method' : (event) => { this.props.selectWord(event.mapObject.value); }
       }
     ];
+
+    // map.addListener("clickMapObject", function(event) {
+    //   console.log('something got clicked');
+    // });
 
     // data provider. We use continents map to show real world map in background.
     var dataProvider = {
@@ -98,27 +144,26 @@ class Map extends React.Component {
       areas: [
         {
           "id": "africa",
-          "color": "#D8D8D8",
+          "color": "#B2B2B2",
         }, {
           "id": "asia",
-          "color": "#D8D8D8",
+          "color": "#B2B2B2",
         }, {
           "id": "australia",
-          "color": "#D8D8D8",
+          "color": "#B2B2B2",
         }, {
           "id": "europe",
-          "color": "#D8D8D8",
+          "color": "#B2B2B2",
         }, {
           "id": "north_america",
-          "color": "#D8D8D8",
+          "color": "#B2B2B2",
         }, {
           "id": "south_america",
-          "color": "#D8D8D8"
+          "color": "#B2B2B2"
         }
       ],
       images: [],
     }
-
 
     for(let region in mongoData) {
       // get min and max values
@@ -137,41 +182,59 @@ class Map extends React.Component {
           max = matching_results;
         }
       }
+    
 
-      for(let i = 0; i < mongoData[region].length; i++) {
+    for(let i = 0; i < mongoData[region].length; i++) {
         let dataItem = mongoData[region][i];
         let matching_results = dataItem.matching_results;
 
         // calculate size of a bubble
-        let size = (matching_results - min) / (max - min) * (maxBulletSize - minBulletSize) + minBulletSize;
+        // let square = (matching_results - min) / (max - min) * (maxSquare - minSquare) + minSquare;
+        let square = (matching_results - min) / (max - min) * (maxBulletSize - minBulletSize) + minBulletSize;
 
+        // if(square < minSquare) {
+        //   square = minSquare;
+        // }
+
+        // let size = Math.sqrt(square / (Math.PI * 2));
+        let size = square;
         let continent = dataItem.continent;
 
         var fontSize = size * 0.2;
         var topic = dataItem.key.split(' ').join('\n');
 
-        //shift the label on the bubble to fit in bubble better
-        var labelShift = 0;
-        if (topic.includes('\n')) {
-          labelShift -= 5
-        } 
-        if(topic.length > 11){
-          labelShift -= 3;
-        } else if (topic.length > 8) {
-          labelShift -= 6;
-        }
-        
-
-        // console.log('----------');
-        // console.log('max: ', max);
-        // console.log('min: ', min);
-        // console.log('matching_results: ', matching_results);
-        // console.log('size: ', size);
+        //set font size for the bubbles
         let fontSize = size / 5.5
 
-        if (size < 45) {
+        //shift the label on the bubble to fit in bubble better
+        var labelShift = 0;
+
+        //check to see if there is a line break and shift labels
+        if (topic.match(/\n/g) !== null) {
+          if (topic.match(/\n/g).length > 2) {
+            labelShift = -20
+          } else if (topic.match(/\n/g).length > 1) {
+            labelShift = -15
+          } else {
+            labelShift = -8
+          }
+        }
+
+        //make font size smaller if text too long on big bubbles
+        if (size > 45 && topic.length > 13) {
           fontSize /= 1.5
-          labelShift = -3
+        }
+
+        //shift labels for smaller bubbles
+        if (size < 45) {
+          fontSize /= 1.4
+          if (topic.match(/\n/g) !== null) {
+            if (topic.match(/\n/g).length >= 2) {
+              labelShift = -10
+            } else if (topic.match(/\n/g).length > 0) {
+              labelShift = -3
+            }
+          }
         }
 
         dataProvider.images.push({
@@ -198,6 +261,9 @@ class Map extends React.Component {
     }
 
     map.dataProvider = dataProvider;
+
+    // Listen for the init event and initialize box2d part
+    // map.addListener("init", initBox2D)
 
     map.write("chartdiv");
 
@@ -302,7 +368,7 @@ class Map extends React.Component {
         jointDef.dampingRatio = 0.4;
         jointDef.frequencyHz = 1;
         // lenght 0 means that the bubble will try to be at the nail position (if other bubbles allow)
-        jointDef.length = 0.25;
+        jointDef.length = 0;
         //connect the centers
         jointDef.localAnchorA = new b2Vec2(0, 0);
         jointDef.localAnchorB = new b2Vec2(0, 0);
@@ -347,6 +413,10 @@ class Map extends React.Component {
         var bbody = box2Dimage.GetBody();
         var position = bbody.GetPosition(); // position = image.box2Dimage.getBody().getPosition()
 
+        // console.log('position: ', position);
+
+        var currentX = position.x;
+        var currentY = position.y;
         image.displayObject.translate(position.x * 30, position.y * 30, 1, true);
       }
 
